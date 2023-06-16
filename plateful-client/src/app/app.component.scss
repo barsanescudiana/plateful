@@ -1,0 +1,16 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  @include display-flex(column, flex-start, flex-start, nowrap);
+
+  background-color: $app-background;
+  width: 100%;
+
+  app-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}

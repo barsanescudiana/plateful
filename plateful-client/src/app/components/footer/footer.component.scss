@@ -1,0 +1,7 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.footer {
+ @include display-flex(row, center, center, nowrap);
+ padding: 1em;
+}

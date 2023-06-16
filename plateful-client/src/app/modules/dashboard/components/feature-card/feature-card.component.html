@@ -1,0 +1,9 @@
+<div class="card" *ngIf="featureForCard" (click)="handleCardClick(featureForCard)">
+  <div class="background" [style.background-color]="featureForCard.color">
+    <div class="name" [style.color]="featureForCard.textColor"> {{ featureForCard.name }} </div>
+    <div class="arrow-right">
+      <img  src="assets/icons/arrow-right-white.svg" alt="arrow-right">
+    </div>
+  </div>
+  <div class="footer"></div>
+</div>

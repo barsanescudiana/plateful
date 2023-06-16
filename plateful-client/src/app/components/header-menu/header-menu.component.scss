@@ -1,0 +1,20 @@
+@import 'src/app/stylesheets/helpers/_mixins';
+@import 'src/app/stylesheets/helpers/_variables';
+@import 'src/app/stylesheets/fonts/fonts';
+
+.container {
+  @include display-flex(row, center, center, nowrap);
+
+  .button {
+    width: 35px ;
+    height: 35px ;
+    font-family: $primary-font;
+    background-color: $dorian;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+  }
+}

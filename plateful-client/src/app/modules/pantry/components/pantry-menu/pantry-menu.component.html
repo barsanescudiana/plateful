@@ -1,0 +1,15 @@
+<div class="menu">
+  <div
+    *ngFor="let option of storageOptions; let i = index"
+    class="option"
+    [class.selected]="option === selectedOption"
+    (click)="handleOptionClick(option)"
+  >
+    <span>
+      {{ option }}
+    </span>
+    <div class="total-items">
+      <span> 100 </span>
+    </div>
+  </div>
+</div>

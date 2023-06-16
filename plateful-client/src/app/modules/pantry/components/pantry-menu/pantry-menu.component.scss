@@ -1,0 +1,80 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: .5em;
+
+  font-family: $primary-font;
+
+
+  .option {
+    @include display-flex(row, center, center, nowrap);
+    background-color: #E7E7F0;
+    color: $onyx-100;
+    padding: 6px;
+
+    height: 28px;
+    font-weight: 600;
+
+
+    &:first-of-type {
+      border-radius: 10px 0 0 10px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 10px 10px 0;
+    }
+
+    .total-items {
+      @include display-flex(row, center, center, wrap);
+      background-color: #ccccdd;
+      color: $light-slate-100;
+      border-radius: 4px;
+      margin: 4px;
+      padding: 3px;
+      height: 12px;
+      font-size: 10px;
+      font-weight: 400;
+      line-height: 12px;
+    }
+  }
+
+  .selected {
+    @include display-flex(row, center, center, nowrap);
+
+    background-color: #A5A6F6;
+    color: $iris-100;
+    padding: 6px;
+    font-weight: 600;
+
+    height: 28px;
+
+
+    &:first-of-type {
+      border-radius: 10px 0 0 10px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 10px 10px 0;
+    }
+
+    .total-items {
+      @include display-flex(row, center, center, wrap);
+      background-color:  #D0D0FB;
+      color: $iris-100;
+      border-radius: 4px;
+      margin: 4px;
+      padding: 3px;
+
+      font-size: 10px;
+      font-weight: 400;
+    }
+  }
+
+
+}

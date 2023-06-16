@@ -1,0 +1,18 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/fonts/fonts.scss";
+
+html {
+  width: 100%;
+  background-color: $app-background;
+  font-family: $primary-font !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 1em;
+  font-family: $primary-font;
+  background-color: $app-background;
+}

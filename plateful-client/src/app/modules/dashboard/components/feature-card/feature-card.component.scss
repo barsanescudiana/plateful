@@ -1,0 +1,40 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.card {
+  @include display-flex(column, flex-start, flex-start, wrap);
+
+  cursor: pointer;
+
+  .background {
+    @include display-flex(column, space-between, flex-start, wrap);
+    width: 8em;
+    min-height: 5em;
+    border-radius: 15px 15px 0 0;
+    padding: 1rem;
+  }
+
+  .name {
+    font-family: "Work Sans";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  .separator {
+    height: 8px;
+  }
+
+  .arrow-right {
+    align-self: flex-end;
+  }
+
+  .footer {
+    background-color: $white;
+    height: 3em;
+    border-radius: 0 0 15px 15px;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+}

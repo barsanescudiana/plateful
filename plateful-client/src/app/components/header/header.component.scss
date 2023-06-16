@@ -1,0 +1,14 @@
+@import "src/app/stylesheets/helpers/_mixins";
+@import "src/app/stylesheets/fonts/fonts";
+
+.header {
+  @include display-flex(row, space-between, center, nowrap);
+
+  font-family: $primary-font;
+  padding: 1em;
+  .user {
+    @include display-flex(row, space-evenly, center, nowrap);
+
+  }
+
+}

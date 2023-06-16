@@ -1,0 +1,15 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  @include display-flex(row, center, center, wrap);
+  width: 100%;
+
+  app-header, app-footer, app-pantry-menu {
+    width: 100%
+  }
+
+  app-footer {
+    align-self: flex-end
+  }
+}

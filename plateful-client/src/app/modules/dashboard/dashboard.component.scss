@@ -1,0 +1,17 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  @include display-flex(column, center, flex-start, wrap);
+  width: 100%;
+
+  app-header {
+    width: inherit
+  }
+
+
+  .cards {
+    @include display-flex(row, space-evenly, flex-start, wrap);
+
+  }
+}
