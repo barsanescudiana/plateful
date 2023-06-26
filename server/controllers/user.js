@@ -86,16 +86,6 @@ const controller = {
     if(user.exists) {
       products = user.data().products;
       products.forEach(product => {
-
-        // const stringDate = product.expirationDate.toDate();
-        // const month = stringDate.getMonth() + 1;
-        // const day = stringDate.getDay();
-        // const year = stringDate.getFullYear();
-        // if (month.length < 2) 
-        //   month = '0' + month;
-        // if (day.length < 2) 
-        //   day = '0' + day;
-        // product.expirationDate = 'aloooooooo';
         product.expirationDate = product.expirationDate.toDate();
       });
       res.status(200).send(products);
