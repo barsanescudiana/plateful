@@ -1,20 +1,28 @@
-<div
-  id="g_id_onload"
-  data-client_id="987698742806-sm0bm2pr9rquctpfeuvfkh896gaccaeg.apps.googleusercontent.com"
-  data-context="signin"
-  data-ux_mode="popup"
-  data-login_uri="http://localhost:4200/auth/login"
-  data-nonce=""
-  data-auto_select="true"
-  data-itp_support="true"
-></div>
-
-<div
-  class="g_id_signin"
-  data-type="standard"
-  data-shape="rectangular"
-  data-theme="outline"
-  data-text="signin_with"
-  data-size="large"
-  data-logo_alignment="left"
-></div>
+<div class="container">
+  <div class="login-form-container">
+    <div class="title">Login</div>
+    <div class="email-input">
+      <span class="label">Email</span>
+      <input
+        matInput
+        type="email"
+        placeholder="Please enter your email address"
+      />
+    </div>
+    <div class="password-input">
+      <span class="label">Password</span>
+      <input
+        matInput
+        type="password"
+        placeholder="Please enter your password"
+      />
+    </div>
+    <div class="buttons">
+      <button type="submit" class="login-btn">Log in</button>
+      <span>OR</span>
+      <div class="content">
+        <div id="google"></div>
+      </div>
+    </div>
+  </div>
+</div>

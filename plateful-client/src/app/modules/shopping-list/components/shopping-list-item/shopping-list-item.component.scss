@@ -1,0 +1,21 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.container {
+  margin: 16px 0;
+}
+
+input {
+  height: 40px;
+  font-family: $primary-font;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  padding: 0 16px;
+  width: inherit;
+  min-width: 200px;
+
+  &::placeholder {
+    font-size: 12px;
+  }
+}

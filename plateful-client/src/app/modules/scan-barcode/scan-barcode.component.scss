@@ -1,0 +1,31 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  align-self: center;
+  font-family: $primary-font;
+  background-color: #bff3e6;
+  padding: 4px 8px;
+  border-radius: 5px;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+  color: $evergreen-100;
+  font-weight: 600;
+}
+
+.error {
+  align-self: center;
+  font-family: $primary-font;
+  color: $fuchsia-100;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 5px;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}

@@ -1,26 +1,27 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-header-menu',
-  templateUrl: './header-menu.component.html',
-  styleUrls: ['./header-menu.component.scss']
+  selector: "app-header-menu",
+  templateUrl: "./header-menu.component.html",
+  styleUrls: ["./header-menu.component.scss"],
 })
 export class HeaderMenuComponent {
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {}
+  public onSettingsClick(): void {
+    this.router.navigateByUrl("/settings");
+  }
+  public onNotificationClick(): void {
+    this.router.navigateByUrl("/notifications");
+  }
+  public onHomeClick(): void {
+    this.router.navigateByUrl("/dashboard");
+  }
+
+  public onUserIconClick(): void {
+    this.router.navigateByUrl("/profile");
 
   }
-public onSettingsClick(): void {
-throw new Error('Method not implemented.');
-}
-public onNotificationClick(): void {
-throw new Error('Method not implemented.');
-}
-public onHomeClick(): void {
-this.router.navigateByUrl('/dashboard');
-}
 
   @Input() public withHomepageButton: boolean = false;
 }

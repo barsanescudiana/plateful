@@ -1,0 +1,115 @@
+<app-header [withHomeButton]="true"></app-header>
+<div class="content">
+  <span class="title"> Add product </span>
+  <form (ngSubmit)="onSubmit()" #form="ngForm" [formGroup]="formGroup">
+    <div class="section-columns">
+      <div class="section">
+        <div class="section-name">
+          <span class="label">Product name</span>
+
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            name="name"
+            placeholder="Product name"
+          />
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-date">
+          <span class="label">Expiration date</span>
+          <input
+            matInput
+            type="date"
+            formControlName="date"
+            name="date"
+            placeholder="placeHolder"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="section-columns">
+      <div class="section">
+        <div class="section-quantity">
+          <span class="label">Quantity</span>
+          <input
+            matInput
+            type="number"
+            formControlName="quantity"
+            name="quantity"
+            placeholder="Quantity"
+          />
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-measurement">
+          <span class="label"> Measurement unit </span>
+          <select name="measurement" formControlName="measurement">
+            <option *ngFor="let unit of measurementUnits" [value]="unit.short">
+              {{unit.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="section-columns">
+      <div class="section">
+        <div class="section-storage">
+          <span class="label"> Storage </span>
+          <select name="storage" formControlName="storage">
+            <option *ngFor="let option of storageOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-category">
+          <span class="label"> Category </span>
+          <select name="category" formControlName="category">
+            <option *ngFor="let option of categories" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="nutritional">
+      <span class="label">
+        Nutritional values
+        <span class="hint">
+          These are optional details you do not need to complete
+        </span>
+      </span>
+      <div class="section-nutritional">
+        <div class="calories">
+          <input type="number" name="calories" formControlName="calories" />
+          <span class="small-label"> calories </span>
+        </div>
+        <div class="carbs">
+          <input type="number" name="carbs" formControlName="carbs" />
+          <span class="small-label"> carbs </span>
+        </div>
+        <div class="proteins">
+          <input type="number" name="proteins" formControlName="proteins" />
+          <span class="small-label"> proteins </span>
+        </div>
+        <div class="fats">
+          <input type="number" name="fats" formControlName="fats" />
+          <span class="small-label"> fats </span>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button
+        type="submit"
+        [disabled]="!formGroup.valid"
+        [class.disabled]="!formGroup.valid"
+      >
+        Add product
+      </button>
+    </div>
+  </form>
+</div>

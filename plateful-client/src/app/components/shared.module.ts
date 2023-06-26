@@ -6,12 +6,14 @@ import { FooterComponent } from "./footer/footer.component";
 import { HeaderMenuComponent } from "./header-menu/header-menu.component";
 import { MatButtonModule } from '@angular/material/button';
 import { UserIconComponent } from "./user-icon/user-icon.component";
+import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    HeaderMenuComponent
+    HeaderMenuComponent,
+    MobileMenuComponent
   ],
   imports: [
     CommonModule,

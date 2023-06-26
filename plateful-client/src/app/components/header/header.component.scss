@@ -2,13 +2,22 @@
 @import "src/app/stylesheets/fonts/fonts";
 
 .header {
-  @include display-flex(row, space-between, center, nowrap);
+  @include display-flex(row, space-between, center, wrap);
 
   font-family: $primary-font;
   padding: 1em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   .user {
-    @include display-flex(row, space-evenly, center, nowrap);
+    @include display-flex(row, center, center, nowrap);
 
+    &-image {
+      height: 50px;
+      margin-right: 8px;
+      border-radius: 100px;
+    }
   }
 
 }

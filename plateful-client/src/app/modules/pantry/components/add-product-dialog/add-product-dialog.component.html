@@ -1,0 +1,27 @@
+<div mat-dialog-title>
+  <span class="dialog-title"> {{ title }}</span>
+</div>
+<mat-dialog-content>
+  <div
+    *ngFor="let option of addOptions"
+    class="option-container"
+    [class.selected]="option.title === selectedOption"
+    (click)="handleOptionClick(option.title)"
+  >
+    <div class="option">
+      <img [src]="option.src" alt="scan" />
+      <span> {{ option.title }}</span>
+    </div>
+  </div>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button class="button-cancel" (click)="onNoClick()">Cancel</button>
+  <button
+    class="button-submit"
+    [mat-dialog-close]="selectedOption"
+    [class.disabled]="selectedOption === ''"
+    [disabled]="selectedOption === ''"
+  >
+    Continue
+  </button>
+</div>

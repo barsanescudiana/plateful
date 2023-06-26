@@ -1,0 +1,104 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.container {
+  @include display-flex(row, center, center, wrap);
+  height: 90vh;
+  padding: 2rem;
+  padding-top: 1rem;
+
+
+  .login-form-container {
+    @include display-flex(column, center, center, wrap);
+    flex: 0 0 100%;
+    background-color: #E3E3FA;
+    border-radius: 50px;
+    height: fit-content;
+    font-family: $primary-font;
+    padding-bottom: 32px;
+
+    .title {
+      margin: 32px;
+      color: $iris-100;
+      align-self: flex-start;
+    }
+
+    .content {
+      @include display-flex(row, center, center, wrap);
+      width: 100%
+
+    }
+
+    .email-input, .password-input {
+      @include display-flex(column, flex-start, flex-start, nowrap);
+      flex: 0 0 100%;
+      margin-bottom: 12px;
+      width: calc(100% - 64px);
+
+      input {
+        height: 40px;
+        font-family: $primary-font;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        padding: 0 16px;
+        width: inherit;
+        min-width: 200px;
+
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+
+      .label {
+        color: $onyx-100;
+
+      }
+    }
+
+    .buttons {
+      @include display-flex(column, center, center, nowrap);
+
+      .login-btn {
+        font-family: $primary-font;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+        background-color: $iris-100;
+        border: none;
+        outline: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        color: $cloud;
+        margin-bottom: 16px;
+        margin-top: 16px;
+      }
+
+      span {
+        font-family: 'Work Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 16px;
+
+        display: flex;
+        align-items: center;
+
+        color: $iris-100;
+
+        margin-bottom: 16px;
+      }
+
+      #google {
+
+        iframe {
+          @include display-flex(column, center, center, nowrap);
+
+          margin: 0 !important;
+        }
+
+      }
+    }
+  }
+}

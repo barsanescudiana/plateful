@@ -2,14 +2,97 @@
 @import "src/app/stylesheets/helpers/_mixins.scss";
 
 .content {
-  @include display-flex(row, center, center, wrap);
   width: 100%;
+  margin-top: 70px;
+  font-family: $primary-font;
 
-  app-header, app-footer, app-pantry-menu {
-    width: 100%
+  app-header,
+  app-footer,
+  app-pantry-menu {
+    width: 100%;
   }
 
   app-footer {
-    align-self: flex-end
+    align-self: flex-end;
   }
+
+  .title {
+    margin-bottom: 21px;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 40px;
+    color: $onyx-100;
+  }
+
+  .products-container {
+    height: 50vh;
+    overflow-y: scroll;
+    margin-top: 10px;
+  }
+
+  .actions {
+    @include display-flex(row, center, center, nowrap);
+  }
+  .add-btn {
+    margin: 14px 0;
+    align-self: center;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: $iris-100;
+    color: $cloud;
+    height: 38px;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .search-area {
+    @include display-flex(row, space-evenly, center, nowrap);
+
+    .search {
+      @include display-flex(row, center, center, nowrap);
+
+      background-color: $cloud;
+      padding-left: 16px;
+      border-radius: 10px;
+
+      input {
+        height: 40px;
+        font-family: $primary-font;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        padding: 0 16px;
+        width: inherit;
+        min-width: 200px;
+        font-size: 15px;
+
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+    }
+
+    img {
+      padding: 6px;
+      width: 20px;
+      height: 20px;
+    }
+    .img-search {
+      padding: 0;
+    }
+    width: 100%;
+  }
+}
+
+.selected-filter {
+  background-color: $iris-60;
+  padding: 6px;
+  border-radius: 5px;
 }

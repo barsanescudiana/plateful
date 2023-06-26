@@ -1,0 +1,32 @@
+<div class="content">
+  <div
+    class="image"
+    [class.without-image]="!recipe.image"
+    [style.background-image]="'url(' + recipe.image + ')'"
+  >
+    <div class="save"><img src="assets/icons/heart.svg" alt="" /></div>
+    <div class="arrow-right">
+      <img src="assets/icons/arrow-right-white.svg" alt="arrow-right" />
+    </div>
+  </div>
+  <div class="details">
+    <div class="recipe-title">{{ recipe.title }}</div>
+    <div class="match">
+      <span class="ingredients"
+        >{{ recipe.usedIngredientCount
+
+
+
+
+
+
+
+
+
+
+        }}/{{ recipe.usedIngredientCount + recipe.missedIngredientCount}}</span
+      >
+      pantry match
+    </div>
+  </div>
+</div>

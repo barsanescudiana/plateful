@@ -1,4 +1,45 @@
+<app-header [withHomeButton]="true"></app-header>
 <div class="content">
-  <app-header [withHomeButton]="true"></app-header>
-  <app-pantry-menu></app-pantry-menu>
+  <div class="title">Pantry</div>
+  <app-pantry-menu
+    [user]="user"
+    [products]="products"
+    [fridgeProducts]="fridgeProducts"
+    [freezerProducts]="freezerProducts"
+    [dryProducts]="dryProducts"
+    (onMenuChange)="handleMenuChange($event)"
+  ></app-pantry-menu>
+  <div class="search-area" [style]="">
+    <div class="search">
+      <img src="assets/icons/search.svg" alt="search" class="img-search" />
+      <input type="text" placeholder="Search products" />
+    </div>
+    <img
+      src="assets/icons/filters.svg"
+      alt="filters"
+      [class.selected-filter]="selectedFilter === filters[0]"
+      (click)="handleFilterSelection(filters[0])"
+    />
+    <img
+      src="assets/icons/sort.svg"
+      alt="sort"
+      [class.selected-filter]="selectedFilter === filters[1]"
+      (click)="handleFilterSelection(filters[1])"
+    />
+  </div>
+  <div class="filters-area" [hidden]="selectedFilter !== filters[0]">
+    filters area
+  </div>
+  <div class="products-container" *ngIf="products.length">
+    <div class="product" *ngFor="let product of products">
+      <app-product-card
+        [product]="product"
+        *ngIf="!product.isClaimed"
+      ></app-product-card>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="add-btn" (click)="openDialog()">Add products</button>
+  </div>
 </div>

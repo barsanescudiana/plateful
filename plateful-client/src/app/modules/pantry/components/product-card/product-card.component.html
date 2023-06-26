@@ -1,1 +1,22 @@
-<p>product-card works!</p>
+<div class="content" (click)="handleProductClick()">
+  <div class="image">{{ getProductEmoji() }}</div>
+  <div class="first-column">
+    <div class="name">
+      {{ product.name }}
+      <span class="shared" *ngIf="product.isShared"> Shared </span>
+    </div>
+    <div
+      class="date"
+      [class.expired]="formattedDate.includes('Expired')"
+      [class.expiring]="formattedDate.includes('Expiring')"
+    >
+      {{ formattedDate }}
+    </div>
+  </div>
+  <div class="second-column">
+    <div class="quantity">
+      {{ product.quantity + ' ' }} {{ product.measurement }}
+    </div>
+    <div class="storage">{{ product.storage }}</div>
+  </div>
+</div>

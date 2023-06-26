@@ -2,6 +2,6 @@
 @import "src/app/stylesheets/helpers/_mixins.scss";
 
 .footer {
- @include display-flex(row, center, center, nowrap);
+ @include display-flex(row, center, center, wrap);
  padding: 1em;
 }

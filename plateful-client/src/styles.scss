@@ -15,4 +15,84 @@ body {
   margin: 1em;
   font-family: $primary-font;
   background-color: $app-background;
+  overflow-y: hidden;
+  padding-bottom: 100px;
+  display: flex;
+}
+app-auth {
+  width: 100%;
+  flex: 1;
+}
+
+app-root,
+app-friends-pantry,
+app-shopping-list,
+app-pantry,
+app-notifications,
+app-settings,
+app-product-form,
+app-product-overview {
+  width: 100%;
+  flex: 0 0 100%;
+  display: flex;
+}
+
+.title {
+  margin-bottom: 21px;
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+  color: $onyx-100;
+}
+
+.button-cancel {
+  border: 1px solid $light-slate-60;
+  color: $light-slate-100;
+  border-radius: 8px;
+
+  background-color: $white;
+  padding: 8px 24px;
+  margin: 4px;
+
+  min-height: 30px;
+
+  font-style: normal;
+  font-weight: 400 !important;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.button-submit {
+  border: 1px solid $iris-100;
+  color: $cloud;
+  border-radius: 8px;
+  border: none;
+  background-color: $iris-100;
+
+  padding: 8px 24px;
+  margin: 4px;
+
+  min-height: 30px;
+}
+
+.dialog-title {
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  display: flex;
+  letter-spacing: -0.02em;
+  color: $onyx-100;
+}
+
+.mat-mdc-dialog-surface {
+  border-radius: 15px !important;
+  padding: 0 12px 12px 12px;
+}
+
+.mat-mdc-form-field-infix {
+  padding-top: 0 !important;
 }

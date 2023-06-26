@@ -1,11 +1,18 @@
-@mixin display-flex (
-    $flex-direction,
-    $justify-content: center,
-    $align-items: center,
-    $flex-wrap: wrap
+@mixin display-flex(
+  $flex-direction,
+  $justify-content: center,
+  $align-items: center,
+  $flex-wrap: wrap
 ) {
-    display: flex;
-    flex-flow: $flex-direction $flex-wrap;
-    align-items: $align-items;
-    justify-content: $justify-content;
+  display: flex;
+  flex-flow: $flex-direction $flex-wrap;
+  align-items: $align-items;
+  justify-content: $justify-content;
+}
+
+@mixin set-background-image($url) {
+  background-image: url(#{$url});
+  background-size: cover; // Adjust to your desired value
+  background-repeat: no-repeat; // Adjust to your desired value
+  background-position: center; // Adjust to your desired value
 }

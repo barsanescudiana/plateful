@@ -1,0 +1,77 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  @include display-flex(column, flex-start, flex-start, nowrap);
+
+  margin-top: 70px;
+  width: 100%;
+
+  .add-btn {
+    @include display-flex(row, center, center, nowrap);
+
+    background-color: $iris-100;
+    color: $cloud;
+    padding: 12px 24px;
+    border-radius: 8px;
+
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .shopping-list {
+    width: 100%;
+    max-height: 70vh;
+    overflow-y: scroll;
+
+    .list-item {
+      background-color: $cloud;
+      border-radius: 8px;
+      margin: 16px 0;
+      padding: 8px 16px;
+
+      .warning {
+        font-family: $primary-font;
+        padding: 0;
+        width: 100%;
+        font-size: 12px;
+        letter-spacing: -0.02em;
+        color: $oranges-100;
+      }
+    }
+    .container {
+      @include display-flex(row, flex-start, center, nowrap);
+
+      font-family: $primary-font;
+
+      .delete {
+        justify-self: flex-end;
+        color: $fuchsia-100;
+        font-size: 12px;
+        letter-spacing: -0.02em;
+      }
+    }
+
+    input {
+      height: 40px;
+      font-family: $primary-font;
+      outline: none;
+      border: none;
+      border-radius: 10px;
+      padding: 0;
+      width: 100%;
+      font-size: 14px;
+
+      &::placeholder {
+        font-size: 12px;
+      }
+    }
+
+    .mat-mdc-checkbox label {
+      display: none;
+    }
+  }
+}

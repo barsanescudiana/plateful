@@ -1,0 +1,289 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  margin-top: 70px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.actions {
+  @include display-flex(row, space-evenly, center, nowrap);
+  margin-bottom: 8px;
+}
+
+.share,
+.delete {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  @include display-flex(row, center, center, nowrap);
+}
+
+.emoji {
+  font-size: 90px;
+  width: fit-content;
+  height: auto;
+}
+
+.share {
+  background-color: #bff3e6;
+}
+
+.is-shared {
+  background-color: #d9d9d9;
+}
+
+.delete {
+  background-color: #f3d9da;
+}
+
+.product {
+  width: 80px;
+  height: 80px;
+  @include display-flex(row, center, center, nowrap);
+  border-radius: 100px;
+}
+.good-bg {
+  background-color: $evergreen-100;
+}
+.expiring-bg {
+  background-color: $oranges-100;
+}
+.expired-bg {
+  background-color: $fuchsia-100;
+}
+
+.name,
+.storage {
+  display: flex;
+  justify-content: center;
+}
+
+.name {
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+  color: $onyx-100;
+}
+
+.storage {
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: $light-slate-100;
+  margin-bottom: 7px;
+}
+
+.info-card,
+.nutritional-values-card {
+  @include display-flex(row, space-evenly, flex-start, wrap);
+
+  background-color: $cloud;
+  border-radius: 10px;
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.in-pantry,
+.expiration,
+.amount {
+  @include display-flex(column, flex-start, flex-start, wrap);
+
+  padding: 10px;
+  border-width: 0 0 0 2px;
+  border-style: solid;
+  border-color: $light-slate-60;
+  font-family: $primary-font;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  color: $onyx-100;
+
+  .label {
+    color: $light-slate-100;
+  }
+
+  .value {
+    font-weight: 600;
+  }
+}
+.good {
+  color: $evergreen-100 !important;
+  border-color: $evergreen-100 !important;
+
+  .label {
+    color: $evergreen-100;
+  }
+}
+
+.expiring {
+  color: $oranges-100 !important;
+  border-color: $oranges-100 !important;
+
+  .label {
+    color: $oranges-100;
+  }
+}
+
+.expired {
+  color: $fuchsia-100 !important;
+  border-color: $fuchsia-100 !important;
+
+  .label {
+    color: $fuchsia-100;
+  }
+}
+
+.nutritional-values-card {
+  flex-direction: column;
+
+  .card-title {
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+
+    color: $onyx-100;
+    margin-bottom: 10px;
+  }
+
+  .values {
+    @include display-flex(row, space-between, center, wrap);
+    width: 100%;
+  }
+
+  .calories {
+    @include display-flex(column, flex-start, flex-start, wrap);
+
+    font-family: $primary-font;
+    color: $light-slate-100;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+
+    padding: 8px;
+    padding-right: 20px;
+    border-width: 0 2px 0 0;
+    border-color: $light-slate-60;
+    border-style: solid;
+
+    &-label,
+    &-value {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    &-value {
+      color: $onyx-100;
+      font-weight: 600;
+    }
+  }
+
+  .carbs,
+  .fats,
+  .proteins {
+    @include display-flex(column, center, center, wrap);
+
+    .value {
+      background-color: $blues-60;
+      border-radius: 5px;
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      padding: 4px 0;
+
+      font-family: $primary-font;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+
+      letter-spacing: -0.02em;
+      color: $onyx-100;
+      margin-bottom: 4px;
+    }
+
+    .label {
+      font-family: $primary-font;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: -0.02em;
+      color: $onyx-100;
+    }
+  }
+}
+
+.recipes-area {
+  display: flex;
+  flex: 1;
+  margin-top: 10px;
+  flex-direction: column;
+
+  .area-title {
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: -0.02em;
+    color: $onyx-100;
+  }
+
+  .cards {
+    @include display-flex(row, space-evenly, center, wrap);
+
+    margin-top: 14px;
+  }
+
+  .button {
+    margin-top: 24px;
+    align-self: flex-end;
+    background-color: $iris-100;
+    color: $cloud;
+    padding: 12px 32px;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-family: $primary-font;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+  }
+}
+
+.shared {
+  border-radius: 8px;
+  background: #bff3e6;
+  width: fit-content;
+  align-self: center;
+  margin-top: 14px;
+
+  font-size: 14px;
+  font-family: $primary-font;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  color: $evergreen-100;
+
+  padding: 6px 18px;
+}

@@ -1,10 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AuthComponent } from './auth.component';
-import { SocialLoginModule, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { AuthComponent } from "./auth.component";
+import {
+  SocialLoginModule,
+  GoogleSigninButtonModule,
+} from "@abacritt/angularx-social-login";
+import { ReactiveFormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
-
-describe('AuthComponent', () => {
+describe("AuthComponent", () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
 
@@ -13,15 +17,17 @@ describe('AuthComponent', () => {
       declarations: [AuthComponent],
       imports: [
         SocialLoginModule,
-        GoogleSigninButtonModule
-      ]
+        GoogleSigninButtonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+      ],
     });
     fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

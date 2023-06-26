@@ -1,14 +1,18 @@
 <div class="header">
-    <div class="user">
-      <img src="" alt="">
-      <div class="user-details">
-        <div class="user-details-firts">
-          Diana
-        </div>
-        <div class="user-details-last"> Barsanescu </div>
+  <div class="user" *ngIf="user">
+    <img
+      class="user-image"
+      [src]="user.picture"
+      alt="user-image"
+      referrerpolicy="no-referrer"
+    />
 
+    <div class="user-details">
+      <div class="user-details-first">
+        {{ user.firstName }}
       </div>
+      <div class="user-details-last">{{ user.lastName }}</div>
     </div>
-    <app-header-menu [withHomepageButton]="withHomeButton"></app-header-menu>
-
+  </div>
+  <app-header-menu [withHomepageButton]="withHomeButton"></app-header-menu>
 </div>

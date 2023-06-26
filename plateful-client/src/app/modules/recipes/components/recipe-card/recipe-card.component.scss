@@ -1,0 +1,67 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+@mixin set-background-image($url) {
+  background-image: url(#{$url});
+}
+:host-context([data-image-url]) {
+  .content {
+    max-width: 160px;
+    margin: 8px;
+  }
+  .image {
+    min-height: 75px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+
+    .without-image {
+      background-color: $iris-100;
+    }
+
+    .arrow-right {
+      align-self: flex-end;
+      margin: 8px;
+      margin-bottom: 4px;
+    }
+    .save {
+      margin: 8px;
+    }
+  }
+
+  .details {
+    @include display-flex(column, space-between, flex-start, wrap);
+
+    background-color: $cloud;
+    border-radius: 0 0 10px 10px;
+    min-height: 50px;
+    padding: 10px;
+
+    .recipe-title {
+      font-size: 16px;
+      font-family: $primary-font;
+      font-weight: 700;
+      letter-spacing: -0.32px;
+      color: $iris-100;
+      margin-bottom: 8px;
+    }
+
+    .match {
+      align-self: flex-end;
+      font-family: $primary-font;
+      text-align: right;
+      font-size: 11px;
+      line-height: 12px;
+      letter-spacing: -0.02em;
+      color: $light-slate-100;
+
+      .ingredients {
+        background-color: #c7efe5;
+        padding: 2px 4px;
+        border-radius: 5px;
+        color: $evergreen-100;
+        font-weight: 600;
+      }
+    }
+  }
+}

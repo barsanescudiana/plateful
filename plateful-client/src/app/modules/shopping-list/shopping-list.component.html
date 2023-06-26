@@ -1,1 +1,31 @@
-<p>shopping-list works!</p>
+<app-header [withHomeButton]="true"></app-header>
+<div class="content">
+  <div class="title">Shoppping list</div>
+  <div class="add-btn" (click)="addItemToShoppingList()">Add new item</div>
+  <div *ngIf="shoppingList.length" class="shopping-list">
+    <div *ngFor="let item of shoppingList; let i = index">
+      <div class="list-item">
+        <div class="container">
+          <mat-checkbox
+            [checked]="item.checked"
+            (change)="handleItemCheck($event, i)"
+            (mousedown)="$event.stopPropagation()"
+            [disabled]="item.product === ''"
+          >
+          </mat-checkbox>
+          <input
+            placeholder="Type product name"
+            [value]="item.product"
+            (change)="handleItemChange($event, i)"
+          />
+          <div class="delete" (click)="deleteItem(i)" *ngIf="item.checked">
+            Remove
+          </div>
+        </div>
+        <div class="warning" *ngIf="checkItemAlreadyInPantry(item)">
+          You already have this product in your pantry!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

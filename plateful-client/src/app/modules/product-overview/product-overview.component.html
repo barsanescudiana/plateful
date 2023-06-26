@@ -1,0 +1,96 @@
+<div class="content" *ngIf="product">
+  <app-header [withHomeButton]="true"></app-header>
+  <div class="actions" *ngIf="product && expirationInfo">
+    <div
+      class="share"
+      [class.is-shared]="product.isShared"
+      (click)="shareProduct()"
+    >
+      <img
+        src="assets/icons/share-green.svg"
+        alt="share"
+        *ngIf="!product.isClaimed && !product.isShared"
+      />
+      <img
+        src="assets/icons/share-disabled.svg"
+        alt="already shared"
+        *ngIf="product.isShared || expirationInfo.expired"
+      />
+    </div>
+    <div
+      class="product"
+      [class.good-bg]="expirationInfo.good"
+      [class.expiring-bg]="expirationInfo.expiring"
+      [class.expired-bg]="expirationInfo.expired"
+    >
+      <span class="emoji"> {{getProductEmoji()}} </span>
+    </div>
+    <div class="delete" (click)="deleteProduct()">
+      <img src="assets/icons/delete-pink.svg" alt="delete" />
+    </div>
+  </div>
+  <div class="name">
+    {{ product.name }}
+  </div>
+  <div class="storage">
+    {{ product.storage }}
+  </div>
+  <div class="shared" *ngIf="product.isShared">Shared with friends</div>
+  <div class="info-card" *ngIf="expirationInfo">
+    <div class="in-pantry">
+      <span class="label"> In the pantry </span>
+      <span class="value"> {{ getDaysInPantry() }} days </span>
+    </div>
+    <div
+      class="expiration"
+      [class.good]="expirationInfo.good"
+      [class.expiring]="expirationInfo.expiring"
+      [class.expired]="expirationInfo.expired"
+    >
+      <span class="label"> {{ expirationInfo.text }} </span>
+      <span class="value"> in over {{ expirationInfo.days }} days! </span>
+    </div>
+    <div class="amount">
+      <span class="label"> Amount </span>
+      <span class="value">
+        {{ product.quantity + ' ' + product.measurement }}
+      </span>
+    </div>
+  </div>
+  <div class="nutritional-values-card" *ngIf="checkProductNutritionalValues()">
+    <div class="card-title">Nutritional values</div>
+    <div class="values">
+      <div class="calories">
+        <span class="calories-label"> Calories </span>
+        <div class="calories-details">
+          <span class="calories-value">
+            {{ product.nutritionalValues!.calories }}
+          </span>
+          per 100g
+        </div>
+      </div>
+      <div class="carbs">
+        <span class="value"> {{ product.nutritionalValues!.carbs}}</span>
+        <span class="label"> carbs </span>
+      </div>
+      <div class="fats">
+        <span class="value"> {{ product.nutritionalValues!.fats}}</span>
+        <span class="label"> fats </span>
+      </div>
+      <div class="proteins">
+        <span class="value"> {{ product.nutritionalValues!.proteins}}</span>
+        <span class="label"> proteins </span>
+      </div>
+    </div>
+  </div>
+  <div class="recipes-area" *ngIf="!expirationInfo.expired">
+    <div class="area-title">What can you do with it?</div>
+    <div class="cards">
+      <div>recipe 1 card</div>
+      <div>recipe 2 card</div>
+    </div>
+    <div class="button more-recipes" (click)="redirectToRecipes()">
+      View more recipes
+    </div>
+  </div>
+</div>

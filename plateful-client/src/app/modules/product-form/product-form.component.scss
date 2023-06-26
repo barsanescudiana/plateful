@@ -1,0 +1,190 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  margin-top: 70px;
+  @include display-flex(column, flex-start, stretch, wrap);
+  flex: 1;
+
+  .title {
+    grid-column-start: 1;
+    grid-column-end: 1;
+  }
+
+  form {
+    @include display-flex(column, flex-start, stretch, wrap);
+    flex: 1;
+
+    .label {
+      @include display-flex(column, flex-start, flex-start, wrap);
+
+      font-family: $primary-font;
+      color: $onyx-80;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0;
+      margin-bottom: 4px;
+
+      .hint {
+        font-weight: 400;
+        font-size: 10px;
+        color: $light-slate-80;
+      }
+    }
+
+    .section {
+      @include display-flex(column, flex-start, stretch, nowrap);
+      position: relative;
+      margin-bottom: 10px;
+      flex: 1;
+      max-height: 60px;
+      max-width: 170px;
+
+      &-name,
+      &-storage,
+      &-category {
+        @include display-flex(column, flex-start, stretch, nowrap);
+      }
+
+      &-date {
+        @include display-flex(column, flex-start, stretch, nowrap);
+
+        input {
+          padding-right: 16px;
+        }
+      }
+
+      &-measurement,
+      &-quantity,
+      &-name,
+      &-storage,
+      &-category,
+      &-date {
+        @include display-flex(column, flex-start, stretch, nowrap);
+        flex: 0 0 100%;
+      }
+
+      &-columns {
+        @include display-flex(row, space-evenly, center, nowrap);
+
+        flex: 1;
+        max-height: 70px !important;
+      }
+
+      &-nutritional {
+        @include display-flex(row, space-evenly, center, nowrap);
+      }
+    }
+
+    .nutritional {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      max-height: 110px;
+      margin-bottom: 14px;
+    }
+
+    .calories,
+    .fats,
+    .proteins,
+    .carbs {
+      @include display-flex(column, center, center, wrap);
+
+      height: 80px;
+      background-color: $dorian;
+      border-radius: 8px;
+      width: 80px;
+
+      font-family: $primary-font;
+
+      input[type="number"] {
+        background-color: $dorian;
+        border: none;
+        width: 50px;
+        line-height: 14px !important;
+        margin: 8px 4px 0 4px;
+        padding: 8px;
+
+        text-align: center;
+        font-family: $primary-font;
+        font-weight: 600;
+        font-size: 16px;
+        color: $onyx-100;
+      }
+
+      .small-label {
+        color: $light-slate-100;
+        height: 30px;
+        font-weight: 600;
+      }
+    }
+
+    input,
+    select {
+      font-size: 1em;
+      border: none;
+      padding: 8px 0 8px 16px;
+      background-color: $cloud;
+      font-family: $primary-font;
+      font-size: 14px;
+      font-weight: 400;
+      color: $onyx-100;
+      border-radius: 8px;
+      width: inherit;
+      border: 1px solid $light-slate-60;
+      flex: 1;
+      display: flex;
+      height: 40px !important;
+
+      &::placeholder {
+        color: $light-slate-60;
+      }
+
+      &:focus-visible {
+        border: 1px solid $iris-100;
+      }
+    }
+
+    select {
+      padding-right: 16px;
+    }
+
+    .actions {
+      @include display-flex(row, flex-end, flex-start, wrap);
+      max-height: 70px !important;
+      flex: 1;
+      button {
+        font-family: $primary-font;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+        background-color: $iris-100;
+        border: none;
+        outline: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        color: $cloud;
+        margin-bottom: 16px;
+        margin-top: 16px;
+
+        .disabled {
+          font-family: $primary-font;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 16px;
+          background-color: $light-slate-60;
+          border: none;
+          outline: none;
+          padding: 12px 24px;
+          border-radius: 10px;
+          color: $light-slate-100;
+          margin-bottom: 16px;
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+}

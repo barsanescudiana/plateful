@@ -1,0 +1,71 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.title {
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: end !important;
+}
+
+mat-dialog-content {
+  @include display-flex(column, center, center, nowrap);
+  overflow-x: hidden;
+}
+
+mat-radio-group {
+  @include display-flex(row, center, center, wrap);
+}
+
+.option-container {
+  @include display-flex(row, center, center, wrap);
+  padding: 12px;
+
+  border-radius: 10px;
+  margin: 4px;
+  min-width: 100px;
+  flex-shrink: 0;
+
+  background-color: $dorian;
+  font-family: $primary-font;
+  font-size: 14px;
+  letter-spacing: 0;
+
+  .option {
+    @include display-flex(column, center, center, wrap);
+
+    color: $onyx-100;
+
+    span {
+      margin-top: 6px;
+    }
+  }
+
+  img {
+    width: 60px;
+    height: auto;
+  }
+}
+
+.selected {
+  background-color: #d0d0fb;
+
+  font-weight: 600;
+  font-size: 14px;
+}
+
+button {
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.disabled {
+  background-color: $light-slate-60;
+  color: $light-slate-100;
+}

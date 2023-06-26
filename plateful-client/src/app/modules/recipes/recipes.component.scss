@@ -1,0 +1,21 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  margin-top: 70px;
+  width: 100%;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-family: $primary-font;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: $onyx-100;
+  margin-bottom: 14px;
+}
+
+.cards {
+  @include display-flex(row, space-evenly, flex-start, wrap);
+  width: 100%;
+}

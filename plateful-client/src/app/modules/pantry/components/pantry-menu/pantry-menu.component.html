@@ -1,4 +1,4 @@
-<div class="menu">
+<div class="menu" *ngIf="user">
   <div
     *ngFor="let option of storageOptions; let i = index"
     class="option"
@@ -9,7 +9,18 @@
       {{ option }}
     </span>
     <div class="total-items">
-      <span> 100 </span>
+      <span *ngIf="option === storageOptions[0]">
+        {{ fridgeProducts.length + freezerProducts.length + dryProducts.length}}
+      </span>
+      <span *ngIf="option === storageOptions[1]">
+        {{ fridgeProducts.length }}
+      </span>
+      <span *ngIf="option === storageOptions[2]">
+        {{ freezerProducts.length }}
+      </span>
+      <span *ngIf="option === storageOptions[3]">
+        {{ dryProducts.length }}
+      </span>
     </div>
   </div>
 </div>

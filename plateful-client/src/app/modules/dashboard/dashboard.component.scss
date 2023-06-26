@@ -4,6 +4,7 @@
 .content {
   @include display-flex(column, center, flex-start, wrap);
   width: 100%;
+  margin-top: 70px;
 
   app-header {
     width: inherit

@@ -1,0 +1,84 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  font-family: $primary-font;
+  background-color: $cloud;
+  border-radius: 10px;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 40px auto auto;
+  margin-right: 12px;
+  margin-bottom: 10px;
+
+  .image {
+    font-size: 20px;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+
+    .shared {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 11px;
+      background-color: $iris-80;
+      color: $dorian;
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      padding: 2px 4px;
+      border-radius: 8px;
+      height: 14px;
+      margin-left: 8px;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .quantity {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: $onyx-80;
+  }
+
+  .storage {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: $light-slate-100;
+  }
+
+  .date {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $evergreen-100;
+  }
+
+  .first-column {
+    @include display-flex(column, space-between, flex-start, nowrap);
+  }
+  .second-column {
+    @include display-flex(column, space-between, flex-end, nowrap);
+  }
+}
+
+.expired {
+  color: $fuchsia-100 !important;
+}
+
+.expiring {
+  color: $oranges-100 !important;
+}
