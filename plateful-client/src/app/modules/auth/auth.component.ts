@@ -21,6 +21,7 @@ export class AuthComponent {
   ngOnInit(): void {
     if (localStorage.getItem("USER_DATA")) {
       localStorage.removeItem("USER_DATA");
+      localStorage.removeItem('Tokens.AccessToken');
     }
     // @ts-ignore
     window.onGoogleLibraryLoad = () => {
@@ -48,6 +49,7 @@ export class AuthComponent {
       (data: any) => {
         if (data.status !== 500) {
           localStorage.setItem("USER_DATA", JSON.stringify(data.user));
+          localStorage.setItem("Tokens.AccessToken", data.token);
           this._ngZone.run(() => {
             this.router.navigate(["/dashboard"]);
           });

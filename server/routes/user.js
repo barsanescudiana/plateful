@@ -1,6 +1,8 @@
 const userController = require('../controllers/user');
 const router = require('express').Router();
-const checkAuthorization = require('../middleware/auth')
+const checkAuthorization = require('../middleware/auth');
+
+router.use(checkAuthorization);
 
 router.get('/shopping/get-list', userController.getShoppingListData);
 router.get('/products/all', userController.getProducts);

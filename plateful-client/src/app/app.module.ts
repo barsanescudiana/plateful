@@ -19,7 +19,7 @@ import {
   SocialLoginModule,
   SocialAuthServiceConfig,
 } from "@abacritt/angularx-social-login";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ShoppingListModule } from "./modules/shopping-list/shopping-list.module";
@@ -33,6 +33,7 @@ import { MatInputModule } from "@angular/material/input";
 import { ProductOverviewComponent } from "./modules/product-overview/product-overview.component";
 import { NgxBarcodeScannerModule } from "@eisberg-labs/ngx-barcode-scanner";
 import { RecipesModule } from "./modules/recipes/recipes.module";
+import { AccessTokenInterceptor } from "./http-interceptors/accessToken.interceptor";
 
 @NgModule({
   declarations: [
@@ -74,11 +75,15 @@ import { RecipesModule } from "./modules/recipes/recipes.module";
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              "987698742806-sm0bm2pr9rquctpfeuvfkh896gaccaeg.apps.googleusercontent.com"
+              "898012584981-kl8stbm41m5henog8307iu9c949ij396.apps.googleusercontent.com"
             ),
           },
         ],
       } as SocialAuthServiceConfig,
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],

@@ -1,4 +1,5 @@
 const db = require('../database');
+const getAuth = require('firebase-admin/auth').getAuth;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 12;
@@ -83,9 +84,9 @@ const controller = {
         .where('email', '==', userData.email)
         .get();
       let response = {};
-  
+      response.token = credentials;
       console.log(snapshot);
-  
+    
       if (snapshot.empty) {
         const user = {
           firstName: userData.given_name,
