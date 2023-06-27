@@ -78,7 +78,7 @@ import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              "898012584981-kl8stbm41m5henog8307iu9c949ij396.apps.googleusercontent.com"
+              "987698742806-sm0bm2pr9rquctpfeuvfkh896gaccaeg.apps.googleusercontent.com"
             ),
           },
         ],
