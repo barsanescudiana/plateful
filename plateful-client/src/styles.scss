@@ -24,6 +24,10 @@ app-auth {
   flex: 1;
 }
 
+app-dashboard {
+  width: 100%;
+}
+
 app-root,
 app-friends-pantry,
 app-shopping-list,
@@ -31,7 +35,8 @@ app-pantry,
 app-notifications,
 app-settings,
 app-product-form,
-app-product-overview {
+app-product-overview,
+app-recipes {
   width: 100%;
   flex: 0 0 100%;
   display: flex;

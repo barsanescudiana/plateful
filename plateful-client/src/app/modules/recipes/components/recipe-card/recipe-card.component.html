@@ -10,20 +10,10 @@
     </div>
   </div>
   <div class="details">
-    <div class="recipe-title">{{ recipe.title }}</div>
+    <div class="recipe-title">{{ shortTitle }}</div>
     <div class="match">
-      <span class="ingredients"
-        >{{ recipe.usedIngredientCount
-
-
-
-
-
-
-
-
-
-
+      <span class="ingredients">
+        {{ recipe.usedIngredientCount
         }}/{{ recipe.usedIngredientCount + recipe.missedIngredientCount}}</span
       >
       pantry match

@@ -4,6 +4,8 @@ import { PantryService } from "../pantry/services/pantry.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "src/app/interfaces/user.interface";
 import { Emojis } from "src/app/enums/emojis.enum";
+import { RecipesService } from "../recipes/services/recipes.service";
+import { Recipe } from "src/app/interfaces/recipe.interface";
 
 @Component({
   selector: "app-product-overview",
@@ -22,11 +24,13 @@ export class ProductOverviewComponent implements OnInit {
         expiring: boolean;
       }
     | any;
+  public suggestedRecipes: Recipe[] | any;
 
   constructor(
     private pantryService: PantryService,
     private activateRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private recipesService: RecipesService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +43,13 @@ export class ProductOverviewComponent implements OnInit {
       .subscribe((data) => {
         this.product = data;
         this.expirationInfo = this.checkExpirationDateValidity();
+        if (!this.expirationInfo.expired) {
+        }
+        this.recipesService
+          .getRecipesByIngredients(this.user!.id, this.product.name!)
+          .subscribe((data) => {
+            this.suggestedRecipes = data;
+          });
       });
   }
 
@@ -90,7 +101,9 @@ export class ProductOverviewComponent implements OnInit {
       };
     }
     if (
-      new Date(this.product.expirationDate!).getTime() - new Date().getTime() >
+      (new Date(this.product.expirationDate!).getTime() -
+        new Date().getTime()) /
+        (1000 * 3600 * 24) >
       5
     ) {
       return {

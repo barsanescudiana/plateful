@@ -6,7 +6,7 @@
 }
 :host-context([data-image-url]) {
   .content {
-    max-width: 160px;
+   width: 160px;
     margin: 8px;
   }
   .image {
@@ -34,7 +34,7 @@
 
     background-color: $cloud;
     border-radius: 0 0 10px 10px;
-    min-height: 50px;
+    min-height: 80px;
     padding: 10px;
 
     .recipe-title {

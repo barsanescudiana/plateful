@@ -20,7 +20,7 @@ const controller = {
       url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
       params: {
         ingredients: ingredients.replace(/.$/, ""),
-        number: "5",
+        number: "10",
         ignorePantry: "true",
         ranking: "1",
       },
@@ -32,11 +32,24 @@ const controller = {
     };
 
     try {
+      let recipesToSend = [];
       const response = await axios.request(options);
       response.data.forEach(async (recipe) => {
-        await db.collection("recipes").add(recipe);
+        recipe.usedIngredients.forEach((ingredient) => {
+          if (
+            ingredient.name.toLowerCase() === req.query.ingredient.toLowerCase()
+          ) {
+            recipesToSend.push(recipe);
+          } else if (
+            ingredient.name
+              .toLowerCase()
+              .includes(req.query.ingredient.toLowerCase())
+          ) {
+            recipesToSend.push(recipe);
+          }
+        });
       });
-      res.status(200).send(response.data);
+      res.status(200).send(recipesToSend);
     } catch (error) {
       res.status(400).send(error);
     }

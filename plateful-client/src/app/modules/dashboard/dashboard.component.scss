@@ -13,6 +13,6 @@
 
   .cards {
     @include display-flex(row, space-evenly, flex-start, wrap);
-
+    width: 100%;
   }
 }

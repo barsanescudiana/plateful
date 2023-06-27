@@ -48,7 +48,10 @@
       [class.expired]="expirationInfo.expired"
     >
       <span class="label"> {{ expirationInfo.text }} </span>
-      <span class="value"> in over {{ expirationInfo.days }} days! </span>
+      <span class="value">
+        in <span *ngIf="expirationInfo.good"> over </span>
+        {{ expirationInfo.days }} days!
+      </span>
     </div>
     <div class="amount">
       <span class="label"> Amount </span>
@@ -86,8 +89,10 @@
   <div class="recipes-area" *ngIf="!expirationInfo.expired">
     <div class="area-title">What can you do with it?</div>
     <div class="cards">
-      <div>recipe 1 card</div>
-      <div>recipe 2 card</div>
+      <app-recipe-card
+        *ngFor="let recipe of suggestedRecipes"
+        [recipe]="recipe"
+      ></app-recipe-card>
     </div>
     <div class="button more-recipes" (click)="redirectToRecipes()">
       View more recipes

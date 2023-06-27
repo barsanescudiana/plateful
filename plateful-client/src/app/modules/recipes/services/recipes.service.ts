@@ -11,10 +11,14 @@ export class RecipesService {
 
   constructor(private http: HttpClient) {}
 
-  public getRecipesByIngredients(userId: string): Observable<Recipe[]> {
+  public getRecipesByIngredients(
+    userId: string,
+    product: string
+  ): Observable<Recipe[]> {
     return this.http.get(`${this.path}recipes/with-ingredients`, {
       params: {
         userId: userId,
+        ingredient: product,
       },
     }) as Observable<Recipe[]>;
   }

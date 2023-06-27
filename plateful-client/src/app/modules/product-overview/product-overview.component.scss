@@ -251,7 +251,14 @@
   }
 
   .cards {
-    @include display-flex(row, space-evenly, center, wrap);
+
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    width: 100%;
+    margin-left: 0; /* Remove default margin */
+    flex: 0 0 auto;
+    padding-bottom: 16px; /* Add some bottom padding for better scroll experience */
 
     margin-top: 14px;
   }
