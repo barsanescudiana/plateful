@@ -97,7 +97,8 @@ const controller = {
           savedRecipes: [],
           friends: [],
           products: [],
-          shoppingListItems: []
+          shoppingListItems: [],
+          notifications: [],
         }
         const newUser = await usersRef.add(user);
         response.user = (await newUser.get()).data();

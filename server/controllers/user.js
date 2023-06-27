@@ -3,7 +3,7 @@ const FieldValue = require('firebase-admin').firestore.FieldValue;
 const firestore = require('firebase-admin').firestore;
 const Timestamp = require('firebase-admin').firestore.Timestamp;
 
-const controller = { 
+const controller = {
 
   getShoppingListData: async (req, res) => {
     const docRef = db.collection('users').doc(req.caller.id);
@@ -120,6 +120,20 @@ const controller = {
     }
 
     console.log(req.params.productId);
+  },
+
+  //internal
+  getPublicInfoById: async (userId) => {
+    const user = await db.collection('users').doc(userId).get();
+    if (user.exists) {
+      const u = user.data();
+      return {
+        id: user.id,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        picture: u.picture,
+      }
+    }
   }
 }
 
