@@ -31,6 +31,7 @@ const internalController = {
     const notificationToAdd = {
       id: notificationUuid,
       type: notification.type,
+      date: new Date().toUTCString(),
       deleteAction: `/api/notifications/delete?id=${notificationUuid}`,
     }
 

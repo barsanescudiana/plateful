@@ -10,8 +10,13 @@ const controller = {
    */
   getSuggestions: async (req, res) => {
     const users = await db.collection('users').get();
+    const callerRef = await db.collection('users').doc(req.caller.id).get();
+    const friends = callerRef.data().friends;
+
     if (!users.empty) {
       const suggestions = users.docs
+        .filter(e => e.id !== req.caller.id)
+        .filter(e => !friends.includes(e.id))
         .sort(() => Math.random() - 0.5)
         .slice(0, 5)
         .map(d => {
@@ -21,6 +26,7 @@ const controller = {
             firstName: user.firstName,
             lastName: user.lastName,
             picture: user.picture,
+            numberOfSharedProducts: user.products.filter((i) => i.isShared).length,
           };
         });
       res.status(200).send({
@@ -41,18 +47,24 @@ const controller = {
    * @param {*} res 
    */
   sendRequest: async (req, res) => {
-    const requesteeId = req.query.requestee;
-    notificationsController.addNotification({
-      type: 'FRIEND_REQUEST',
-      detail: {
-        from: req.caller,
-        toId: requesteeId,
-      },
-    }).then(result => {
-      res.status(201).json({ 'id': result.notificationId });
-    }).catch(err => {
-      res.status(400).json({ 'message': 'Something went wrong while updating' });
-    });
+    const requestee = await db.collection('users').doc(req.query.requestee).get();
+    const friends = requestee.data().friends;
+
+    if (!friends.includes(req.caller.id)) {
+      notificationsController.addNotification({
+        type: 'FRIEND_REQUEST',
+        detail: {
+          from: req.caller,
+          toId: requestee.id,
+        },
+      }).then(result => {
+        res.status(201).json({ 'id': result.notificationId });
+      }).catch(err => {
+        res.status(400).json({ 'message': 'Something went wrong while updating' });
+      });
+    } else {
+      res.status(400).json({ 'message': 'You are already friends' });
+    }
   },
 
   /**

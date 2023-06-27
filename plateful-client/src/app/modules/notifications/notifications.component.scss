@@ -1,0 +1,33 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  width: 100%;
+  margin-top: 70px;
+  font-family: $primary-font;
+
+  app-header,
+  app-footer {
+    width: 100%;
+  }
+
+  app-footer {
+    align-self: flex-end;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .title {
+    margin-bottom: 21px;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 40px;
+    color: $onyx-100;
+  }
+}

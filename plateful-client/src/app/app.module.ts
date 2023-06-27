@@ -25,7 +25,7 @@ import { AuthModule } from "./modules/auth/auth.module";
 import { ShoppingListModule } from "./modules/shopping-list/shopping-list.module";
 import { ProductFormComponent } from "./modules/product-form/product-form.component";
 import { SettingsComponent } from "./modules/settings/settings.component";
-import { NotificationsComponent } from "./modules/notifications/notifications.component";
+import { NotificationsModule } from "./modules/notifications/notifications.module";
 import { ScanBarcodeComponent } from "./modules/scan-barcode/scan-barcode.component";
 import { ProfileComponent } from "./modules/profile/profile.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -34,6 +34,8 @@ import { ProductOverviewComponent } from "./modules/product-overview/product-ove
 import { NgxBarcodeScannerModule } from "@eisberg-labs/ngx-barcode-scanner";
 import { RecipesModule } from "./modules/recipes/recipes.module";
 import { AccessTokenInterceptor } from "./http-interceptors/accessToken.interceptor";
+import { NotificationCardComponent } from './modules/notifications/components/notification-card/notification-card.component';
+import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,6 @@ import { AccessTokenInterceptor } from "./http-interceptors/accessToken.intercep
     UserIconComponent,
     ProductFormComponent,
     SettingsComponent,
-    NotificationsComponent,
     ScanBarcodeComponent,
     ProfileComponent,
     ProductOverviewComponent,
@@ -52,6 +53,8 @@ import { AccessTokenInterceptor } from "./http-interceptors/accessToken.intercep
     AppRoutingModule,
     BrowserAnimationsModule,
     PantryModule,
+    NotificationsModule,
+    AddFriendsModule,
     DashboardModule,
     ShoppingListModule,
     SharedModule,
