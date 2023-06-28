@@ -3,12 +3,12 @@ const db = require("../database");
 
 const controller = {
   getRecipesByIngredients: async (req, res) => {
-    const user = req.caller.id;
+    const user = await db.collection('user').doc(req.caller.id).get();
 
     let ingredients = "";
 
-    if (user) {
-      const products = user.products;
+    if (user.exists) {
+      const products = user.data().products;
       products.forEach((product) => {
         ingredients += product.name.toLowerCase() + ",";
       });
