@@ -32,26 +32,69 @@ const internalController = {
       id: notificationUuid,
       type: notification.type,
       date: new Date().toUTCString(),
-      deleteAction: `/api/notifications/delete?id=${notificationUuid}`,
     }
 
     switch (notification.type) {
-      case 'FRIEND_REQUEST':
+      case 'FRIEND_REQUEST': {
         const requestee = db.collection('users').doc(notification.detail.toId);
         const result = await requestee.update({
           notifications: firestore.FieldValue.arrayUnion({
             ...notificationToAdd,
             detail: {
-              requestor: notification.detail.from.id,
-              acceptAction: `/api/notifications/accept?id=${notificationUuid}`,
+              fromUser: notification.detail.from.id,
             },
           }),
         });
 
-        return { ...result, notificationId: notificationUuid};
+        return { ...result, notificationId: notificationUuid };
+      }
+
+      case 'FRIEND_REQUEST_ACCEPTED': {
+        const to = db.collection('users').doc(notification.detail.toId);
+        const result = await to.update({
+          notifications: firestore.FieldValue.arrayUnion({
+            ...notificationToAdd,
+            detail: {
+              fromUser: notification.detail.from.id,
+            },
+          }),
+        });
+
+        return { ...result, notificationId: notificationUuid };
+      }
 
       case 'EXPIRY':
         break;
+
+      case 'CLAIM': {
+        const claimee = db.collection('users').doc(notification.detail.toId);
+        const result = await claimee.update({
+          notifications: firestore.FieldValue.arrayUnion({
+            ...notificationToAdd,
+            detail: {
+              fromUser: notification.detail.from.id,
+              productId: notification.detail.productId,
+            },
+          }),
+        });
+
+        return { ...result, notificationId: notificationUuid };
+      }
+
+      case 'CLAIM_ACCEPTED': {
+        const to = db.collection('users').doc(notification.detail.toId);
+        const result = await to.update({
+          notifications: firestore.FieldValue.arrayUnion({
+            ...notificationToAdd,
+            detail: {
+              fromUser: notification.detail.from.id,
+              productId: notification.detail.productId,
+            },
+          }),
+        });
+
+        return { ...result, notificationId: notificationUuid };
+      }
 
       case 'GENERIC':
       default:
@@ -78,8 +121,8 @@ const controller = {
     if (user.exists) {
       // enriches notification
       const notifications = await Promise.all(user.data().notifications.map(async (notification) => {
-        const enrichedUser = await userController.getPublicInfoById(notification.detail.requestor);
-        notification.detail.requestor = enrichedUser;
+        const enrichedUser = await userController.getPublicInfoById(notification.detail.fromUser);
+        notification.detail.fromUser = enrichedUser;
         return notification;
       }));
       res.status(200).json({

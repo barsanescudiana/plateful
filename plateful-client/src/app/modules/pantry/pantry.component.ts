@@ -67,6 +67,7 @@ export class PantryComponent implements OnInit {
                 break;
             }
           });
+          console.log(this.products)
         });
     }
   }

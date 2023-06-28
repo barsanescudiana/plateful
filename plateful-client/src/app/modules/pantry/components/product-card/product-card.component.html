@@ -4,6 +4,7 @@
     <div class="name">
       {{ product.name }}
       <span class="shared" *ngIf="product.isShared"> Shared </span>
+      <span class="claimed" *ngIf="product.isClaimed"> Claimed </span>
     </div>
     <div
       class="date"
