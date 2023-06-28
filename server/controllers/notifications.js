@@ -73,7 +73,7 @@ const internalController = {
             ...notificationToAdd,
             detail: {
               fromUser: notification.detail.from.id,
-              productId: notification.detail.productId,
+              product: notification.detail.productId,
             },
           }),
         });
@@ -88,7 +88,7 @@ const internalController = {
             ...notificationToAdd,
             detail: {
               fromUser: notification.detail.from.id,
-              productId: notification.detail.productId,
+              product: notification.detail.productId,
             },
           }),
         });
@@ -122,6 +122,10 @@ const controller = {
       // enriches notification
       const notifications = await Promise.all(user.data().notifications.map(async (notification) => {
         const enrichedUser = await userController.getPublicInfoById(notification.detail.fromUser);
+        if (notification.detail.product) {
+          const enrichedProduct = await user.data().products.find(p => p.id === notification.detail.product);
+          notification.detail.product = enrichedProduct;
+        }
         notification.detail.fromUser = enrichedUser;
         return notification;
       }));

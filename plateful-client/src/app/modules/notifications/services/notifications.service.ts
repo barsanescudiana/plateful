@@ -23,6 +23,10 @@ export class NotificationsService {
     return this.http.patch(`${this.friendsPath}/accept?id=${notificationId}`, {}, { observe: 'response' }) as Observable<any>;
   }
 
+  public acceptClaim(claimerId: string, notificationId: string): Observable<any> {
+    return this.http.patch(`${this.friendsPath}/${claimerId}/accept-claim?id=${notificationId}`, {}, { observe: 'response' }) as Observable<any>;
+  }
+
   public deleteNotification(notificationId: string): Observable<any> {
     return this.http.delete(`${this.path}/${notificationId}`, { observe: 'response' }) as Observable<any>;
   }

@@ -132,10 +132,10 @@ const controller = {
     if (notification && notification.type === 'FRIEND_REQUEST') {
       try {
         await requesteeRef.update({
-          friends: firestore.FieldValue.arrayUnion(notification.detail.requestor),
+          friends: firestore.FieldValue.arrayUnion(notification.detail.fromUser),
         });
   
-        const requestorRef = db.collection('users').doc(notification.detail.requestor);
+        const requestorRef = db.collection('users').doc(notification.detail.fromUser);
         await requestorRef.update({
           friends: firestore.FieldValue.arrayUnion(req.caller.id),
         });
@@ -253,7 +253,9 @@ const controller = {
       res.status(404).json({ 'message': 'Notification not found' });
     }
 
-    const product = req.caller.products.find((p) => p.id === notification.detail.productId);
+    const product = req.caller.products.find((p) => p.id === notification.detail.product);
+
+    console.log(product);
 
     if (!product) {
       res.status(404).json({ 'message': 'Product not found' });
@@ -283,7 +285,7 @@ const controller = {
       },
     });
 
-    res.status(200).json({ 'message': 'Claim accepted' });
+    res.status(201).json({ 'message': 'Claim accepted' });
   },
 };
 
