@@ -1,4 +1,4 @@
-<div class="content" *ngIf="product">
+<div class="content" *ngIf="product && expirationInfo">
   <app-header [withHomeButton]="true"></app-header>
   <div class="actions" *ngIf="product && expirationInfo">
     <div

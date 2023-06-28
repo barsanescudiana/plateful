@@ -39,4 +39,10 @@ export class PantryService {
       },
     }) as Observable<Product>;
   }
+
+  public shareProduct(productId: string): Observable<Product | any> {
+    return this.http.patch(`${this.path}user/products/share`, {
+      productId: productId,
+    }) as Observable<Product | any>;
+  }
 }

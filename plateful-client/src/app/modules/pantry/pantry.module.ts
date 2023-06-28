@@ -8,6 +8,7 @@ import { AddProductDialogComponent } from "./components/add-product-dialog/add-p
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatRadioModule } from "@angular/material/radio";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,8 +23,9 @@ import { MatRadioModule } from "@angular/material/radio";
     MatButtonModule,
     MatDialogModule,
     MatRadioModule,
+    FormsModule,
   ],
-  exports: [PantryComponent],
+  exports: [PantryComponent, ProductCardComponent],
   providers: [DatePipe],
 })
 export class PantryModule {}

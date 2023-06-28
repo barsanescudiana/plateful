@@ -1,0 +1,36 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.title {
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: end !important;
+}
+
+mat-dialog-content {
+  @include display-flex(column, center, center, nowrap);
+  overflow-x: hidden;
+
+  app-product-card {
+    width: 100% !important;
+  }
+
+  padding: 16px !important;
+}
+
+
+button {
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+
+
+

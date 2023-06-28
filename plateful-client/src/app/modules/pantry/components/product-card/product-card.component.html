@@ -1,4 +1,9 @@
-<div class="content" (click)="handleProductClick()">
+<div
+  class="content"
+  (click)="handleProductClick()"
+  [class.with-border]="border"
+  [style.border-color]="color"
+>
   <div class="image">{{ getProductEmoji() }}</div>
   <div class="first-column">
     <div class="name">

@@ -12,7 +12,12 @@
   <div class="search-area" [style]="">
     <div class="search">
       <img src="assets/icons/search.svg" alt="search" class="img-search" />
-      <input type="text" placeholder="Search products" />
+      <input
+        type="text"
+        placeholder="Search products"
+        [(ngModel)]="searchValue"
+        (input)="filterArray(selectedMenuItem)"
+      />
     </div>
     <img
       src="assets/icons/filters.svg"

@@ -1,0 +1,10 @@
+<div mat-dialog-title>
+  <span class="dialog-title"> {{ title }}</span>
+</div>
+<mat-dialog-content>
+  <app-product-card [product]="product" [border]="true"></app-product-card>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button class="button-cancel" (click)="onNoClick()">Cancel</button>
+  <button class="button-submit" mat-dialog-close="Shared">Share</button>
+</div>

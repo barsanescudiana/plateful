@@ -3,6 +3,11 @@
 
 .content {
   width: 100%;
+  margin-top: 35px;
+}
+
+.with-margin {
+  margin-top: 70px;
 }
 .user {
   @include display-flex(row, flex-start, center, nowrap);

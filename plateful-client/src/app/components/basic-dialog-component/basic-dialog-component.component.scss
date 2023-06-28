@@ -1,0 +1,61 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.title {
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: end !important;
+}
+
+mat-dialog-content {
+  @include display-flex(column, flex-start, flex-start, nowrap);
+  overflow-x: hidden;
+
+  padding: 16px !important;
+
+  span {
+    font-family: $primary-font;
+    letter-spacing: -0.02em;
+
+    .name {
+      font-weight: 600;
+    }
+
+  }
+
+  .hint {
+    @include display-flex(row, flex-start, center, nowrap);
+
+    margin-top: 14px;
+    font-size: 10px;
+
+    .bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 100px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.mdc-dialog__title {
+  padding: 16px !important;
+  padding-top: 0 !important;
+
+}
+
+button {
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+
+
+

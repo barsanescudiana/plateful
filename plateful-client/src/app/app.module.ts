@@ -34,9 +34,11 @@ import { ProductOverviewComponent } from "./modules/product-overview/product-ove
 import { NgxBarcodeScannerModule } from "@eisberg-labs/ngx-barcode-scanner";
 import { RecipesModule } from "./modules/recipes/recipes.module";
 import { AccessTokenInterceptor } from "./http-interceptors/accessToken.interceptor";
-import { NotificationCardComponent } from './modules/notifications/components/notification-card/notification-card.component';
+import { NotificationCardComponent } from "./modules/notifications/components/notification-card/notification-card.component";
 import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
 import { SettingsModule } from "./modules/settings/settings.module";
+import { ShareProductDialogComponent } from "./modules/product-overview/components/share-product-dialog/share-product-dialog.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { SettingsModule } from "./modules/settings/settings.module";
     ScanBarcodeComponent,
     ProfileComponent,
     ProductOverviewComponent,
+    ShareProductDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ import { SettingsModule } from "./modules/settings/settings.module";
     MatInputModule,
     NgxBarcodeScannerModule,
     RecipesModule,
+    MatDialogModule,
   ],
   providers: [
     {
@@ -84,7 +88,8 @@ import { SettingsModule } from "./modules/settings/settings.module";
           },
         ],
       } as SocialAuthServiceConfig,
-    }, {
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AccessTokenInterceptor,
       multi: true,

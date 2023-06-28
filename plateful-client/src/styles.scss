@@ -54,7 +54,7 @@ app-recipes {
 }
 
 .button-cancel {
-  border: 1px solid $light-slate-60;
+  border: 1px solid $light-slate-60 !important;
   color: $light-slate-100;
   border-radius: 8px;
 
@@ -101,4 +101,8 @@ app-recipes {
 
 .mat-mdc-form-field-infix {
   padding-top: 0 !important;
+}
+
+.cdk-overlay-pane {
+  width: 100% !important;
 }

@@ -1,4 +1,5 @@
-<div class="content" *ngIf="user">
+<div class="content" *ngIf="user" [class.with-margin]="!canEdit">
+  <app-header [withHomeButton]="true" [withUserPhoto]="!canEdit"></app-header>
   <div class="header">
     <div class="user">
       <img
@@ -20,7 +21,12 @@
     </div>
   </div>
   <div class="actions">
-    <button class="send" [disabled]="disableBtn" *ngIf="!canEdit" (click)="handleSendClick()">
+    <button
+      class="send"
+      [disabled]="disableBtn"
+      *ngIf="!canEdit"
+      (click)="handleSendClick()"
+    >
       {{ areFriends() ? 'Friends' : '' }}
       {{ areNotFriends() ? 'Send friend request' : '' }}
       {{ isFriendRequestSent() ? 'Friend request sent' : '' }}

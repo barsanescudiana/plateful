@@ -145,14 +145,44 @@ const controller = {
   },
 
   getMySettings: async (req, res) => {
-    const user = await db.collection('users').doc(req.caller.id).get();
+    const user = await db.collection("users").doc(req.caller.id).get();
 
     if (user.exists) {
       res.status(200).json(user.data().settings);
     } else {
-      res.status(404).json({ 'message': 'User not found' });
+      res.status(404).json({ message: "User not found" });
     }
-  }
+  },
+
+  shareProduct: async (req, res) => {
+    const userRef = await db.collection("users").doc(req.caller.id);
+    const user = await userRef.get();
+    console.log(req.body.productId);
+    if (user.exists) {
+      let newProducts = user.data().products.map((item) => {
+        if (item.id === req.body.productId) {
+          item.isShared = true;
+        }
+        return item;
+      });
+
+      console.log(newProducts);
+
+      const updatedData = { products: newProducts };
+
+      await userRef.update(updatedData);
+
+      res
+        .status(200)
+        .send(
+          user
+            .data()
+            .products.find((product) => product.id === req.body.productId)
+        );
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  },
 };
 
 module.exports = controller;
