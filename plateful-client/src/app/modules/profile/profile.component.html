@@ -20,13 +20,17 @@
     </div>
   </div>
   <div class="actions">
-    <div class="send" *ngIf="!canEdit" (click)="handleSendClick()">
-      Send friend request
-    </div>
-    <div class="update" *ngIf="canEdit" (click)="toggleUpdateArea()">
+    <button class="send" [disabled]="disableBtn" *ngIf="!canEdit" (click)="handleSendClick()">
+      {{ areFriends() ? 'Friends' : '' }}
+      {{ areNotFriends() ? 'Send friend request' : '' }}
+      {{ isFriendRequestSent() ? 'Friend request sent' : '' }}
+    </button>
+    <button class="update" *ngIf="canEdit" (click)="toggleUpdateArea()">
       {{ isUpdateAreaVisible ? 'Close update form' : 'Update profile details'}}
-    </div>
-    <div class="share" (click)="copyProfileLink()">Share profile</div>
+    </button>
+    <button class="share" [disabled]="shareClicked" (click)="copyProfileLink()">
+      {{ shareClicked ? 'Link copied!' : 'Share profile' }}
+    </button>
   </div>
   <div class="products-details">
     <div class="pill-added">

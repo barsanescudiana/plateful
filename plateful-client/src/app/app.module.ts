@@ -36,6 +36,7 @@ import { RecipesModule } from "./modules/recipes/recipes.module";
 import { AccessTokenInterceptor } from "./http-interceptors/accessToken.interceptor";
 import { NotificationCardComponent } from './modules/notifications/components/notification-card/notification-card.component';
 import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
+import { SettingsModule } from "./modules/settings/settings.module";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,6 @@ import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
     FriendsPantryComponent,
     UserIconComponent,
     ProductFormComponent,
-    SettingsComponent,
     ScanBarcodeComponent,
     ProfileComponent,
     ProductOverviewComponent,
@@ -54,6 +54,7 @@ import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
     BrowserAnimationsModule,
     PantryModule,
     NotificationsModule,
+    SettingsModule,
     AddFriendsModule,
     DashboardModule,
     ShoppingListModule,

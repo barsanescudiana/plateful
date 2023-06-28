@@ -143,6 +143,16 @@ const controller = {
       res.status(404).send({ message: "not found" });
     }
   },
+
+  getMySettings: async (req, res) => {
+    const user = await db.collection('users').doc(req.caller.id).get();
+
+    if (user.exists) {
+      res.status(200).json(user.data().settings);
+    } else {
+      res.status(404).json({ 'message': 'User not found' });
+    }
+  }
 };
 
 module.exports = controller;

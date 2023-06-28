@@ -1,1 +1,18 @@
-<p>settings works!</p>
+<app-header [withHomeButton]="true"></app-header>
+<div class="content">
+    <div class="title">Settings</div>
+
+    <form class="container" #form="ngForm" (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+        <mat-slide-toggle name="showEmail" class="toggle" [checked]="settings?.showEmail || false">
+            <p>Show my email for others</p>
+        </mat-slide-toggle>
+    
+        <mat-slide-toggle name="showPhone" class="toggle" [checked]="settings?.showPhone || false">
+            <p>Show my phone number for others</p>
+        </mat-slide-toggle>
+
+        <div class="actions">
+            <button type="submit" class="submit-btn">Submit</button>
+        </div>
+    </form>
+</div>
