@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friends-pantry',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class FriendsPantryComponent {
 
+  constructor(private router: Router) {}
+
+  public onAddClicked() {
+    this.router.navigateByUrl('/add-friends');
+  }
 }

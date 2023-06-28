@@ -54,6 +54,18 @@
     letter-spacing: -0.02em;
 
   }
+
+  .send:disabled {
+    color: white;
+    background-color: #A5A5BA;
+    border: none;
+  }
+
+  .share:disabled {
+    border-color: #A5A5BA;
+    color: #A5A5BA;
+  }
+
   .share {
     padding: 8px 16px;
     border-radius: 8px;

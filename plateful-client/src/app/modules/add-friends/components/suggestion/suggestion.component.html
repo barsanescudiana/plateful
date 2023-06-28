@@ -1,7 +1,7 @@
 <div class="container">
     <div class="details">
         <img [src]="user.picture"/>
-        {{ user.firstName }} {{ user.lastName }}
+        <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
     </div>
     <p>
         {{ user.numberOfSharedProducts == 0 ? 'No products shared yet' : '' }}

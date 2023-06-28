@@ -5,3 +5,23 @@
   margin-top: 70px;
   width: 100%;
 }
+
+.actions {
+  @include display-flex(row, center, center, nowrap);
+}
+.add-btn {
+  margin: 14px 0;
+  align-self: center;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  background-color: $iris-100;
+  color: $cloud;
+  height: 38px;
+  font-family: $primary-font;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}

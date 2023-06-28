@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ProfileService } from "./services/profile.service";
 import { User } from "src/app/interfaces/user.interface";
 import { Product } from "src/app/interfaces/product.interface";
+import { FriendshipStatus } from "src/app/enums/friendship-status.enum";
 
 @Component({
   selector: "app-profile",
@@ -16,6 +17,9 @@ export class ProfileComponent implements OnInit {
   public sharedProductsCount: number = 0;
 
   public isUpdateAreaVisible: boolean = false;
+  public friendship: FriendshipStatus = FriendshipStatus.NOT_FRIENDS;
+  public disableBtn: boolean = false;
+  public shareClicked: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,12 +41,50 @@ export class ProfileComponent implements OnInit {
         ) {
           this.canEdit = true;
         }
+
+        this.friendship = this.getFriendshipStatus();
       });
     console.log(this.route.snapshot.params);
   }
 
+  private getFriendshipStatus(): FriendshipStatus {
+    const myId = JSON.parse(localStorage.getItem('USER_DATA')!).id;
+
+    // friends already
+    if(this.user.friends.includes(myId)) {
+      this.disableBtn = true;
+      return FriendshipStatus.FRIENDS;
+    }
+
+    // request sent
+    if(this.user.notifications.find((n: any) => n.detail.requestor === myId)) {
+      this.disableBtn = true;
+      return FriendshipStatus.REQUEST_SENT;
+    }
+
+    // not one or the other
+    return FriendshipStatus.NOT_FRIENDS;
+  }
+
+  public areFriends() {
+    return this.friendship === FriendshipStatus.FRIENDS;
+  }
+
+  public areNotFriends() {
+    return this.friendship === FriendshipStatus.NOT_FRIENDS;
+  }
+
+  public isFriendRequestSent() {
+    return this.friendship === FriendshipStatus.REQUEST_SENT;
+  }
+
   public handleSendClick(): void {
-    console.log("Send");
+    this.profileService.sendFriendRequest(this.route.snapshot.params["userId"])
+      .subscribe(res => {
+        if (res.id) {
+          this.disableBtn = true;
+        }
+      });
   }
 
   public toggleUpdateArea(): void {
@@ -54,6 +96,10 @@ export class ProfileComponent implements OnInit {
   }
 
   public copyProfileLink(): void {
-    console.log("Copy profile link");
+    navigator.clipboard.writeText(window.location.toString());
+    this.shareClicked = true;
+    setTimeout(() => {
+      this.shareClicked = false;
+    }, 1000);
   }
 }

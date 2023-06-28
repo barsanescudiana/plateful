@@ -2,6 +2,27 @@ const db = require("../database");
 const notificationsController = require('../controllers/notifications');
 const { firestore } = require("firebase-admin");
 
+function getPublicInfoOfUser(userData) {
+  const user = userData.data();
+
+  const info = {
+    id: userData.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    picture: user.picture,
+  };
+
+  if (user.settings.showEmail) {
+    info.email = user.email;
+  }
+
+  if (user.settings.showPhone) {
+    info.phoneNumber = user.phoneNumber;
+  }
+
+  return info;
+}
+
 const controller = {
   /**
    * Returns a shuffled array of users of 5 elements or less (only id, name, picture)
@@ -20,20 +41,46 @@ const controller = {
         .sort(() => Math.random() - 0.5)
         .slice(0, 5)
         .map(d => {
-          const user = d.data();
           return {
-            id: d.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            picture: user.picture,
-            numberOfSharedProducts: user.products.filter((i) => i.isShared).length,
-          };
+            ...getPublicInfoOfUser(d),
+            numberOfSharedProducts: d.data().products.filter((i) => i.isShared).length,
+          }
         });
       res.status(200).send({
         suggestions,
       });
     } else {
       res.status(404).send({ 'message': 'No users in the database' });
+    }
+  },
+
+  /**
+   * This function should return all users in the database without the caller.
+   * Is called in the search functionality.
+   * 
+   * @example 'GET /api/friends/all-users'
+   * @param {*} req 
+   * @param {*} res 
+   */
+  getAllUsersExceptMe: async (req, res) => {
+    const user = await db.collection('users').doc(req.caller.id).get();
+
+    if (user.exists) {
+      const allUsers = (await db.collection('users').get()).docs
+        .filter(e => e.id !== req.caller.id)
+        .map(d => {
+          return {
+            ...getPublicInfoOfUser(d),
+            email: {
+              value: d.data().email,
+              visible: d.data().settings.showEmail,
+            },
+          }
+        });
+
+        res.status(200).send({ allUsers });
+    } else {
+      res.status(404).send({ 'message': 'You are not in the database' });
     }
   },
 

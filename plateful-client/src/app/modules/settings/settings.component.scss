@@ -1,0 +1,49 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+    width: 100%;
+    margin-top: 70px;
+    font-family: $primary-font;
+  
+    app-header,
+    app-footer {
+      width: 100%;
+    }
+  
+    app-footer {
+      align-self: flex-end;
+    }
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 50px;
+
+      .toggle p {
+        font-family: $primary-font;
+        margin: 0 0 0 5px;
+      }
+    }
+}
+
+.actions {
+    @include display-flex(row, center, center, nowrap);
+  }
+  .submit-btn {
+    margin: 14px 0;
+    align-self: center;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: $iris-100;
+    color: $cloud;
+    height: 38px;
+    font-family: $primary-font;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+  }

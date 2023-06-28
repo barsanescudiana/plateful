@@ -7,5 +7,6 @@ router.use(checkAuthorization);
 router.get('/suggestions', friendsController.getSuggestions);
 router.post('/send-request', friendsController.sendRequest);
 router.patch('/accept', friendsController.accept);
+router.get('/all-users', friendsController.getAllUsersExceptMe);
 
 module.exports = router;
