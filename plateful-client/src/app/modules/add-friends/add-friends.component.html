@@ -3,28 +3,23 @@
     <div class="title">Add friends</div>
 
     <div class="container">
-        <app-suggestion *ngFor="let suggestion of suggestions;" [user]="suggestion"></app-suggestion>
+        <app-suggestion *ngFor="let suggestion of suggestions;" [user]="suggestion" (click)="onResultClick(suggestion.id)"></app-suggestion>
     </div>
 
     <div class="search-area" [style]="">
         <div class="search">
           <img src="assets/icons/search.svg" alt="search" class="img-search" />
-          <input type="text" placeholder="Search products" />
+          <input type="email" placeholder="Search people by email" (focus)="onInputFocused()" (input)="onInput($event)"/>
         </div>
-        <img
-          src="assets/icons/filters.svg"
-          alt="filters"
-          [class.selected-filter]="selectedFilter === filters[0]"
-          (click)="handleFilterSelection(filters[0])"
-        />
-        <img
-          src="assets/icons/sort.svg"
-          alt="sort"
-          [class.selected-filter]="selectedFilter === filters[1]"
-          (click)="handleFilterSelection(filters[1])"
-        />
       </div>
-      <div class="filters-area" [hidden]="selectedFilter !== filters[0]">
-        filters area
+
+    <div class="results" *ngIf="!isSearchResultsEmpty()">
+      <div class="result" *ngFor="let user of searchResult;" (click)="onResultClick(user.id)">
+        <img [src]="user.picture">
+        <div class="info">
+          <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
+          <p class="email" *ngIf="user.email.visible"> {{ user.email.value }} </p>
+        </div>
       </div>
+    </div>
 </div>

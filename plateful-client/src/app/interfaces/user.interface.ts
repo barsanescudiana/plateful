@@ -30,3 +30,14 @@ export interface UserSuggestion {
   picture: string;
   numberOfSharedProducts: number;
 }
+
+export interface UserEmail {
+  id: string;
+  firstName: string;
+  lastName: string;
+  picture: string;
+  email: {
+    value: string;
+    visible: boolean;
+  };
+}

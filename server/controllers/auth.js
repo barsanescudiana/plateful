@@ -99,6 +99,10 @@ const controller = {
           products: [],
           shoppingListItems: [],
           notifications: [],
+          settings: {
+            showEmail: false,
+            showPhone: false,
+          },
         }
         const newUser = await usersRef.add(user);
         response.user = (await newUser.get()).data();
