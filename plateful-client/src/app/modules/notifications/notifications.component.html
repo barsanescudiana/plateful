@@ -1,1 +1,8 @@
-<p>notifications works!</p>
+<app-header [withHomeButton]="true"></app-header>
+<div class="content">
+    <div class="title">Notifications</div>
+
+    <div class="container">
+        <app-notification-card *ngFor="let notification of notifications;" [notification]="notification"></app-notification-card>
+    </div>
+</div>

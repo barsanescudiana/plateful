@@ -19,13 +19,13 @@ import {
   SocialLoginModule,
   SocialAuthServiceConfig,
 } from "@abacritt/angularx-social-login";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ShoppingListModule } from "./modules/shopping-list/shopping-list.module";
 import { ProductFormComponent } from "./modules/product-form/product-form.component";
 import { SettingsComponent } from "./modules/settings/settings.component";
-import { NotificationsComponent } from "./modules/notifications/notifications.component";
+import { NotificationsModule } from "./modules/notifications/notifications.module";
 import { ScanBarcodeComponent } from "./modules/scan-barcode/scan-barcode.component";
 import { ProfileComponent } from "./modules/profile/profile.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -33,6 +33,9 @@ import { MatInputModule } from "@angular/material/input";
 import { ProductOverviewComponent } from "./modules/product-overview/product-overview.component";
 import { NgxBarcodeScannerModule } from "@eisberg-labs/ngx-barcode-scanner";
 import { RecipesModule } from "./modules/recipes/recipes.module";
+import { AccessTokenInterceptor } from "./http-interceptors/accessToken.interceptor";
+import { NotificationCardComponent } from './modules/notifications/components/notification-card/notification-card.component';
+import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
 
 @NgModule({
   declarations: [
@@ -41,7 +44,6 @@ import { RecipesModule } from "./modules/recipes/recipes.module";
     UserIconComponent,
     ProductFormComponent,
     SettingsComponent,
-    NotificationsComponent,
     ScanBarcodeComponent,
     ProfileComponent,
     ProductOverviewComponent,
@@ -51,6 +53,8 @@ import { RecipesModule } from "./modules/recipes/recipes.module";
     AppRoutingModule,
     BrowserAnimationsModule,
     PantryModule,
+    NotificationsModule,
+    AddFriendsModule,
     DashboardModule,
     ShoppingListModule,
     SharedModule,
@@ -79,6 +83,10 @@ import { RecipesModule } from "./modules/recipes/recipes.module";
           },
         ],
       } as SocialAuthServiceConfig,
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],

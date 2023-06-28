@@ -13,6 +13,7 @@ import { ProductFormComponent } from "./modules/product-form/product-form.compon
 import { ProfileComponent } from "./modules/profile/profile.component";
 import { ScanBarcodeComponent } from "./modules/scan-barcode/scan-barcode.component";
 import { ProductOverviewComponent } from "./modules/product-overview/product-overview.component";
+import { AddFriendsComponent } from "./modules/add-friends/add-friends.component";
 
 const routes: Routes = [
   {
@@ -79,6 +80,11 @@ const routes: Routes = [
     component: ProductOverviewComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: "add-friends",
+    component: AddFriendsComponent,
+    canActivate: [AuthGuard],
+  }
 ];
 
 @NgModule({

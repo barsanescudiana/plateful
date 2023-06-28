@@ -1,0 +1,74 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+p {
+    margin: 0;
+}
+
+.notification-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.content {
+    display:flex;
+    align-items: center;
+    font-size: 15px;
+
+    .name {
+        font-weight: bold;
+    }
+
+    img {
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+}
+
+.time {
+    opacity: 0.5;
+    margin-left: 50px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.action-btn.accept {
+    background-color: #C7EFE5;
+    color: $evergreen-100;
+    font-weight: 600;
+}
+
+.action-btn.decline {
+    color: #EF5DA8;
+    background-color: white;
+    border: 1px solid #EF5DA8;
+}
+
+.hide {
+    display: none;
+}
+
+.action-btn:disabled {
+    color: white;
+    background-color: #A5A5BA;
+    border: none;
+}
+
+.action-btn {
+    align-self: center;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    height: 38px;
+    font-family: $primary-font;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16px;
+}

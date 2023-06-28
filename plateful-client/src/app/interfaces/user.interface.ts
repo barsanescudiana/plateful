@@ -15,3 +15,18 @@ export interface User {
   shoppingListItems: string[];
   picture: string;
 }
+
+export interface UserPublicInfo {
+  id: string;
+  firstName: string;
+  lastName: string;
+  picture: string;
+}
+
+export interface UserSuggestion {
+  id: string;
+  firstName: string;
+  lastName: string;
+  picture: string;
+  numberOfSharedProducts: number;
+}

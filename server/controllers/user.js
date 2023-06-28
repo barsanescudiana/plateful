@@ -3,10 +3,10 @@ const FieldValue = require('firebase-admin').firestore.FieldValue;
 const firestore = require('firebase-admin').firestore;
 const Timestamp = require('firebase-admin').firestore.Timestamp;
 
-const controller = { 
+const controller = {
 
   getShoppingListData: async (req, res) => {
-    const docRef = db.collection('users').doc(req.query.id);
+    const docRef = db.collection('users').doc(req.caller.id);
     const userData = await docRef.get();
 
     if (userData.exists) {
@@ -18,7 +18,7 @@ const controller = {
   },
 
   updateShoppingList: async (req, res) => {
-    const docRef = db.collection('users').doc(req.body.id);
+    const docRef = db.collection('users').doc(req.caller.id);
     const userToUpdate = await docRef.get();
 
     let response = {};
@@ -54,14 +54,14 @@ const controller = {
     let productId = '';
 
     await productsDB.add({
-      userId: req.body.userId, 
+      userId: req.caller.id, 
       ...product,
       dateAdded: Timestamp.fromDate(new Date())
     }).then((docRef) => {
         productId = docRef.id;
       });
 
-    const userRef = await db.collection('users').doc(req.body.userId);
+    const userRef = await db.collection('users').doc(req.caller.id);
     const user = await userRef.get(); 
     if (user.exists) {
       newProductsArray = user.data().products;
@@ -79,12 +79,10 @@ const controller = {
   },
 
   getProducts: async (req, res) => {
-    const userRef = await db.collection('users').doc(req.query.userId);
-    const user = await userRef.get(); 
-    let products = [];
+    const user = req.caller;
     
-    if(user.exists) {
-      products = user.data().products;
+    if(user) {
+      products = user.products;
       products.forEach(product => {
         product.expirationDate = product.expirationDate.toDate();
       });
@@ -95,13 +93,10 @@ const controller = {
   },
 
   getProductById: async (req, res) => {
-    const userRef = await db.collection('users').doc(req.query.userId);
-    const user = await userRef.get(); 
-    let response;
-    let products;
+    const user = req.caller;
 
-    if(user.exists) {
-      products = user.data().products;
+    if(user) {
+      products = user.products;
 
       products.forEach((product) => {
         if (
@@ -125,6 +120,20 @@ const controller = {
     }
 
     console.log(req.params.productId);
+  },
+
+  //internal
+  getPublicInfoById: async (userId) => {
+    const user = await db.collection('users').doc(userId).get();
+    if (user.exists) {
+      const u = user.data();
+      return {
+        id: user.id,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        picture: u.picture,
+      }
+    }
   }
 }
 

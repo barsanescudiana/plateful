@@ -1,0 +1,26 @@
+<div class="notification-card">
+    <div *ngIf="isFriendRequest()" class="friend-request">
+        <div class="content">
+            <img [src]="notification.detail.requestor.picture">
+            <p>
+                <span class="name">
+                    {{ notification.detail.requestor.firstName }} {{ notification.detail.requestor.lastName }} 
+                </span>
+                 wants to be friends!
+            </p>
+        </div>
+        <p class="time"> {{ time }} </p>
+        <div class="actions">
+            <button (click)="onAccept()" class="action-btn accept" [class.hide]="deleted" [disabled]="accepted || deleted">
+                {{ accepted ? 'Accepted' : 'Accept' }}
+            </button>
+            <button (click)="onDecline()" class="action-btn decline" [class.hide]="accepted" [disabled]="accepted || deleted">
+                {{ deleted ? 'Declined' : 'Decline' }}
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="isExpiry()" class="expiry"></div>
+
+    <div *ngIf="isGeneric()" class="generic"></div>
+</div>

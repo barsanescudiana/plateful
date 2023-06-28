@@ -1,0 +1,30 @@
+<app-header [withHomeButton]="true"></app-header>
+<div class="content">
+    <div class="title">Add friends</div>
+
+    <div class="container">
+        <app-suggestion *ngFor="let suggestion of suggestions;" [user]="suggestion"></app-suggestion>
+    </div>
+
+    <div class="search-area" [style]="">
+        <div class="search">
+          <img src="assets/icons/search.svg" alt="search" class="img-search" />
+          <input type="text" placeholder="Search products" />
+        </div>
+        <img
+          src="assets/icons/filters.svg"
+          alt="filters"
+          [class.selected-filter]="selectedFilter === filters[0]"
+          (click)="handleFilterSelection(filters[0])"
+        />
+        <img
+          src="assets/icons/sort.svg"
+          alt="sort"
+          [class.selected-filter]="selectedFilter === filters[1]"
+          (click)="handleFilterSelection(filters[1])"
+        />
+      </div>
+      <div class="filters-area" [hidden]="selectedFilter !== filters[0]">
+        filters area
+      </div>
+</div>
