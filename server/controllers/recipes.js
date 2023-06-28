@@ -65,6 +65,8 @@ const controller = {
     });
     res.status(200).send(recipesToSend);
   },
+
+  addToFavorites: async (req, res) => {},
 };
 
 module.exports = controller;

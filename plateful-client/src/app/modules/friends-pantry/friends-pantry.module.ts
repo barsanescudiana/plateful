@@ -1,15 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FriendsPantryComponent } from './friends-pantry/friends-pantry.component';
-
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FriendsPantryComponent } from "./friends-pantry.component";
 
 @NgModule({
-  declarations: [
-    FriendsPantryComponent
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [FriendsPantryComponent],
+  imports: [CommonModule],
 })
-export class FriendsPantryModule { }
+export class FriendsPantryModule {}
