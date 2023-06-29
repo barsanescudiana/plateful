@@ -29,3 +29,14 @@
   margin-bottom: 14px;
   letter-spacing: -0.02em;
 }
+
+ngx-barcode-scanner {
+  #interactive.viewport {
+    border-radius: 20px !important;
+    height: 30vh !important;
+  }
+}
+
+.hidden {
+  display: none !important;
+}

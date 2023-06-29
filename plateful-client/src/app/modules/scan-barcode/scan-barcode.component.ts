@@ -1,21 +1,59 @@
-import { Component } from "@angular/core";
-import { NgxBarcodeScannerService } from "@eisberg-labs/ngx-barcode-scanner";
+import {
+  Component,
+  SimpleChanges,
+  OnInit,
+  OnChanges,
+  ChangeDetectorRef,
+} from "@angular/core";
+import { BarcodeFormat } from "@zxing/library";
+import { ZXingScannerComponent } from "@zxing/ngx-scanner";
+import { ScanService } from "./scan.service";
+import { Product } from "src/app/interfaces/product.interface";
 
 @Component({
   selector: "app-scan-barcode",
   templateUrl: "./scan-barcode.component.html",
   styleUrls: ["./scan-barcode.component.scss"],
 })
-export class ScanBarcodeComponent {
+export class ScanBarcodeComponent implements OnChanges {
   public value: string = "";
   public isError: boolean = false;
+  public isEnabled: boolean = true;
+
+  public scannedProduct: any;
+  public productToAdd: Product | any;
+
+  public allowedFormats = [BarcodeFormat.EAN_13];
+
+  constructor(
+    private scanService: ScanService,
+    private cd: ChangeDetectorRef
+  ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 
   public onError(error: any) {
-    console.error(error);
+    console.log("error", error);
     this.isError = true;
   }
 
-  public onCodeScannerValueChange(event: any): void {
-    console.log(event);
+  public onSuccess(event: any) {
+    if (this.isEnabled) {
+      this.scanService.getProductByBarcode(event).subscribe((data) => {
+        this.scannedProduct = data;
+        this.isEnabled = false;
+      });
+    }
+    this.cd.detectChanges();
+  }
+
+  public onFailure(event: any) {
+    console.log("failure", event);
+  }
+
+  public onComplete(event: any) {
+    console.log("Complete", event);
   }
 }

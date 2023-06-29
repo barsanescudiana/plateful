@@ -19,14 +19,12 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ShoppingListModule } from "./modules/shopping-list/shopping-list.module";
 import { ProductFormComponent } from "./modules/product-form/product-form.component";
-import { SettingsComponent } from "./modules/settings/settings.component";
 import { NotificationsModule } from "./modules/notifications/notifications.module";
 import { ScanBarcodeComponent } from "./modules/scan-barcode/scan-barcode.component";
 import { ProfileComponent } from "./modules/profile/profile.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { ProductOverviewComponent } from "./modules/product-overview/product-overview.component";
-import { NgxBarcodeScannerModule } from "@eisberg-labs/ngx-barcode-scanner";
 import { RecipesModule } from "./modules/recipes/recipes.module";
 import { AccessTokenInterceptor } from "./http-interceptors/accessToken.interceptor";
 import { NotificationCardComponent } from "./modules/notifications/components/notification-card/notification-card.component";
@@ -35,6 +33,8 @@ import { SettingsModule } from "./modules/settings/settings.module";
 import { ShareProductDialogComponent } from "./modules/product-overview/components/share-product-dialog/share-product-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { FriendsPantryModule } from "./modules/friends-pantry/friends-pantry.module";
+import { ZXingScannerModule } from "@zxing/ngx-scanner";
+import { CompleteScanComponent } from './modules/complete-scan/complete-scan.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { FriendsPantryModule } from "./modules/friends-pantry/friends-pantry.mod
     ProfileComponent,
     ProductOverviewComponent,
     ShareProductDialogComponent,
+    CompleteScanComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,10 +66,10 @@ import { FriendsPantryModule } from "./modules/friends-pantry/friends-pantry.mod
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
-    NgxBarcodeScannerModule,
     RecipesModule,
     MatDialogModule,
     FriendsPantryModule,
+    ZXingScannerModule,
   ],
   providers: [
     {

@@ -1,0 +1,17 @@
+<div class="content">
+  <div class="title">Add product</div>
+  <div class="info" *ngIf="hasMissingAttributes">
+    <div class="info-title">
+      <img src="assets/icons/warning.svg" alt="warning" />
+      <span> Missing information </span>
+    </div>
+    <div class="missing" *ngFor="let attribute of missingAttributes">
+      You are missing information about
+      <span> {{ attribute }}. </span>
+    </div>
+  </div>
+  <app-product-form
+    [productFromScan]="productToAdd"
+    [withTitle]="false"
+  ></app-product-form>
+</div>

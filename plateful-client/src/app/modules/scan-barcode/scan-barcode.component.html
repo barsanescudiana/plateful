@@ -1,17 +1,22 @@
-<div class="content">
-  <app-header [withHomeButton]="true"></app-header>
-  <div class="title">Scan product barcode</div>
-  <div class="value" *ngIf="value">
-    <span>{{value}}</span>
+<app-header [withHomeButton]="true"></app-header>
+<ng-container *ngIf="isEnabled; else scanComplete">
+  <div class="content">
+    <div class="title">Scan product barcode</div>
+    <div class="value" *ngIf="value">
+      <span>{{value}}</span>
+    </div>
+    <div class="error" *ngIf="isError">
+      Scanner is not available as there is no device found to scan with.
+    </div>
+    <zxing-scanner
+      [class.hidden]="!isEnabled"
+      [enable]="isEnabled"
+      [formats]="allowedFormats"
+      (scanError)="onError($event)"
+      (scanSuccess)="onSuccess($event)"
+    ></zxing-scanner>
   </div>
-  <div class="error" *ngIf="isError">
-    Scanner is not available as there is no device found to scan with.
-  </div>
-  <ngx-barcode-scanner
-    [(value)]="value"
-    [codes]="['code_128', 'ean', 'upc', 'upc_e', 'ean_8']"
-    [errorThreshold]="0.1"
-    (exception)="onError($event)"
-    (valueChange)="onCodeScannerValueChange($event)"
-  ></ngx-barcode-scanner>
-</div>
+</ng-container>
+<ng-template #scanComplete>
+  <app-complete-scan [scannedProduct]="scannedProduct"> </app-complete-scan>
+</ng-template>

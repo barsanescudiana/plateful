@@ -1,11 +1,19 @@
-<app-header [withHomeButton]="true"></app-header>
-<div class="content">
-  <span class="title"> Add product </span>
+<app-header [withHomeButton]="true" *ngIf="withTitle"></app-header>
+<div class="content" [class.no-margin]="!withTitle">
+  <span class="title" *ngIf="withTitle"> Add product </span>
+  <div *ngIf="!withTitle && validForm" class="error-messages">
+    <div *ngIf="measurementControl && measurementControl.errors?.['required']">
+      Please select a measurement unit.
+    </div>
+    <!-- Add more error messages for other form controls if needed -->
+  </div>
   <form (ngSubmit)="onSubmit()" #form="ngForm" [formGroup]="formGroup">
     <div class="section-columns">
       <div class="section">
-        <div class="section-name">
-          <span class="label">Product name</span>
+        <div class="section-name" [class.error]="checkControlIsInvalid('name')">
+          <span class="label"
+            >Product name <span class="required">*</span></span
+          >
 
           <input
             matInput
@@ -14,12 +22,17 @@
             name="name"
             placeholder="Product name"
           />
+          <div class="error-message" *ngIf="checkControlIsInvalid('name')">
+            Product name is required.
+          </div>
         </div>
       </div>
 
       <div class="section">
-        <div class="section-date">
-          <span class="label">Expiration date</span>
+        <div class="section-date" [class.error]="checkControlIsInvalid('date')">
+          <span class="label"
+            >Expiration date <span class="required">*</span></span
+          >
           <input
             matInput
             type="date"
@@ -27,13 +40,19 @@
             name="date"
             placeholder="placeHolder"
           />
+          <div class="error-message" *ngIf="checkControlIsInvalid('date')">
+            Date is required.
+          </div>
         </div>
       </div>
     </div>
     <div class="section-columns">
       <div class="section">
-        <div class="section-quantity">
-          <span class="label">Quantity</span>
+        <div
+          class="section-quantity"
+          [class.error]="checkControlIsInvalid('quantity')"
+        >
+          <span class="label">Quantity <span class="required">*</span></span>
           <input
             matInput
             type="number"
@@ -41,38 +60,64 @@
             name="quantity"
             placeholder="Quantity"
           />
+          <div class="error-message" *ngIf="checkControlIsInvalid('quantity')">
+            Quantity is required.
+          </div>
         </div>
       </div>
       <div class="section">
-        <div class="section-measurement">
-          <span class="label"> Measurement unit </span>
+        <div
+          class="section-measurement"
+          [class.error]="checkControlIsInvalid('measurement')"
+        >
+          <span class="label">
+            Measurement unit <span class="required">*</span></span
+          >
           <select name="measurement" formControlName="measurement">
             <option *ngFor="let unit of measurementUnits" [value]="unit.short">
               {{unit.name}}
             </option>
           </select>
+          <div
+            class="error-message"
+            *ngIf="checkControlIsInvalid('measurement')"
+          >
+            Measurement unit is required.
+          </div>
         </div>
       </div>
     </div>
     <div class="section-columns">
       <div class="section">
-        <div class="section-storage">
-          <span class="label"> Storage </span>
+        <div
+          class="section-storage"
+          [class.error]="checkControlIsInvalid('storage')"
+        >
+          <span class="label"> Storage <span class="required">*</span></span>
           <select name="storage" formControlName="storage">
             <option *ngFor="let option of storageOptions" [value]="option">
               {{ option }}
             </option>
           </select>
+          <div class="error-message" *ngIf="checkControlIsInvalid('storage')">
+            Storage is required.
+          </div>
         </div>
       </div>
       <div class="section">
-        <div class="section-category">
-          <span class="label"> Category </span>
+        <div
+          class="section-category"
+          [class.error]="checkControlIsInvalid('category')"
+        >
+          <span class="label"> Category<span class="required">*</span> </span>
           <select name="category" formControlName="category">
             <option *ngFor="let option of categories" [value]="option">
               {{ option }}
             </option>
           </select>
+          <div class="error-message" *ngIf="checkControlIsInvalid('category')">
+            Category is required.
+          </div>
         </div>
       </div>
     </div>
@@ -103,13 +148,7 @@
       </div>
     </div>
     <div class="actions">
-      <button
-        type="submit"
-        [disabled]="!formGroup.valid"
-        [class.disabled]="!formGroup.valid"
-      >
-        Add product
-      </button>
+      <button type="submit">Add product</button>
     </div>
   </form>
 </div>

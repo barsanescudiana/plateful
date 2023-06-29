@@ -1,0 +1,41 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.content {
+  margin-top: 70px;
+  width: 100%;
+}
+
+.info {
+  flex: 1;
+  padding: 14px;
+  background-color: #fff2d9;
+  border-radius: 10px;
+
+  img {
+    width: 14px;
+    height: auto;
+  }
+
+  &-title {
+    color: $oranges-100;
+    font-size: 16px;
+    font-family: $primary-font;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+}
+.missing {
+  color: $onyx-100;
+  font-size: 14px;
+  font-family: $primary-font;
+  font-weight: 400px;
+  letter-spacing: -0.02em;
+
+  span {
+    color: $oranges-100;
+
+    font-weight: 700;
+  }
+}
