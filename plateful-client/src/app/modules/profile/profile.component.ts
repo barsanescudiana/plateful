@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
 
         this.friendship = this.getFriendshipStatus();
       });
-    console.log(this.route.snapshot.params);
+
   }
 
   private getFriendshipStatus(): FriendshipStatus {

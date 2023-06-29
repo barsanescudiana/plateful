@@ -1,0 +1,38 @@
+@import "src/app/stylesheets/helpers/_variables.scss";
+@import "src/app/stylesheets/helpers/_mixins.scss";
+
+.container {
+  @include display-flex(row, space-evenly, flex-start, nowrap);
+  width: 100%;
+  font-family: $primary-font;
+  margin-bottom: 10px;
+
+  .image {
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+    }
+
+    margin-right: 8px;
+  }
+
+  app-product-card {
+    width: 100%;
+  }
+
+  .claim-button {
+    @include display-flex(row, center, center, nowrap);
+
+    align-self: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: $evergreen-100;
+    margin: 0 14px;
+
+    img {
+      width: 20px;
+      height: auto;
+    }
+  }
+}

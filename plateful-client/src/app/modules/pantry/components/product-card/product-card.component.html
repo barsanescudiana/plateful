@@ -3,13 +3,16 @@
   (click)="handleProductClick()"
   [class.with-border]="border"
   [style.border-color]="color"
+  [class.without-margin]="!margin"
 >
   <div class="image">{{ getProductEmoji() }}</div>
   <div class="first-column">
     <div class="name">
       {{ product.name }}
-      <span class="shared" *ngIf="product.isShared"> Shared </span>
-      <span class="claimed" *ngIf="product.isClaimed"> Claimed </span>
+      <span class="shared" *ngIf="product.isShared && withPill"> Shared </span>
+      <span class="claimed" *ngIf="product.isClaimed && withPill">
+        Claimed
+      </span>
     </div>
     <div
       class="date"

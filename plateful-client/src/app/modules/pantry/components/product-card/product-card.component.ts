@@ -13,6 +13,8 @@ import { Product } from "src/app/interfaces/product.interface";
 export class ProductCardComponent implements OnInit {
   @Input() product: Product | any;
   @Input() border: any;
+  @Input() margin: boolean = true;
+  @Input() withPill: boolean = true;
   public color: string = "";
   public formattedDate: string = "";
 

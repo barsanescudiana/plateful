@@ -135,8 +135,6 @@ export class ProductFormComponent {
       if (nutritionalValues) {
         this.product.nutritionalValues = nutritionalValues;
       }
-
-      console.log(this.product);
     });
   }
 

@@ -3,11 +3,6 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AuthComponent } from "./modules/auth/auth.component";
-import { PantryComponent } from "./modules/pantry/pantry.component";
-import { RecipesComponent } from "./modules/recipes/recipes.component";
-import { ShoppingListComponent } from "./modules/shopping-list/shopping-list.component";
-import { FriendsPantryComponent } from "./modules/friends-pantry/friends-pantry.component";
 import { UserIconComponent } from "./components/user-icon/user-icon.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SharedModule } from "./components/shared.module";
@@ -39,11 +34,11 @@ import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
 import { SettingsModule } from "./modules/settings/settings.module";
 import { ShareProductDialogComponent } from "./modules/product-overview/components/share-product-dialog/share-product-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
+import { FriendsPantryModule } from "./modules/friends-pantry/friends-pantry.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    FriendsPantryComponent,
     UserIconComponent,
     ProductFormComponent,
     ScanBarcodeComponent,
@@ -73,6 +68,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     NgxBarcodeScannerModule,
     RecipesModule,
     MatDialogModule,
+    FriendsPantryModule,
   ],
   providers: [
     {

@@ -21,7 +21,7 @@ export class AuthComponent {
   ngOnInit(): void {
     if (localStorage.getItem("USER_DATA")) {
       localStorage.removeItem("USER_DATA");
-      localStorage.removeItem('Tokens.AccessToken');
+      localStorage.removeItem("Tokens.AccessToken");
     }
     // @ts-ignore
     window.onGoogleLibraryLoad = () => {
@@ -61,7 +61,6 @@ export class AuthComponent {
         console.log(error);
       }
     );
-    console.log(response);
   }
 
   // loginWithGoogle(): void {
