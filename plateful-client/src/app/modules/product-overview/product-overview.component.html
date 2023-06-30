@@ -3,13 +3,13 @@
   <div class="actions" *ngIf="product && expirationInfo">
     <div
       class="share"
-      [class.is-shared]="product.isShared"
+      [class.is-shared]="product.isShared || expirationInfo.expired"
       (click)="shareProduct()"
     >
       <img
         src="assets/icons/share-green.svg"
         alt="share"
-        *ngIf="!product.isClaimed && !product.isShared"
+        *ngIf="!product.isShared && !expirationInfo.expired "
       />
       <img
         src="assets/icons/share-disabled.svg"
@@ -86,7 +86,10 @@
       </div>
     </div>
   </div>
-  <div class="recipes-area" *ngIf="!expirationInfo.expired">
+  <div
+    class="recipes-area"
+    *ngIf="!expirationInfo.expired && suggestedRecipes?.length"
+  >
     <div class="area-title">What can you do with it?</div>
     <div class="cards">
       <app-recipe-card

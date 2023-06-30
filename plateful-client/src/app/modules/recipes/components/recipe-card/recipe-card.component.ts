@@ -16,7 +16,9 @@ export class RecipeCardComponent implements OnInit {
   imageUrl: string =
     "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg";
   @Input() recipe: Recipe | any;
-  public shortTitle: string = '';
+  public shortTitle: string = "";
+  public isFavorite = false;
+  public availableIngredients: number = 0;
 
   constructor(private recipesService: RecipesService) {}
 
@@ -25,10 +27,37 @@ export class RecipeCardComponent implements OnInit {
     this.imageUrl = this.recipe.image;
 
     if (this.recipe.title.length > 40) {
-      this.shortTitle = this.recipe.title.substring(0, 40) + '...'
+      this.shortTitle = this.recipe.title.substring(0, 40) + "...";
     } else {
       this.shortTitle = this.recipe.title;
     }
 
+    this.isFavorite = this.recipe.isFavorite;
+    this.getAvailableIngredients();
+
+    console.log(this.recipe.extendedIngredients);
+  }
+
+  public addToFavorites(): void {
+    this.recipesService.addToFavorites(this.recipe).subscribe((data) => {
+      if (data) {
+        this.isFavorite = true;
+      }
+    });
+  }
+
+  private getAvailableIngredients(): void {
+    this.user?.products.forEach((item) => {
+      if (this.recipe.extendedIngredients) {
+        this.recipe.extendedIngredients.forEach((ingredient: any) => {
+          if (
+            ingredient.name.toLowerCase().includes(item.name?.toLowerCase()) ||
+            item.name?.toLowerCase().includes(ingredient.name.toLowerCase())
+          ) {
+            this.availableIngredients += 1;
+          }
+        });
+      }
+    });
   }
 }

@@ -157,7 +157,7 @@ const controller = {
   shareProduct: async (req, res) => {
     const userRef = await db.collection("users").doc(req.caller.id);
     const user = await userRef.get();
-    console.log(req.body.productId);
+
     if (user.exists) {
       let newProducts = user.data().products.map((item) => {
         if (item.id === req.body.productId) {
@@ -181,6 +181,29 @@ const controller = {
         );
     } else {
       res.status(404).json({ message: "User not found" });
+    }
+  },
+  deleteProduct: async (req, res) => {
+    const userRef = await db.collection("users").doc(req.caller.id);
+    const user = await userRef.get();
+
+    const productToDelete = req.body.product;
+
+    if (user.exists) {
+      let newProducts = user.data().products;
+      const index = newProducts.findIndex(
+        (product) => product.id === productToDelete.id
+      );
+      console.log(index);
+      if (index > -1) {
+        newProducts.splice(index, 1);
+      }
+
+      console.log(newProducts);
+
+      const updatedData = { products: newProducts };
+
+      await userRef.update(updatedData);
     }
   },
 };

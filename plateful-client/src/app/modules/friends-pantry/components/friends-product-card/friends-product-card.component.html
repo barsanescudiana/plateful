@@ -8,6 +8,7 @@
     [product]="product.product"
     [margin]="false"
     [withPill]="false"
+    (click)="handleProductClick()"
   ></app-product-card>
   <div class="claim-button" (click)="handleProductClaim()">
     <img src="assets/icons/claim.svg" alt="claim" />

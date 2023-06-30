@@ -12,5 +12,6 @@ router.get("/settings/me", userController.getMySettings);
 router.patch("/edit/shopping-list", userController.updateShoppingList);
 router.patch("/products/add", userController.updateProductsList);
 router.patch("/products/share", userController.shareProduct);
+router.patch("/products/delete", userController.deleteProduct);
 
 module.exports = router;

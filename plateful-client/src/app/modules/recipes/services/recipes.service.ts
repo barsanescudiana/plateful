@@ -27,21 +27,25 @@ export class RecipesService {
     return this.http.get(`${this.path}recipes/from-db`) as Observable<Recipe[]>;
   }
 
-  public getFavorites(userId: string): Observable<Recipe[]> {
+  public getFavorites(): Observable<any> {
     return this.http.get(`${this.path}recipes/favorites`, {
       params: {
-        userId: userId,
         count: 2,
+      },
+    }) as Observable<any>;
+  }
+
+  public getPerfectMatch(): Observable<Recipe[]> {
+    return this.http.get(`${this.path}recipes/perfect-match`, {
+      params: {
+        count: 3,
       },
     }) as Observable<Recipe[]>;
   }
 
-  public getPerfectMatch(userId: string): Observable<Recipe[]> {
-    return this.http.get(`${this.path}recipes/perfect-match`, {
-      params: {
-        userId: userId,
-        count: 3,
-      },
-    }) as Observable<Recipe[]>;
+  public addToFavorites(recipe: any): Observable<any> {
+    return this.http.patch(`${this.path}recipes/favorites`, {
+      recipeId: recipe.id,
+    });
   }
 }

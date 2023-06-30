@@ -148,25 +148,24 @@ export class ProductFormComponent {
   }
 
   public onSubmit(): void {
-    console.log("sumbit");
-
     if (this.formGroup.valid) {
-      const productToAdd: Product = this.product;
+      if (this.productFromScan?.nutritionalValues) {
+        this.product.nutritionalValues = this.productFromScan.nutritionalValues;
+      }
+
+      let productToAdd: Product = this.product;
       productToAdd.isClaimed = false;
       productToAdd.isShared = false;
       productToAdd.dateAdded = new Date();
-      if (this.user && this.formGroup.valid) {
-        this.pantryService
-          .addProduct(this.user.id, productToAdd)
-          .subscribe((result: { message: string }) => {
-            if (result.message === "Added") {
-              this.router.navigateByUrl("/pantry");
-            }
-          });
-      }
-    } else {
-      console.log("else");
 
+      this.pantryService
+        .addProduct(productToAdd)
+        .subscribe((result: { message: string }) => {
+          if (result.message === "Added") {
+            this.router.navigateByUrl("/pantry");
+          }
+        });
+    } else {
       this.formGroup.markAllAsTouched();
     }
   }

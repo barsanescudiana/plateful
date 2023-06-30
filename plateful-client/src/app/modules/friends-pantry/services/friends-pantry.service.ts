@@ -18,4 +18,10 @@ export class FriendsPantryService {
       sharedProductsOfFriends: Product[];
     }>;
   }
+
+  public claimProduct(claimeeId: string, productId: string): Observable<any> {
+    return this.http.post(`${this.path}/${claimeeId}/products/claim`, {
+      productId: productId,
+    }) as Observable<any>;
+  }
 }

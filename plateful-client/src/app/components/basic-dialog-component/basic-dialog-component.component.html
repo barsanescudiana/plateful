@@ -3,10 +3,10 @@
 </div>
 <mat-dialog-content>
   <span class="text">
-    You've successfully shared
-    <span class="name" [style.color]="color"> {{ productName }} </span> with
-    your friends!</span
-  >
+    {{ isShareDialog ? 'You`ve successfully shared' : 'You`ve successfully deleted' }}
+    <span class="name" [style.color]="color"> {{ productName }} </span>
+    {{ isShareDialog ? 'with your friends!' : 'from your pantry!' }}
+  </span>
 
   <div class="hint" [style.color]="color">
     <div class="bullet" [style.background-color]="color"></div>

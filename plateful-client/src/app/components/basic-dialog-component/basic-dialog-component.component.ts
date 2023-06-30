@@ -3,7 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 interface DialogData {
   title: string;
-  options?: {
+  options: {
+    type: string;
     payload?: any;
   };
 }
@@ -21,6 +22,7 @@ export class BasicDialogComponentComponent {
   public hintText = "";
 
   public selectedOption: string = "";
+  public isShareDialog: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<BasicDialogComponentComponent>,
@@ -28,12 +30,16 @@ export class BasicDialogComponentComponent {
   ) {
     this.title = data.title;
 
-    if (data.options && this.options.payload) {
+    if (data.options?.payload) {
       this.options.payload = data.options.payload;
 
       this.productName = data.options.payload.productName;
       this.color = data.options.payload.color;
       this.hintText = data.options.payload.hintText;
+    }
+
+    if (data.options.type === "delete") {
+      this.isShareDialog = false;
     }
   }
 

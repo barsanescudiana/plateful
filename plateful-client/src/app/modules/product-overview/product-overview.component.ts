@@ -162,10 +162,70 @@ export class ProductOverviewComponent implements OnInit {
   }
 
   public shareProduct() {
+    if (!this.product.isShared && !this.expirationInfo.expired) {
+      const dialogRef = this.dialog.open(ShareProductDialogComponent, {
+        data: {
+          title: "Share product",
+          options: {
+            type: "share",
+            payload: {
+              product: this.product,
+              color: this.color,
+            },
+          },
+        },
+      });
+
+      dialogRef.afterClosed().subscribe(async (result) => {
+        if (result === "Shared") {
+          await this.pantryService
+            .shareProduct(this.product.id!)
+            .subscribe((data) => {
+              this.product = data;
+            });
+
+          const dialogRef = this.dialog.open(BasicDialogComponentComponent, {
+            data: {
+              title: "Congrats!",
+              options: {
+                payload: {
+                  productName: this.product.name,
+                  color: this.color,
+                  hintText: this.expirationInfo.good
+                    ? this.expirationInfo.text +
+                      " over " +
+                      this.expirationInfo.days +
+                      " days!"
+                    : this.expirationInfo.text +
+                      " " +
+                      this.expirationInfo.days +
+                      " days!",
+                },
+              },
+            },
+          });
+
+          dialogRef.afterClosed().subscribe(async (result) => {
+            if (result === "Completed") {
+              await this.pantryService
+                .getProductById(this.product.id!, this.user!.id)
+                .subscribe((data) => {
+                  this.product = data;
+                  this.cd.detectChanges();
+                });
+            }
+          });
+        }
+      });
+    }
+  }
+
+  public deleteProduct() {
     const dialogRef = this.dialog.open(ShareProductDialogComponent, {
       data: {
-        title: "Share product",
+        title: "Delete product",
         options: {
+          type: "delete",
           payload: {
             product: this.product,
             color: this.color,
@@ -174,18 +234,14 @@ export class ProductOverviewComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(async (result) => {
-      if (result === "Shared") {
-        await this.pantryService
-          .shareProduct(this.product.id!)
-          .subscribe((data) => {
-            this.product = data;
-          });
-
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === "Deleted") {
+        this.pantryService.deleteProduct(this.product).subscribe();
         const dialogRef = this.dialog.open(BasicDialogComponentComponent, {
           data: {
             title: "Congrats!",
             options: {
+              type: "delete",
               payload: {
                 productName: this.product.name,
                 color: this.color,
@@ -205,20 +261,11 @@ export class ProductOverviewComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(async (result) => {
           if (result === "Completed") {
-            await this.pantryService
-              .getProductById(this.product.id!, this.user!.id)
-              .subscribe((data) => {
-                this.product = data;
-                this.cd.detectChanges();
-              });
+            this.router.navigateByUrl("/pantry");
           }
         });
       }
     });
-  }
-
-  public deleteProduct() {
-    console.log("Delete");
   }
 
   public redirectToRecipes() {

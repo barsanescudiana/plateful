@@ -5,6 +5,7 @@ interface DialogData {
   title: string;
   options?: {
     payload?: any;
+    type: string;
   };
 }
 @Component({
@@ -18,17 +19,23 @@ export class ShareProductDialogComponent {
   public product: Product | any;
   public color: string = "";
 
+  public isShareDialog: boolean = true;
+
   constructor(
     public dialogRef: MatDialogRef<ShareProductDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DialogData
   ) {
     this.title = data.title;
 
-    if (data.options && this.options.payload) {
+    if (data.options?.payload) {
       this.options.payload = data.options.payload;
 
       this.product = data.options.payload.product;
       this.color = data.options.payload.color;
+    }
+
+    if (data.options?.type === "delete") {
+      this.isShareDialog = false;
     }
   }
 

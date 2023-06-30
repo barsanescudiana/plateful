@@ -4,7 +4,12 @@
     [class.without-image]="!recipe.image"
     [style.background-image]="'url(' + recipe.image + ')'"
   >
-    <div class="save"><img src="assets/icons/heart.svg" alt="" /></div>
+    <div class="save" (click)="addToFavorites()">
+      <img
+        [src]="!isFavorite ? 'assets/icons/heart.svg' : 'assets/icons/favorite.svg'"
+        alt=""
+      />
+    </div>
     <div class="arrow-right">
       <img src="assets/icons/arrow-right-white.svg" alt="arrow-right" />
     </div>
@@ -12,11 +17,24 @@
   <div class="details">
     <div class="recipe-title">{{ shortTitle }}</div>
     <div class="match">
-      <span class="ingredients">
-        {{ recipe.usedIngredientCount
-        }}/{{ recipe.usedIngredientCount + recipe.missedIngredientCount}}</span
-      >
-      pantry match
+      <ng-container *ngIf="!isFavorite ; else elseTemplate">
+        <span class="ingredients">
+          {{ recipe.usedIngredientCount
+
+
+
+
+          }}/{{ recipe.usedIngredientCount + recipe.missedIngredientCount}}</span
+        >
+        pantry match
+      </ng-container>
+      <ng-template #elseTemplate>
+        <span class="ingredients">
+          {{availableIngredients
+          }}/{{ recipe.extendedIngredients?.length }}</span
+        >
+        pantry match
+      </ng-template>
     </div>
   </div>
 </div>
