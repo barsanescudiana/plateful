@@ -96,3 +96,27 @@
   padding: 6px;
   border-radius: 5px;
 }
+
+.no-data {
+  @include display-flex(column, center, center, wrap);
+  height: 55vh;
+  overflow-x: hidden;
+  margin-top: 10px;
+
+  &__image {
+    width: 50%;
+    height: auto;
+    margin-bottom: 14px;
+  }
+
+  .no-data__text {
+    @include display-flex(column, center, center, wrap);
+
+    font-family: $primary-font;
+    color: $onyx-100;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+}

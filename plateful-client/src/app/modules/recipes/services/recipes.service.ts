@@ -36,11 +36,9 @@ export class RecipesService {
   }
 
   public getPerfectMatch(): Observable<Recipe[]> {
-    return this.http.get(`${this.path}recipes/perfect-match`, {
-      params: {
-        count: 3,
-      },
-    }) as Observable<Recipe[]>;
+    return this.http.get(
+      `${this.path}recipes/perfect-match`
+    ) as Observable<any>;
   }
 
   public addToFavorites(recipe: any): Observable<any> {

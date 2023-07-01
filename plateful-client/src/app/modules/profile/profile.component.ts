@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ProfileService } from "./services/profile.service";
-import { User } from "src/app/interfaces/user.interface";
+import { User, UserPublicInfo } from "src/app/interfaces/user.interface";
 import { Product } from "src/app/interfaces/product.interface";
 import { FriendshipStatus } from "src/app/enums/friendship-status.enum";
+import { Friend } from "src/app/interfaces/friend.interface";
 
 @Component({
   selector: "app-profile",
@@ -15,6 +16,7 @@ export class ProfileComponent implements OnInit {
   public canEdit: boolean = false;
   public allProductsCount: number = 0;
   public sharedProductsCount: number = 0;
+  public friendsInfo: UserPublicInfo[] | any = [];
 
   public isUpdateAreaVisible: boolean = false;
   public friendship: FriendshipStatus = FriendshipStatus.NOT_FRIENDS;
@@ -23,7 +25,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,21 +46,38 @@ export class ProfileComponent implements OnInit {
         }
 
         this.friendship = this.getFriendshipStatus();
-      });
 
+        this.profileService.getFriends().subscribe((data) => {
+          if (data.length) {
+            data.forEach((friendId: string) => {
+              this.profileService
+                .getUserById(friendId)
+                .subscribe((data: User) => {
+                  this.friendsInfo.push({
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    id: friendId,
+                    picture: data.picture,
+                  });
+                  console.log(this.friendsInfo);
+                });
+            });
+          }
+        });
+      });
   }
 
   private getFriendshipStatus(): FriendshipStatus {
-    const myId = JSON.parse(localStorage.getItem('USER_DATA')!).id;
+    const myId = JSON.parse(localStorage.getItem("USER_DATA")!).id;
 
     // friends already
-    if(this.user.friends.includes(myId)) {
+    if (this.user.friends.includes(myId)) {
       this.disableBtn = true;
       return FriendshipStatus.FRIENDS;
     }
 
     // request sent
-    if(this.user.notifications.find((n: any) => n.detail.requestor === myId)) {
+    if (this.user.notifications.find((n: any) => n.detail.requestor === myId)) {
       this.disableBtn = true;
       return FriendshipStatus.REQUEST_SENT;
     }
@@ -79,8 +99,9 @@ export class ProfileComponent implements OnInit {
   }
 
   public handleSendClick(): void {
-    this.profileService.sendFriendRequest(this.route.snapshot.params["userId"])
-      .subscribe(res => {
+    this.profileService
+      .sendFriendRequest(this.route.snapshot.params["userId"])
+      .subscribe((res) => {
         if (res.id) {
           this.disableBtn = true;
         }

@@ -50,8 +50,28 @@
       <span class="number"> {{ sharedProductsCount }} </span>
     </div>
   </div>
-  <div class="subtitle">Friends</div>
-  <div class="friends-list">friend friend friend</div>
+  <div class="friends-section" *ngIf="friendsInfo.length && canEdit">
+    <div class="subtitle">Friends</div>
+    <div class="friends-list">
+      <img
+        class="friend"
+        *ngFor="let friend of friendsInfo"
+        [src]="friend.picture"
+        [alt]="friend.firstName"
+      />
+    </div>
+  </div>
+  <div class="friends-section" *ngIf="friendsInfo.length && !canEdit">
+    <div class="subtitle">Friends in common</div>
+    <div class="friends-list">
+      <img
+        class="friend"
+        *ngFor="let friend of friendsInfo"
+        [src]="friend.picture"
+        [alt]="friend.firstName"
+      />
+    </div>
+  </div>
   <div class="subtitle" *ngIf="isUpdateAreaVisible">
     Update your profile info
   </div>

@@ -19,7 +19,7 @@ const controller = {
       url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
       params: {
         ingredients: ingredients.replace(/.$/, ""),
-        number: "100",
+        number: "5",
         ignorePantry: "true",
         ranking: "1",
       },
@@ -115,6 +115,48 @@ const controller = {
       } catch (error) {
         console.error(error);
       }
+    }
+  },
+
+  getPerfectMatch: async (req, res) => {
+    const user = req.caller;
+
+    let ingredients = "";
+
+    if (user) {
+      const products = user.products;
+      products.forEach((product) => {
+        ingredients += product.name.toLowerCase() + ",";
+      });
+    }
+
+    const options = {
+      method: "GET",
+      url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
+      params: {
+        ingredients: ingredients.replace(/.$/, ""),
+        number: "100",
+        ignorePantry: "true",
+        ranking: "1",
+      },
+      headers: {
+        "X-RapidAPI-Key": "5dec463cf3msh5bac39035b93bbdp17a97ejsn90be7f1d830e",
+        "X-RapidAPI-Host":
+          "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+      },
+    };
+
+    try {
+      let recipesToSend = [];
+      const response = await axios.request(options);
+      response.data.forEach(async (recipe) => {
+        if (recipe.missedIngredients.length === 0) {
+          recipesToSend.push(recipe);
+        }
+      });
+      res.status(200).send(recipesToSend);
+    } catch (error) {
+      res.status(400).send(error);
     }
   },
 

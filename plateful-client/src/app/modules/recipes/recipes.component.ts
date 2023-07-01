@@ -17,15 +17,30 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFavorites();
+    this.getPerfectMatch();
   }
 
   public getFavorites(): void {
     this.recipesService.getFavorites().subscribe((data) => {
       if (data.length) {
         this.favorites = data;
-      } else {
-        this.noFavoritesText = data;
       }
     });
+  }
+
+  public getPerfectMatch(): void {
+    this.recipesService.getPerfectMatch().subscribe((data) => {
+      if (data.length) {
+        this.perfectMatch = data;
+      }
+    });
+  }
+
+  public redirectToAdd(): void {
+    console.log("add");
+  }
+
+  public redirectToAllRecipes(): void {
+    console.log("all");
   }
 }

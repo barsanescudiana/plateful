@@ -206,6 +206,17 @@ const controller = {
       await userRef.update(updatedData);
     }
   },
+
+  getFriends: async (req, res) => {
+    const docRef = db.collection("users").doc(req.caller.id);
+    const userData = await docRef.get();
+
+    if (userData.exists) {
+      res.status(200).send(userData.data().friends);
+    } else {
+      res.status(404).send("not found 😢");
+    }
+  },
 };
 
 module.exports = controller;

@@ -47,12 +47,14 @@
     <div class="no-data">
       <img src="assets/icons/no-data.svg" alt="no-data" />
       No recipes found matching this category!
+      <div class="button" (click)="redirectToAdd()">Add more products</div>
     </div>
   </ng-template>
   <ng-template #noDataContainerFavorites>
     <div class="no-data">
       <img src="assets/icons/no-data.svg" alt="no-data" />
       No recipes found matching this category!
+      <div class="button" (click)="redirectToAllRecipes()">View recipes</div>
     </div>
   </ng-template>
 </div>

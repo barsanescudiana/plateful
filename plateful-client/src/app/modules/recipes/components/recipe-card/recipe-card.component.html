@@ -17,9 +17,10 @@
   <div class="details">
     <div class="recipe-title">{{ shortTitle }}</div>
     <div class="match">
-      <ng-container *ngIf="!isFavorite ; else elseTemplate">
+      <ng-container *ngIf="!recipe.isFavorite ; else elseTemplate">
         <span class="ingredients">
           {{ recipe.usedIngredientCount
+
 
 
 
@@ -31,6 +32,7 @@
       <ng-template #elseTemplate>
         <span class="ingredients">
           {{availableIngredients
+
           }}/{{ recipe.extendedIngredients?.length }}</span
         >
         pantry match

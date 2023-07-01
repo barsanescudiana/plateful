@@ -24,6 +24,13 @@ export class ProfileService {
   }
 
   public sendFriendRequest(userId: string): Observable<FriendRequestResponse> {
-    return this.http.post(`${this.path}/friends/send-request?requestee=${userId}`, {}) as Observable<FriendRequestResponse>;
+    return this.http.post(
+      `${this.path}/friends/send-request?requestee=${userId}`,
+      {}
+    ) as Observable<FriendRequestResponse>;
+  }
+
+  public getFriends(): Observable<any> {
+    return this.http.get(`${this.path}/user/friends`) as Observable<any>;
   }
 }
