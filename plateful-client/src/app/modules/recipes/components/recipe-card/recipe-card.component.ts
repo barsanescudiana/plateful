@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { RecipesService } from "../../services/recipes.service";
 import { User } from "src/app/interfaces/user.interface";
 import { Recipe } from "src/app/interfaces/recipe.interface";
+import { Route, Router } from "@angular/router";
 
 @Component({
   selector: "app-recipe-card",
@@ -20,7 +21,7 @@ export class RecipeCardComponent implements OnInit {
   public isFavorite = false;
   public availableIngredients: number = 0;
 
-  constructor(private recipesService: RecipesService) {}
+  constructor(private recipesService: RecipesService, private router: Router) {}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("USER_DATA")!);
@@ -59,5 +60,9 @@ export class RecipeCardComponent implements OnInit {
         });
       }
     });
+  }
+
+  public handleCardClick() {
+    this.router.navigate([`recipes/${this.recipe.id}`]);
   }
 }

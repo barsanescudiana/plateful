@@ -174,6 +174,27 @@ const controller = {
       res.status(404).json("User not found");
     }
   },
+
+  getRecipeById: async (req, res) => {
+    const options = {
+      method: "GET",
+      url: `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.query.recipeId}/information`,
+      headers: {
+        "X-RapidAPI-Key": "5dec463cf3msh5bac39035b93bbdp17a97ejsn90be7f1d830e",
+        "X-RapidAPI-Host":
+          "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data);
+      res.status(200).send(response.data);
+    } catch (error) {
+      // res.status(400).send(error);
+      console.log(error);
+    }
+  },
 };
 
 module.exports = controller;

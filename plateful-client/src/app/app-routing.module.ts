@@ -14,6 +14,7 @@ import { ProfileComponent } from "./modules/profile/profile.component";
 import { ScanBarcodeComponent } from "./modules/scan-barcode/scan-barcode.component";
 import { ProductOverviewComponent } from "./modules/product-overview/product-overview.component";
 import { AddFriendsComponent } from "./modules/add-friends/add-friends.component";
+import { RecipeOverviewComponent } from "./modules/recipes/components/recipe-overview/recipe-overview.component";
 
 const routes: Routes = [
   {
@@ -43,6 +44,11 @@ const routes: Routes = [
   {
     path: "recipes",
     component: RecipesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "recipes/:recipeId",
+    component: RecipeOverviewComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -84,7 +90,7 @@ const routes: Routes = [
     path: "add-friends",
     component: AddFriendsComponent,
     canActivate: [AuthGuard],
-  }
+  },
 ];
 
 @NgModule({

@@ -27,6 +27,14 @@ export class RecipesService {
     return this.http.get(`${this.path}recipes/from-db`) as Observable<Recipe[]>;
   }
 
+  public getRecipeById(recipeId: any): Observable<Recipe[]> {
+    return this.http.get(`${this.path}recipes/one`, {
+      params: {
+        recipeId: recipeId,
+      },
+    }) as Observable<Recipe[]>;
+  }
+
   public getFavorites(): Observable<any> {
     return this.http.get(`${this.path}recipes/favorites`, {
       params: {

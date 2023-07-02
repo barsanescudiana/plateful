@@ -1,1 +1,48 @@
-<p>recipe-overview works!</p>
+<app-header [withHomeButton]="true"></app-header>
+<div class="content" *ngIf="recipe">
+  <div class="image">
+    <img [src]="recipe.image" alt="" />
+  </div>
+  <div class="details">
+    <div class="header">
+      <div class="recipe-title">{{ recipe.title }}</div>
+      <div class="cuisines">
+        <div class="cuisine-pill" *ngFor="let cuisine of recipe.cuisines">
+          {{ cuisine }}
+        </div>
+      </div>
+    </div>
+    <span class="subtitle" (click)="openIngredientsArea()">
+      What you'll need
+      <span class="hint" *ngIf="!showIngredients"> Click to expand</span>
+    </span>
+    <div
+      class="ingredients"
+      *ngIf="showIngredients"
+      [class.scrollable]="showInstructions"
+    >
+      <div
+        class="ingredient"
+        *ngFor="let ingredient of recipe.extendedIngredients"
+      >
+        {{ ingredient.original }}
+      </div>
+    </div>
+    <span class="subtitle" (click)="toggleInstructions()">
+      How to make it
+      <span class="hint" *ngIf="!showInstructions"> Click to expand</span>
+    </span>
+    <div
+      class="instructions"
+      *ngIf="showInstructions"
+      [class.scrollable]="showIngredients"
+    >
+      <div
+        class="step"
+        *ngFor="let step of recipe.analyzedInstructions[0].steps"
+      >
+        {{step.number}}. {{ step.step }}
+      </div>
+    </div>
+  </div>
+</div>
