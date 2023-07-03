@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -37,6 +37,7 @@ import { AccessTokenInterceptor } from "./http-interceptors/accessToken.intercep
 import { NotificationCardComponent } from './modules/notifications/components/notification-card/notification-card.component';
 import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
 import { SettingsModule } from "./modules/settings/settings.module";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,12 @@ import { SettingsModule } from "./modules/settings/settings.module";
     MatInputModule,
     NgxBarcodeScannerModule,
     RecipesModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      // enabled: isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     {
