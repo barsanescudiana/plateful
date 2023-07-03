@@ -23,7 +23,7 @@ export class NotificationCardComponent implements OnInit {
       const difference = new Date() - new Date(this.notification.date);
       const formatter = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
       const roundedDifference = Math.round(difference / 86400000);
-      this.time = formatter.format(roundedDifference > 1 ? -roundedDifference : roundedDifference, 'day');
+      this.time = formatter.format(roundedDifference > 0 ? -roundedDifference : roundedDifference, 'day');
   }
 
   public isFriendRequest() {
