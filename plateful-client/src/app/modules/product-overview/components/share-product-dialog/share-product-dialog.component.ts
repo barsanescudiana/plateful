@@ -20,6 +20,7 @@ export class ShareProductDialogComponent {
   public color: string = "";
 
   public isShareDialog: boolean = true;
+  public isClaimDialog: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<ShareProductDialogComponent>,
@@ -36,6 +37,12 @@ export class ShareProductDialogComponent {
 
     if (data.options?.type === "delete") {
       this.isShareDialog = false;
+      this.isClaimDialog = false;
+    }
+
+    if (data.options?.type === "claim") {
+      this.isShareDialog = false;
+      this.isClaimDialog = true;
     }
   }
 

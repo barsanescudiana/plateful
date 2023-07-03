@@ -3,7 +3,11 @@
   <div class="info" *ngIf="hasMissingAttributes">
     <div class="info-title">
       <img src="assets/icons/warning.svg" alt="warning" />
-      <span> Missing information </span>
+      <span *ngIf="!messageText">
+        Missing information. Please complete the mandatory fields, marked with
+        <span class="required">*</span>.
+      </span>
+      <div>{{ messageText }}</div>
     </div>
   </div>
   <app-product-form

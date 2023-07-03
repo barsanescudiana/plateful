@@ -3,9 +3,9 @@
 </div>
 <mat-dialog-content>
   <span class="text">
-    {{ isShareDialog ? 'You`ve successfully shared' : 'You`ve successfully deleted' }}
+    {{ isShareDialog ? 'You`ve successfully shared' : isClaimDialog? 'You`ve successfully claimed' : 'You`ve successfully deleted' }}
     <span class="name" [style.color]="color"> {{ productName }} </span>
-    {{ isShareDialog ? 'with your friends!' : 'from your pantry!' }}
+    {{ isShareDialog ? 'with your friends!' : isClaimDialog? 'frm your friend! ' : 'from your pantry!' }}
   </span>
 
   <div class="hint" [style.color]="color">

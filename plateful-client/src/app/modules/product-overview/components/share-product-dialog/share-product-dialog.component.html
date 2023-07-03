@@ -8,8 +8,8 @@
   <button class="button-cancel" (click)="onNoClick()">Cancel</button>
   <button
     class="button-submit"
-    [mat-dialog-close]=" isShareDialog ? 'Shared' : 'Deleted'"
+    [mat-dialog-close]=" isShareDialog ? 'Shared' : isClaimDialog? 'Claimed' : 'Deleted'"
   >
-    {{isShareDialog ? 'Share' : 'Delete'}}
+    {{isShareDialog ? 'Share' : isClaimDialog? 'Claim' :  'Delete'}}
   </button>
 </div>

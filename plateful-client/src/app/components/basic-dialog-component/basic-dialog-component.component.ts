@@ -23,6 +23,7 @@ export class BasicDialogComponentComponent {
 
   public selectedOption: string = "";
   public isShareDialog: boolean = true;
+  public isClaimDialog: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<BasicDialogComponentComponent>,
@@ -40,6 +41,13 @@ export class BasicDialogComponentComponent {
 
     if (data.options.type === "delete") {
       this.isShareDialog = false;
+      this.isClaimDialog = false;
+    }
+
+
+    if (data.options.type === "claim") {
+      this.isShareDialog = false;
+      this.isClaimDialog = true;
     }
   }
 

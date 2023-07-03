@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
 } from "@angular/core";
 import { BarcodeFormat } from "@zxing/library";
-import { ZXingScannerComponent } from "@zxing/ngx-scanner";
 import { ScanService } from "./scan.service";
 import { Product } from "src/app/interfaces/product.interface";
 
@@ -25,10 +24,7 @@ export class ScanBarcodeComponent implements OnChanges {
 
   public allowedFormats = [BarcodeFormat.EAN_13];
 
-  constructor(
-    private scanService: ScanService,
-    private cd: ChangeDetectorRef
-  ) {}
+  constructor(private scanService: ScanService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
@@ -41,12 +37,19 @@ export class ScanBarcodeComponent implements OnChanges {
 
   public onSuccess(event: any) {
     if (this.isEnabled) {
-      this.scanService.getProductByBarcode(event).subscribe((data) => {
-        this.scannedProduct = data;
-        this.isEnabled = false;
-      });
+      this.scanService.getProductByBarcode(event).subscribe(
+        (data) => {
+          this.scannedProduct = data;
+          this.isEnabled = false;
+        },
+        (error: any) => {
+          if (error) {
+            this.isError = true;
+            this.isEnabled = false;
+          }
+        }
+      );
     }
-    this.cd.detectChanges();
   }
 
   public onFailure(event: any) {

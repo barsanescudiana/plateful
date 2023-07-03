@@ -12,6 +12,8 @@ export class CompleteScanComponent implements OnInit {
   @Input() public scannedProduct: any;
   public hasMissingAttributes: boolean = false;
 
+  public messageText = '';
+
   public productToAdd: Product = {
     isShared: false,
     isClaimed: false,
@@ -72,14 +74,15 @@ export class CompleteScanComponent implements OnInit {
       if (this.scannedProduct.nutriments) {
         this.productToAdd.nutritionalValues = this.scannedProduct.nutriments;
       }
+      this.scannedProduct.categories.forEach((category: string) => {
+        console.log(category);
+        if (this.categories.includes(category.trim())) {
+          this.productToAdd.category = category.trim();
+        }
+      });
+    } else {
+      this.messageText = 'Product not found. Please complete the form with the information found on the product package.';
     }
-
-    this.scannedProduct.categories.forEach((category: string) => {
-      console.log(category);
-      if (this.categories.includes(category.trim())) {
-        this.productToAdd.category = category.trim();
-      }
-    });
 
     const emptyProduct: Product = {
       name: "",
