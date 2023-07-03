@@ -1,10 +1,10 @@
 <div class="notification-card">
     <div *ngIf="isFriendRequest()" class="friend-request">
         <div class="content">
-            <img [src]="notification.detail.requestor.picture">
+            <img [src]="notification.detail.fromUser.picture">
             <p>
                 <span class="name">
-                    {{ notification.detail.requestor.firstName }} {{ notification.detail.requestor.lastName }} 
+                    {{ notification.detail.fromUser.firstName }} {{ notification.detail.fromUser.lastName }} 
                 </span>
                  wants to be friends!
             </p>
@@ -16,6 +16,65 @@
             </button>
             <button (click)="onDecline()" class="action-btn decline" [class.hide]="accepted" [disabled]="accepted || deleted">
                 {{ deleted ? 'Declined' : 'Decline' }}
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="isFriendRequestAccepted()" class="friend-request-accepted">
+        <div class="content">
+            <img [src]="notification.detail.fromUser.picture">
+            <p>
+                <span class="name">
+                    {{ notification.detail.fromUser.firstName }} {{ notification.detail.fromUser.lastName }} 
+                </span>
+                is now your friend!
+            </p>
+        </div>
+        <p class="time"> {{ time }} </p>
+        <div class="actions">
+            <button (click)="onDecline()" class="action-btn decline" [disabled]="deleted">
+                {{ deleted ? 'Dismissed' : 'Dismiss' }}
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="isClaim()" class="claim">
+        <div class="content">
+            <img [src]="notification.detail.fromUser.picture">
+            <p>
+                <span class="name">
+                    {{ notification.detail.fromUser.firstName }} {{ notification.detail.fromUser.lastName }} 
+                </span>
+                 wants to claim
+                <span class="product">{{ notification.detail.product.name }}</span>
+            </p>
+        </div>
+        <p class="time"> {{ time }} </p>
+        <div class="actions">
+            <button (click)="onAcceptClaim()" class="action-btn accept" [class.hide]="deleted" [disabled]="accepted || deleted">
+                {{ accepted ? 'Accepted' : 'Accept' }}
+            </button>
+            <button (click)="onDecline()" class="action-btn decline" [class.hide]="accepted" [disabled]="accepted || deleted">
+                {{ deleted ? 'Declined' : 'Decline' }}
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="isClaimAccepted()" class="claim-accepted">
+        <div class="content">
+            <img [src]="notification.detail.fromUser.picture">
+            <p>
+                <span class="name">
+                    {{ notification.detail.fromUser.firstName }} {{ notification.detail.fromUser.lastName }} 
+                </span>
+                 accepted your claim for 
+                <span class="product">{{ notification.detail.product.name }}</span>
+            </p>
+        </div>
+        <p class="time"> {{ time }} </p>
+        <div class="actions">
+            <button (click)="onDecline()" class="action-btn decline" [disabled]="deleted">
+                {{ deleted ? 'Dismissed' : 'Dismiss' }}
             </button>
         </div>
     </div>

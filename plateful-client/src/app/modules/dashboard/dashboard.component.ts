@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DashboardService } from './services/dashboard.service';
+import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   public features: {name: string, color: string, textColor: string, routerLink: string}[] = [
     {
@@ -36,4 +38,15 @@ export class DashboardComponent {
 
     }
   ]
+
+  constructor(private swPush: SwPush, private dashboardService: DashboardService) {}
+
+  ngOnInit(): void {
+    this.swPush.requestSubscription({
+      serverPublicKey: 'BPi0LFeoiUhvkt2hiWqvVr2NJtn4I-BGxZBsnXLtQEHh7fbg8p-QzvQPqz1cd2OMUIezfx56qW5dOfQXjDBsvdM',
+    }).then(res => {
+      console.log(res);
+      this.dashboardService.updateMyNotificationSettings(res).subscribe(res=> console.log('did it'));
+    });
+  }
 }

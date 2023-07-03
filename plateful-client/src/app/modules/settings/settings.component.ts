@@ -22,6 +22,9 @@ export class SettingsComponent implements OnInit {
   }
 
   onSubmit() {
-    
+    // this.settingsService.patchMySettings({})
+    //   .subscribe(res => {
+    //     this.settings = res.settings;
+    //   })
   }
 }
