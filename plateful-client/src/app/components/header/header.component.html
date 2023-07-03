@@ -1,5 +1,5 @@
-<div class="header">
-  <div class="user" *ngIf="user">
+<div class="header" [class.without-photo]="!withUserPhoto">
+  <div class="user" *ngIf="user && withUserPhoto">
     <img
       class="user-image"
       [src]="user.picture"

@@ -20,4 +20,9 @@
     }
   }
 
+
+}
+.without-photo {
+  @include display-flex(row, flex-end, flex-end, wrap);
+
 }

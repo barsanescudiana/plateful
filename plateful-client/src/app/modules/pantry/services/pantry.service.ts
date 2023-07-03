@@ -19,12 +19,14 @@ export class PantryService {
     }) as Observable<Product[]>;
   }
 
-  public addProduct(
-    userId: string,
-    product: Product
-  ): Observable<{ message: string }> {
+  public addProduct(product: Product): Observable<{ message: string }> {
     return this.http.patch(`${this.path}user/products/add`, {
-      userId: userId,
+      product: product,
+    }) as Observable<{ message: string }>;
+  }
+
+  public deleteProduct(product: Product): Observable<{ message: string }> {
+    return this.http.patch(`${this.path}user/products/delete`, {
       product: product,
     }) as Observable<{ message: string }>;
   }
@@ -38,5 +40,11 @@ export class PantryService {
         userId: userId,
       },
     }) as Observable<Product>;
+  }
+
+  public shareProduct(productId: string): Observable<Product | any> {
+    return this.http.patch(`${this.path}user/products/share`, {
+      productId: productId,
+    }) as Observable<Product | any>;
   }
 }

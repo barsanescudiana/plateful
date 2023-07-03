@@ -145,12 +145,12 @@ const controller = {
   },
 
   getMySettings: async (req, res) => {
-    const user = await db.collection('users').doc(req.caller.id).get();
+    const user = await db.collection("users").doc(req.caller.id).get();
 
     if (user.exists) {
       res.status(200).json(user.data().settings);
     } else {
-      res.status(404).json({ 'message': 'User not found' });
+      res.status(404).json({ message: "User not found" });
     }
   },
 
@@ -180,7 +180,71 @@ const controller = {
         res.status(500).json({ 'message': 'Something went wrong while updating' });
       });
     }
-  }
+  },
+  
+  shareProduct: async (req, res) => {
+    const userRef = await db.collection("users").doc(req.caller.id);
+    const user = await userRef.get();
+
+    if (user.exists) {
+      let newProducts = user.data().products.map((item) => {
+        if (item.id === req.body.productId) {
+          item.isShared = true;
+        }
+        return item;
+      });
+
+      console.log(newProducts);
+
+      const updatedData = { products: newProducts };
+
+      await userRef.update(updatedData);
+
+      res
+        .status(200)
+        .send(
+          user
+            .data()
+            .products.find((product) => product.id === req.body.productId)
+        );
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  },
+  deleteProduct: async (req, res) => {
+    const userRef = await db.collection("users").doc(req.caller.id);
+    const user = await userRef.get();
+
+    const productToDelete = req.body.product;
+
+    if (user.exists) {
+      let newProducts = user.data().products;
+      const index = newProducts.findIndex(
+        (product) => product.id === productToDelete.id
+      );
+      console.log(index);
+      if (index > -1) {
+        newProducts.splice(index, 1);
+      }
+
+      console.log(newProducts);
+
+      const updatedData = { products: newProducts };
+
+      await userRef.update(updatedData);
+    }
+  },
+
+  getFriends: async (req, res) => {
+    const docRef = db.collection("users").doc(req.caller.id);
+    const userData = await docRef.get();
+
+    if (userData.exists) {
+      res.status(200).send(userData.data().friends);
+    } else {
+      res.status(404).send("not found 😢");
+    }
+  },
 };
 
 module.exports = controller;

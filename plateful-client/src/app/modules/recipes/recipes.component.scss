@@ -16,6 +16,44 @@
 }
 
 .cards {
-  @include display-flex(row, space-evenly, flex-start, wrap);
+  @include display-flex(row, flex-start, flex-start, nowrap);
   width: 100%;
+  max-height: 30vh;
+  overflow-x: scroll;
+
+  app-recipe-card {
+    margin-bottom: 10px;
+  }
+}
+
+.no-data {
+  @include display-flex(column, center, center, wrap);
+  width: 100%;
+  height: 20vh;
+
+  font-family: $primary-font;
+  font-size: 14px;
+  color: $onyx-100;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  img {
+    width: 50%;
+    margin-bottom: 14px;
+  }
+}
+
+.button {
+  margin-top: 14px;
+  align-self: center;
+  background-color: $iris-100;
+  color: $cloud;
+  padding: 12px 32px;
+  border-radius: 10px;
+
+  font-size: 12px;
+  font-family: $primary-font;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: -0.02em;
 }

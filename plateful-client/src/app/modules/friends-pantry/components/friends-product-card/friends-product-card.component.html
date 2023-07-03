@@ -1,0 +1,16 @@
+<div class="container" *ngIf="product">
+  <div class="user-info">
+    <div class="image" *ngIf="product.user.picture">
+      <img [src]="product.user.picture" alt="user-photo" />
+    </div>
+  </div>
+  <app-product-card
+    [product]="product.product"
+    [margin]="false"
+    [withPill]="false"
+    (click)="handleProductClick()"
+  ></app-product-card>
+  <div class="claim-button" (click)="handleProductClaim()">
+    <img src="assets/icons/claim.svg" alt="claim" />
+  </div>
+</div>

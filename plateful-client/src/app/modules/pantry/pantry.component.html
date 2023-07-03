@@ -12,7 +12,12 @@
   <div class="search-area" [style]="">
     <div class="search">
       <img src="assets/icons/search.svg" alt="search" class="img-search" />
-      <input type="text" placeholder="Search products" />
+      <input
+        type="text"
+        placeholder="Search products"
+        [(ngModel)]="searchValue"
+        (input)="filterArray(selectedMenuItem)"
+      />
     </div>
     <img
       src="assets/icons/filters.svg"
@@ -30,15 +35,34 @@
   <div class="filters-area" [hidden]="selectedFilter !== filters[0]">
     filters area
   </div>
-  <div class="products-container" *ngIf="products.length">
-    <div class="product" *ngFor="let product of products">
-      <app-product-card
-        [product]="product"
-      ></app-product-card>
+  <ng-container *ngIf="products.length else noDataContainer">
+    <div class="products-container">
+      <div class="product" *ngFor="let product of products">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
     </div>
-  </div>
+    <div class="actions">
+      <button class="add-btn" (click)="openDialog()">Add products</button>
+    </div>
+  </ng-container>
+  <ng-template #noDataContainer>
+    <div class="no-data">
+      <img
+        class="no-data__image"
+        src="assets/icons/no-data.svg"
+        alt="no-data"
+      />
+      <span class="no-data__text" *ngIf="searchValue">
+        No product found matching {{ searchValue }}.
+      </span>
+      <span class="no-data__text" *ngIf="!searchValue">
+        You have not added any products yet.
+      </span>
 
-  <div class="actions">
-    <button class="add-btn" (click)="openDialog()">Add products</button>
-  </div>
+      <div class="actions">
+        <button class="add-btn" (click)="openDialog()">Add products</button>
+      </div>
+    </div>
+    <div class="no-data"></div>
+  </ng-template>
 </div>

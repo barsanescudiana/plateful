@@ -19,9 +19,42 @@
   <div class="title">Recipes</div>
   <div class="perfect-match">
     <div class="subtitle">Perfect match</div>
+    <ng-container
+      *ngIf="perfectMatch && perfectMatch.length; else noDataContainer"
+    >
+      <div class="cards">
+        <app-recipe-card
+          *ngFor="let recipe of favorites"
+          [recipe]="recipe"
+        ></app-recipe-card>
+      </div>
+    </ng-container>
   </div>
   <div class="favorites">
     <div class="subtitle">Favorites</div>
-    <div class="cards"></div>
+    <ng-container
+      *ngIf="favorites && favorites.length; else noDataContainerFavorites"
+    >
+      <div class="cards">
+        <app-recipe-card
+          *ngFor="let recipe of favorites"
+          [recipe]="recipe"
+        ></app-recipe-card>
+      </div>
+    </ng-container>
   </div>
+  <ng-template #noDataContainer>
+    <div class="no-data">
+      <img src="assets/icons/no-data.svg" alt="no-data" />
+      No recipes found matching this category!
+      <div class="button" (click)="redirectToAdd()">Add more products</div>
+    </div>
+  </ng-template>
+  <ng-template #noDataContainerFavorites>
+    <div class="no-data">
+      <img src="assets/icons/no-data.svg" alt="no-data" />
+      No recipes found matching this category!
+      <div class="button" (click)="redirectToAllRecipes()">View recipes</div>
+    </div>
+  </ng-template>
 </div>

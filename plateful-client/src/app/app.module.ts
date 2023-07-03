@@ -3,11 +3,6 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AuthComponent } from "./modules/auth/auth.component";
-import { PantryComponent } from "./modules/pantry/pantry.component";
-import { RecipesComponent } from "./modules/recipes/recipes.component";
-import { ShoppingListComponent } from "./modules/shopping-list/shopping-list.component";
-import { FriendsPantryComponent } from "./modules/friends-pantry/friends-pantry.component";
 import { UserIconComponent } from "./components/user-icon/user-icon.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SharedModule } from "./components/shared.module";
@@ -24,30 +19,34 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ShoppingListModule } from "./modules/shopping-list/shopping-list.module";
 import { ProductFormComponent } from "./modules/product-form/product-form.component";
-import { SettingsComponent } from "./modules/settings/settings.component";
 import { NotificationsModule } from "./modules/notifications/notifications.module";
 import { ScanBarcodeComponent } from "./modules/scan-barcode/scan-barcode.component";
 import { ProfileComponent } from "./modules/profile/profile.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { ProductOverviewComponent } from "./modules/product-overview/product-overview.component";
-import { NgxBarcodeScannerModule } from "@eisberg-labs/ngx-barcode-scanner";
 import { RecipesModule } from "./modules/recipes/recipes.module";
 import { AccessTokenInterceptor } from "./http-interceptors/accessToken.interceptor";
-import { NotificationCardComponent } from './modules/notifications/components/notification-card/notification-card.component';
+import { NotificationCardComponent } from "./modules/notifications/components/notification-card/notification-card.component";
 import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
 import { SettingsModule } from "./modules/settings/settings.module";
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ShareProductDialogComponent } from "./modules/product-overview/components/share-product-dialog/share-product-dialog.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { FriendsPantryModule } from "./modules/friends-pantry/friends-pantry.module";
+import { ZXingScannerModule } from "@zxing/ngx-scanner";
+import { CompleteScanComponent } from './modules/complete-scan/complete-scan.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FriendsPantryComponent,
     UserIconComponent,
     ProductFormComponent,
     ScanBarcodeComponent,
     ProfileComponent,
     ProductOverviewComponent,
+    ShareProductDialogComponent,
+    CompleteScanComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +67,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
-    NgxBarcodeScannerModule,
     RecipesModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       // enabled: isDevMode(),
@@ -76,6 +74,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    MatDialogModule,
+    FriendsPantryModule,
+    ZXingScannerModule,
   ],
   providers: [
     {
@@ -91,7 +92,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
           },
         ],
       } as SocialAuthServiceConfig,
-    }, {
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AccessTokenInterceptor,
       multi: true,

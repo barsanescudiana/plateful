@@ -1,6 +1,10 @@
 @import "src/app/stylesheets/helpers/_variables.scss";
 @import "src/app/stylesheets/helpers/_mixins.scss";
 
+.no-margin {
+  margin-top: 0 !important;
+}
+
 .content {
   margin-top: 70px;
   @include display-flex(column, flex-start, stretch, wrap);
@@ -16,7 +20,7 @@
     flex: 1;
 
     .label {
-      @include display-flex(column, flex-start, flex-start, wrap);
+      @include display-flex(row, flex-start, flex-start, wrap);
 
       font-family: $primary-font;
       color: $onyx-80;
@@ -67,8 +71,8 @@
       &-columns {
         @include display-flex(row, space-evenly, center, nowrap);
 
-        flex: 1;
-        max-height: 70px !important;
+        width: 100%;
+        margin: 14px 0;
       }
 
       &-nutritional {
@@ -83,6 +87,10 @@
 
       max-height: 110px;
       margin-bottom: 14px;
+    }
+
+    input {
+      height: 36px !important;
     }
 
     .calories,
@@ -102,7 +110,7 @@
         background-color: $dorian;
         border: none;
         width: 50px;
-        line-height: 14px !important;
+        line-height: 16px !important;
         margin: 8px 4px 0 4px;
         padding: 8px;
 
@@ -131,7 +139,6 @@
       font-weight: 400;
       color: $onyx-100;
       border-radius: 8px;
-      width: inherit;
       border: 1px solid $light-slate-60;
       flex: 1;
       display: flex;
@@ -187,4 +194,29 @@
       }
     }
   }
+}
+
+.error {
+  select,
+  input {
+    border: 0.13em solid $fuchsia-100 !important;
+    border-radius: 8px;
+  }
+}
+
+.error-message {
+  font-size: 10px;
+  font-family: $primary-font;
+  color: $fuchsia-100;
+  line-height: 10px;
+  letter-spacing: -0.02em;
+  margin-top: 4px;
+}
+
+.required {
+  color: $fuchsia-100;
+  font-weight: 800;
+  font-size: 12px;
+  font-family: $primary-font;
+  margin-left: 2px;
 }

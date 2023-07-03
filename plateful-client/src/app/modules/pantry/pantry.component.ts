@@ -22,6 +22,9 @@ export class PantryComponent implements OnInit {
   public freezerProducts: Product[] = [];
   public dryProducts: Product[] = [];
 
+  public searchValue: string = "";
+  public selectedMenuItem: string = "All";
+
   private allProducts: Product[] = [];
 
   constructor(
@@ -67,7 +70,6 @@ export class PantryComponent implements OnInit {
                 break;
             }
           });
-          console.log(this.products)
         });
     }
   }
@@ -100,6 +102,7 @@ export class PantryComponent implements OnInit {
   }
 
   public handleMenuChange(event: string): void {
+    this.selectedMenuItem = event;
     switch (event) {
       case Storage.FRIDGE:
         this.products = this.fridgeProducts;
@@ -112,6 +115,39 @@ export class PantryComponent implements OnInit {
         break;
       case "All":
         this.products = this.allProducts;
+        break;
+    }
+  }
+
+  public filterArray(arrayToFilter: string) {
+    switch (arrayToFilter) {
+      case Storage.FRIDGE:
+        this.products = this.fridgeProducts.filter((item) => {
+          return item.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
+        break;
+      case Storage.FREEZER:
+        this.products = this.freezerProducts.filter((item) => {
+          return item.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
+        break;
+      case Storage.PANTRY:
+        this.products = this.dryProducts.filter((item) => {
+          return item.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
+        break;
+      case "All":
+        this.products = this.allProducts.filter((item) => {
+          return item.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
         break;
     }
   }

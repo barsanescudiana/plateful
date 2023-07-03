@@ -9,6 +9,7 @@ import { User } from "src/app/interfaces/user.interface";
 })
 export class HeaderComponent implements OnInit {
   @Input() withHomeButton: boolean = true;
+  @Input() withUserPhoto: boolean = true;
   public user: User | undefined;
 
   constructor(private router: Router) {}

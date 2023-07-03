@@ -16,5 +16,6 @@
     "nodemon": "^2.0.15",
     "uuid": "^8.3.2",
     "web-push": "^3.6.3"
+    "openfoodfacts-nodejs": "^0.1.0"
   }
 }

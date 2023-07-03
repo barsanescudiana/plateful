@@ -12,53 +12,66 @@ import { Product } from "src/app/interfaces/product.interface";
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: Product | any;
+  @Input() border: any;
+  @Input() margin: boolean = true;
+  @Input() withPill: boolean = true;
+  public color: string = "";
   public formattedDate: string = "";
 
   constructor(private datePipe: DatePipe, private router: Router) {}
 
   ngOnInit(): void {
     if (
-      (new Date().getTime() - new Date(this.product.expirationDate).getTime()) /
-        (1000 * 3600 * 24) <
-      0
+      Math.round(
+        (new Date(this.product.expirationDate).getTime() -
+          new Date().getTime()) /
+          (1000 * 3600 * 24)
+      ) > 5
     ) {
+      this.color = "#46D5B3";
       this.formattedDate = moment(this.product.expirationDate).format(
         "DD.MM.yyyy"
       );
     } else if (
       new Date(this.product.expirationDate).getTime() < new Date().getTime()
     ) {
-      this.formattedDate = `Expired ${
+      this.color = "#EF5DA8";
+      this.formattedDate = `Expired ${Math.round(
         (new Date().getTime() -
           new Date(this.product.expirationDate).getTime()) /
-        (1000 * 3600 * 24)
-      } days ago!`;
+          (1000 * 3600 * 24)
+      )} days ago!`;
     } else {
       if (
-        (new Date().getTime() -
-          new Date(this.product.expirationDate).getTime()) /
-          (1000 * 3600 * 24) >
-        1
+        Math.round(
+          (new Date(this.product.expirationDate).getTime() -
+            new Date().getTime()) /
+            (1000 * 3600 * 24)
+        ) > 1
       ) {
-        this.formattedDate = `Expiring in ${
-          (new Date().getTime() -
-            new Date(this.product.expirationDate).getTime()) /
-          (1000 * 3600 * 24)
-        } days!`;
+        this.color = "#FCB938";
+        this.formattedDate = `Expiring in ${Math.round(
+          (new Date(this.product.expirationDate).getTime() -
+            new Date().getTime()) /
+            (1000 * 3600 * 24)
+        )} days!`;
       } else {
         if (
-          (new Date().getTime() -
-            new Date(this.product.expirationDate).getTime()) /
-            (1000 * 3600 * 24) ===
-          0
-        ) {
-          this.formattedDate = `Expiring today!`;
-        } else {
-          this.formattedDate = `Expiring in ${
+          Math.round(
             (new Date().getTime() -
               new Date(this.product.expirationDate).getTime()) /
-            (1000 * 3600 * 24)
-          } day!`;
+              (1000 * 3600 * 24)
+          ) === 0
+        ) {
+          this.color = "#FCB938";
+          this.formattedDate = `Expiring today!`;
+        } else {
+          this.color = "#FCB938";
+          this.formattedDate = `Expiring in ${Math.round(
+            (new Date(this.product.expirationDate).getTime() -
+              new Date().getTime()) /
+              (1000 * 3600 * 24)
+          )} day!`;
         }
       }
     }

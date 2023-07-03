@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Product } from "src/app/interfaces/product.interface";
 import { PantryService } from "../pantry/services/pantry.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -6,6 +6,9 @@ import { User } from "src/app/interfaces/user.interface";
 import { Emojis } from "src/app/enums/emojis.enum";
 import { RecipesService } from "../recipes/services/recipes.service";
 import { Recipe } from "src/app/interfaces/recipe.interface";
+import { MatDialog } from "@angular/material/dialog";
+import { ShareProductDialogComponent } from "./components/share-product-dialog/share-product-dialog.component";
+import { BasicDialogComponentComponent } from "src/app/components/basic-dialog-component/basic-dialog-component.component";
 
 @Component({
   selector: "app-product-overview",
@@ -25,12 +28,15 @@ export class ProductOverviewComponent implements OnInit {
       }
     | any;
   public suggestedRecipes: Recipe[] | any;
+  private color: string = "";
 
   constructor(
     private pantryService: PantryService,
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private recipesService: RecipesService
+    private recipesService: RecipesService,
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -88,6 +94,8 @@ export class ProductOverviewComponent implements OnInit {
       new Date(this.product.expirationDate!).getTime() - new Date().getTime() <
       0
     ) {
+      this.color = "#EF5DA8";
+
       return {
         text: "Expired",
         days: Math.round(
@@ -106,6 +114,7 @@ export class ProductOverviewComponent implements OnInit {
         (1000 * 3600 * 24) >
       5
     ) {
+      this.color = "#46D5B3";
       return {
         text: "Expiring",
         days: Math.round(
@@ -117,19 +126,21 @@ export class ProductOverviewComponent implements OnInit {
         expired: false,
         expiring: false,
       };
-    }
+    } else {
+      this.color = "#FCB938";
+      return {
+        text: "Expiring",
+        days: Math.round(
+          (new Date(this.product.expirationDate!).getTime() -
+            new Date().getTime()) /
+            (1000 * 3600 * 24)
+        ),
 
-    return {
-      text: "Expiring",
-      days: Math.round(
-        (new Date(this.product.expirationDate!).getTime() -
-          new Date().getTime()) /
-          (1000 * 3600 * 24)
-      ),
-      good: false,
-      expired: false,
-      expiring: true,
-    };
+        good: false,
+        expired: false,
+        expiring: true,
+      };
+    }
   }
 
   public getProductEmoji(): string {
@@ -151,11 +162,110 @@ export class ProductOverviewComponent implements OnInit {
   }
 
   public shareProduct() {
-    console.log("Share");
+    if (!this.product.isShared && !this.expirationInfo.expired) {
+      const dialogRef = this.dialog.open(ShareProductDialogComponent, {
+        data: {
+          title: "Share product",
+          options: {
+            type: "share",
+            payload: {
+              product: this.product,
+              color: this.color,
+            },
+          },
+        },
+      });
+
+      dialogRef.afterClosed().subscribe(async (result) => {
+        if (result === "Shared") {
+          await this.pantryService
+            .shareProduct(this.product.id!)
+            .subscribe((data) => {
+              this.product = data;
+            });
+
+          const dialogRef = this.dialog.open(BasicDialogComponentComponent, {
+            data: {
+              title: "Congrats!",
+              options: {
+                payload: {
+                  productName: this.product.name,
+                  color: this.color,
+                  hintText: this.expirationInfo.good
+                    ? this.expirationInfo.text +
+                      " over " +
+                      this.expirationInfo.days +
+                      " days!"
+                    : this.expirationInfo.text +
+                      " " +
+                      this.expirationInfo.days +
+                      " days!",
+                },
+              },
+            },
+          });
+
+          dialogRef.afterClosed().subscribe(async (result) => {
+            if (result === "Completed") {
+              await this.pantryService
+                .getProductById(this.product.id!, this.user!.id)
+                .subscribe((data) => {
+                  this.product = data;
+                  this.cd.detectChanges();
+                });
+            }
+          });
+        }
+      });
+    }
   }
 
   public deleteProduct() {
-    console.log("Delete");
+    const dialogRef = this.dialog.open(ShareProductDialogComponent, {
+      data: {
+        title: "Delete product",
+        options: {
+          type: "delete",
+          payload: {
+            product: this.product,
+            color: this.color,
+          },
+        },
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === "Deleted") {
+        this.pantryService.deleteProduct(this.product).subscribe();
+        const dialogRef = this.dialog.open(BasicDialogComponentComponent, {
+          data: {
+            title: "Congrats!",
+            options: {
+              type: "delete",
+              payload: {
+                productName: this.product.name,
+                color: this.color,
+                hintText: this.expirationInfo.good
+                  ? this.expirationInfo.text +
+                    " over " +
+                    this.expirationInfo.days +
+                    " days!"
+                  : this.expirationInfo.text +
+                    " " +
+                    this.expirationInfo.days +
+                    " days!",
+              },
+            },
+          },
+        });
+
+        dialogRef.afterClosed().subscribe(async (result) => {
+          if (result === "Completed") {
+            this.router.navigateByUrl("/pantry");
+          }
+        });
+      }
+    });
   }
 
   public redirectToRecipes() {
