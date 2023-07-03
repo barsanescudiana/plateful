@@ -29,6 +29,18 @@ export class NotificationCardComponent implements OnInit {
     return this.notification.type === NotificationType.FRIEND_REQUEST;
   }
 
+  public isFriendRequestAccepted() {
+    return this.notification.type === NotificationType.FRIEND_REQUEST_ACCEPTED;
+  }
+
+  public isClaim() {
+    return this.notification.type === NotificationType.CLAIM;
+  }
+
+  public isClaimAccepted() {
+    return this.notification.type === NotificationType.CLAIM_ACCEPTED;
+  }
+
   public isExpiry() {
     return this.notification.type === NotificationType.EXPIRY;
   }
@@ -39,6 +51,15 @@ export class NotificationCardComponent implements OnInit {
 
   public onAccept() {
     this.notificationsService.acceptFriendRequest(this.notification.id)
+      .subscribe((res) => {
+        if (res.status === 201) {
+          this.accepted = true;
+        }
+      });
+  }
+
+  public onAcceptClaim() {
+    this.notificationsService.acceptClaim(this.notification.detail.fromUser.id, this.notification.id)
       .subscribe((res) => {
         if (res.status === 201) {
           this.accepted = true;

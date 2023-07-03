@@ -2,6 +2,7 @@ const { firestore } = require("firebase-admin");
 const uuid = require('uuid');
 const db = require("../database");
 const userController = require('./user');
+const webpush = require('../webpush');
 
 // notifications should be of multiple types
 // 1. friend requests with actions (accept)
@@ -23,6 +24,28 @@ const userController = require('./user');
 //     text: 'text' if generic
 //   }}
 // ]
+
+async function sendPushIfEnabled(userId, text) {
+  const push = {
+    notification: {
+      title: 'Plateful',
+      body: text,
+      icon: 'assets/icons/logo-icon.svg',
+    },
+  };
+
+  const user = await db.collection('users').doc(userId).get();
+  const pushSubscription = user.data().settings.pushSubscription;
+
+  if (pushSubscription) {
+    webpush.sendNotification(pushSubscription, JSON.stringify(push)).then((res) => {
+      console.log(res);
+      return res.statusCode;
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+}
 
 const internalController = {
   addNotification: async (notification) => {
@@ -46,6 +69,8 @@ const internalController = {
           }),
         });
 
+        await sendPushIfEnabled(requestee.id, `You got a friend request from ${notification.detail.from.firstName} ${notification.detail.from.lastName}!`);
+
         return { ...result, notificationId: notificationUuid };
       }
 
@@ -60,6 +85,8 @@ const internalController = {
           }),
         });
 
+        await sendPushIfEnabled(to.id, `${notification.detail.from.firstName} ${notification.detail.from.lastName} is now your friend!`);
+
         return { ...result, notificationId: notificationUuid };
       }
 
@@ -73,10 +100,12 @@ const internalController = {
             ...notificationToAdd,
             detail: {
               fromUser: notification.detail.from.id,
-              productId: notification.detail.productId,
+              product: notification.detail.productId,
             },
           }),
         });
+
+        await sendPushIfEnabled(claimee.id, `${notification.detail.from.firstName} ${notification.detail.from.lastName} wants to claim one of your products!`);
 
         return { ...result, notificationId: notificationUuid };
       }
@@ -88,10 +117,12 @@ const internalController = {
             ...notificationToAdd,
             detail: {
               fromUser: notification.detail.from.id,
-              productId: notification.detail.productId,
+              product: notification.detail.productId,
             },
           }),
         });
+
+        await sendPushIfEnabled(to.id, `${notification.detail.from.firstName} ${notification.detail.from.lastName} accepted your claim!`);
 
         return { ...result, notificationId: notificationUuid };
       }
@@ -122,6 +153,10 @@ const controller = {
       // enriches notification
       const notifications = await Promise.all(user.data().notifications.map(async (notification) => {
         const enrichedUser = await userController.getPublicInfoById(notification.detail.fromUser);
+        if (notification.detail.product) {
+          const enrichedProduct = await user.data().products.find(p => p.id === notification.detail.product);
+          notification.detail.product = enrichedProduct;
+        }
         notification.detail.fromUser = enrichedUser;
         return notification;
       }));

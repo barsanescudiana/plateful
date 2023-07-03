@@ -7,8 +7,12 @@ var faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
 const port = 3000;
 const bodyParser = require('body-parser');
-
+const webpush = require('web-push');
 const { exists } = require('fs');
+
+require('dotenv').config();
+
+// console.log(process.env.CGM_API_KEY);
 
 const routes = require('./routes');
 

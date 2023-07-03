@@ -154,6 +154,34 @@ const controller = {
     }
   },
 
+  patchMySettings: async (req, res) => {
+    const userRef = db.collection('users').doc(req.caller.id);
+    const user = await userRef.get();
+    const currentSettings = { ...user.data().settings };
+
+    if (user.exists) {
+      if (req.body.showEmail !== undefined) {
+        currentSettings.showEmail = req.body.showEmail;
+      }
+
+      if (req.body.showPhone !== undefined) {
+        currentSettings.showPhone = req.body.showPhone;
+      }
+
+      if (req.body.pushSubscription !== undefined) {
+        currentSettings.pushSubscription = req.body.pushSubscription;
+      }
+
+      console.log(currentSettings);
+
+      userRef.update({ settings: currentSettings }).then((result) => {
+        res.status(201).json(currentSettings);
+      }).catch(err => {
+        res.status(500).json({ 'message': 'Something went wrong while updating' });
+      });
+    }
+  },
+  
   shareProduct: async (req, res) => {
     const userRef = await db.collection("users").doc(req.caller.id);
     const user = await userRef.get();

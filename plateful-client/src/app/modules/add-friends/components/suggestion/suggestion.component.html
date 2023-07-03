@@ -6,6 +6,6 @@
     <p>
         {{ user.numberOfSharedProducts == 0 ? 'No products shared yet' : '' }}
         {{ user.numberOfSharedProducts == 1 ? '1 product shared' : '' }}
-        {{ user.numberOfSharedProducts > 1 ? '{{ user.numberOfSharedProducts }} products shared' : '' }}
+        {{ user.numberOfSharedProducts > 1 ? user.numberOfSharedProducts + ' products shared' : '' }}
     </p>
 </div>

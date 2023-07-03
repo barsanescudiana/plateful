@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -30,6 +30,7 @@ import { AccessTokenInterceptor } from "./http-interceptors/accessToken.intercep
 import { NotificationCardComponent } from "./modules/notifications/components/notification-card/notification-card.component";
 import { AddFriendsModule } from "./modules/add-friends/add-friends.module";
 import { SettingsModule } from "./modules/settings/settings.module";
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { ShareProductDialogComponent } from "./modules/product-overview/components/share-product-dialog/share-product-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { FriendsPantryModule } from "./modules/friends-pantry/friends-pantry.module";
@@ -67,6 +68,12 @@ import { CompleteScanComponent } from './modules/complete-scan/complete-scan.com
     FormsModule,
     MatInputModule,
     RecipesModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      // enabled: isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
     MatDialogModule,
     FriendsPantryModule,
     ZXingScannerModule,

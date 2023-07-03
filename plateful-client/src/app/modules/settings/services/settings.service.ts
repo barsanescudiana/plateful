@@ -18,4 +18,8 @@ export class SettingsService {
   public getMySettings(): Observable<SettingsResponse> {
     return this.http.get(this.path) as Observable<SettingsResponse>;
   }
+
+  public patchMySettings(newSettings: Settings): Observable<SettingsResponse> {
+    return this.http.patch(this.path, newSettings) as Observable<SettingsResponse>;
+  }
 }
