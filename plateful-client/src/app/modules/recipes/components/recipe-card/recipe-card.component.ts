@@ -26,17 +26,13 @@ export class RecipeCardComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("USER_DATA")!);
     this.imageUrl = this.recipe.image;
-
     if (this.recipe.title.length > 40) {
       this.shortTitle = this.recipe.title.substring(0, 40) + "...";
     } else {
       this.shortTitle = this.recipe.title;
     }
-
     this.isFavorite = this.recipe.isFavorite;
     this.getAvailableIngredients();
-
-    console.log(this.recipe.extendedIngredients);
   }
 
   public addToFavorites(): void {

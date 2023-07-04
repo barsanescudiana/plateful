@@ -297,8 +297,10 @@ const controller = {
       res.status(404).json({ message: "Notification not found" });
     }
 
+    console.log(notification);
+
     const product = req.caller.products.find(
-      (p) => p.id === notification.detail.productId
+      (p) => p.id === notification.detail.product
     );
 
     if (!product) {

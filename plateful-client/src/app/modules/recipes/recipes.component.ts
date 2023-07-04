@@ -31,6 +31,8 @@ export class RecipesComponent implements OnInit {
   public getPerfectMatch(): void {
     this.recipesService.getPerfectMatch().subscribe((data) => {
       if (data.length) {
+        console.log(data);
+
         this.perfectMatch = data;
       }
     });

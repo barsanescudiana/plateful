@@ -179,20 +179,18 @@ const controller = {
   },
 
   shareProduct: async (req, res) => {
-    const userRef = await db.collection("users").doc(req.caller.id);
+    const userRef = db.collection("users").doc(req.caller.id);
     const user = await userRef.get();
 
     if (user.exists) {
       let newProducts = user.data().products.map((item) => {
-        if (item.id === req.body.productId) {
+        if (item.id === req.params.productId) {
           item.isShared = true;
         }
         return item;
       });
-
-      console.log(newProducts);
-
       const updatedData = { products: newProducts };
+      console.log(updatedData);
 
       await userRef.update(updatedData);
 
@@ -201,7 +199,7 @@ const controller = {
         .send(
           user
             .data()
-            .products.find((product) => product.id === req.body.productId)
+            .products.find((product) => product.id === req.params.productId)
         );
     } else {
       res.status(404).json({ message: "User not found" });

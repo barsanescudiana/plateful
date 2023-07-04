@@ -42,10 +42,7 @@ export class ProductOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("USER_DATA")!);
     this.pantryService
-      .getProductById(
-        this.activateRoute.snapshot.params["productId"],
-        this.user!.id
-      )
+      .getProductById(this.activateRoute.snapshot.params["productId"])
       .subscribe((data) => {
         this.product = data;
         this.expirationInfo = this.checkExpirationDateValidity();
@@ -179,9 +176,11 @@ export class ProductOverviewComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result === "Shared") {
           await this.pantryService
-            .shareProduct(this.product.id!)
-            .subscribe((data) => {
-              this.product = data;
+            .shareProduct(this.activateRoute.snapshot.params["productId"])
+            .then((data) => {
+              data.subscribe((newProduct) => {
+                this.product = newProduct;
+              });
             });
 
           const dialogRef = this.dialog.open(BasicDialogComponentComponent, {
@@ -208,7 +207,7 @@ export class ProductOverviewComponent implements OnInit {
           dialogRef.afterClosed().subscribe(async (result) => {
             if (result === "Completed") {
               await this.pantryService
-                .getProductById(this.product.id!, this.user!.id)
+                .getProductById(this.activateRoute.snapshot.params["productId"])
                 .subscribe((data) => {
                   this.product = data;
                   this.cd.detectChanges();

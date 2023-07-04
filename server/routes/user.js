@@ -13,7 +13,7 @@ router.get("/friends", userController.getFriends);
 router.patch("/settings/me", userController.patchMySettings);
 router.patch("/edit/shopping-list", userController.updateShoppingList);
 router.patch("/products/add", userController.updateProductsList);
-router.patch("/products/share", userController.shareProduct);
+router.patch("/products/share/:productId", userController.shareProduct);
 router.patch("/products/delete", userController.deleteProduct);
 router.patch("/update-details", userController.updateUserInfo);
 

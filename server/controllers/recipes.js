@@ -135,7 +135,7 @@ const controller = {
       url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
       params: {
         ingredients: ingredients.replace(/.$/, ""),
-        number: "100",
+        number: "10",
         ignorePantry: "true",
         ranking: "1",
       },
@@ -151,7 +151,15 @@ const controller = {
       const response = await axios.request(options);
       response.data.forEach(async (recipe) => {
         if (recipe.missedIngredients.length === 0) {
-          recipesToSend.push(recipe);
+          let isFavorite = false;
+          if (user.savedRecipes.length) {
+            user.savedRecipes.forEach((favorite) => {
+              if (recipe.id === favorite.id) {
+                isFavorite = true;
+              }
+            });
+          }
+          recipesToSend.push({ ...recipe, isFavorite: isFavorite });
         }
       });
       res.status(200).send(recipesToSend);

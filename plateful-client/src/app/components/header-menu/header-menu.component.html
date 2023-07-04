@@ -3,7 +3,7 @@
     <img src="assets/icons/logo-icon.svg" alt="home" />
   </div>
   <div class="button" (click)="onNotificationClick()">
-    <img src="assets/icons/notifications.svg" alt="notifications" />
+    <img [src]="hasNotifications? 'assets/icons/unread.svg' : 'assets/icons/notifications.svg'" alt="notifications" />
   </div>
   <div class="button" (click)="onSettingsClick()">
     <img src="assets/icons/settings.svg" alt="settings" />

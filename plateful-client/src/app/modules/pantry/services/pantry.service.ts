@@ -31,20 +31,16 @@ export class PantryService {
     }) as Observable<{ message: string }>;
   }
 
-  public getProductById(
-    productId: string,
-    userId: string
-  ): Observable<Product> {
-    return this.http.get(`${this.path}user/products/${productId}`, {
-      params: {
-        userId: userId,
-      },
-    }) as Observable<Product>;
+  public getProductById(productId: string): Observable<Product> {
+    return this.http.get(
+      `${this.path}user/products/${productId}`
+    ) as Observable<Product>;
   }
 
-  public shareProduct(productId: string): Observable<Product | any> {
-    return this.http.patch(`${this.path}user/products/share`, {
-      productId: productId,
-    }) as Observable<Product | any>;
+  public async shareProduct(productId: string): Promise<Observable<Product | any>> {
+    return this.http.patch(
+      `${this.path}user/products/share/${productId}`,
+      {}
+    ) as Observable<Product | any>;
   }
 }
