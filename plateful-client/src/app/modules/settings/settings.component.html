@@ -1,22 +1,48 @@
 <app-header [withHomeButton]="true"></app-header>
 <div class="content">
-    <div class="title">Settings</div>
+  <div class="title">Settings</div>
 
-    <form class="container" #form="ngForm" (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-        <mat-slide-toggle name="showEmail" class="toggle" [checked]="settings?.showEmail || false">
-            <p>Show my email for others</p>
-        </mat-slide-toggle>
-    
-        <mat-slide-toggle name="showPhone" class="toggle" [checked]="settings?.showPhone || false">
-            <p>Show my phone number for others</p>
-        </mat-slide-toggle>
-    
-        <mat-slide-toggle name="allowNotifications" class="toggle" [checked]="settings?.pushSubscription || false">
-            <p>Allow push notifications</p>
-        </mat-slide-toggle>
+  <form
+    *ngIf="settings"
+    class="container"
+    #form="ngForm"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="formGroup"
+  >
+    <mat-slide-toggle
+      name="email"
+      class="toggle"
+      [checked]="settings.showEmail"
+      (change)="onToggle('email', $event)"
+      disableRipple="true"
+      color="primary"
+    >
+      <p>Show my email for others</p>
+    </mat-slide-toggle>
 
-        <div class="actions">
-            <button type="submit" class="submit-btn">Submit</button>
-        </div>
-    </form>
+    <mat-slide-toggle
+      name="phone"
+      class="toggle"
+      [checked]="settings.showPhone"
+      (change)="onToggle('phone', $event)"
+      disableRipple="true"
+      color="primary"
+    >
+      <p>Show my phone number for others</p>
+    </mat-slide-toggle>
+
+    <mat-slide-toggle
+      name="notifications"
+      class="toggle"
+      [checked]="settings.pushSubscription"
+      disableRipple="true"
+      color="primary"
+    >
+      <p>Allow push notifications</p>
+    </mat-slide-toggle>
+
+    <div class="actions">
+      <button type="submit" class="submit-btn">Submit</button>
+    </div>
+  </form>
 </div>

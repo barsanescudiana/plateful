@@ -14,8 +14,8 @@
           <span> {{ user.lastName }}</span>
         </div>
         <div class="contact">
-          <span> {{ user.email }}</span>
-          <span *ngIf="user.phoneNumber"> {{ user.phoneNumber }} </span>
+          <span *ngIf="user.settings.showEmail"> {{ user.email }}</span>
+          <span *ngIf="user.settings.showPhone"> {{ user.phoneNumber }} </span>
         </div>
       </div>
     </div>
@@ -78,21 +78,17 @@
   <div class="form" *ngIf="isUpdateAreaVisible">
     <div class="name">
       <div class="label">First name</div>
-      <input type="text" [value]="user.firstName" [disabled]="!canEdit" />
+      <input type="text" [(ngModel)]="user.firstName" [disabled]="!canEdit" />
     </div>
     <div class="name">
       <div class="label">Last name</div>
-      <input type="text" [value]="user.lastName" [disabled]="!canEdit" />
-    </div>
-    <div class="email">
-      <div class="label">Email</div>
-      <input type="text" [value]="user.email" [disabled]="!canEdit" />
+      <input type="text" [(ngModel)]="user.lastName" [disabled]="!canEdit" />
     </div>
     <div class="phone" *ngIf="canEdit || user.phoneNumber">
       <div class="label">Phone number</div>
       <input
         type="text"
-        [value]="user.phoneNumber"
+        [(ngModel)]="user.phoneNumber"
         placeholder="Phone number"
         [disabled]="!canEdit"
       />

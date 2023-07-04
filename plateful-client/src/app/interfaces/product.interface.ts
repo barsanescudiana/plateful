@@ -13,4 +13,5 @@ export interface Product {
   isShared?: boolean;
   isClaimed?: boolean;
   dateAdded?: Date;
+  userId?: string;
 }

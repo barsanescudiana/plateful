@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { RecipesService } from "../../services/recipes.service";
+import { Emojis } from "src/app/enums/emojis.enum";
 
 @Component({
   selector: "app-recipe-overview",
@@ -33,5 +34,14 @@ export class RecipeOverviewComponent implements OnInit {
 
   public toggleInstructions(): void {
     this.showInstructions = !this.showInstructions;
+  }
+
+  public getIngredientEmoji(name: string): string {
+    let productEmoji = "";
+    if (Emojis.get(name.toLowerCase())) {
+      return Emojis.get(name.toLowerCase())!;
+    }
+
+    return productEmoji;
   }
 }

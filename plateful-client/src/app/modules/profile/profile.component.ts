@@ -113,7 +113,16 @@ export class ProfileComponent implements OnInit {
   }
 
   public updateDetails(): void {
-    console.log("Update details");
+    this.profileService
+      .updateProfileDetails({
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        phoneNumber: this.user.phoneNumber,
+      })
+      .subscribe((data) => {
+        this.user = data;
+        this.isUpdateAreaVisible = false;
+      });
   }
 
   public copyProfileLink(): void {

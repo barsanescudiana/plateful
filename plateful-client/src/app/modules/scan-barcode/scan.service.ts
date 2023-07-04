@@ -7,7 +7,7 @@ import { Product } from "src/app/interfaces/product.interface";
   providedIn: "root",
 })
 export class ScanService {
-  private path = "http://localhost:3000/api/product/";
+  private path = "http://localhost:3030/api/product/";
 
   constructor(private http: HttpClient) {}
 

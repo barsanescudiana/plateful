@@ -93,25 +93,16 @@ const controller = {
   },
 
   getProductById: async (req, res) => {
-    const user = req.caller;
+    const products = db.collection("products");
 
-    if (user) {
-      products = user.products;
+    let response = await products.doc(req.params.productId).get();
 
-      products.forEach((product) => {
-        if (product.id === req.params.productId) {
-          response = product;
-          response.expirationDate = product.expirationDate.toDate();
-          response.dateAdded = product.dateAdded.toDate();
-        }
+    if (response.exists) {
+      res.status(200).json({
+        ...response.data(),
+        expirationDate: response.data().expirationDate.toDate(),
+        dateAdded: response.data().dateAdded.toDate(),
       });
-
-      console.log(response);
-      if (response) {
-        res.status(200).send(response);
-      } else {
-        res.status(400).send({});
-      }
     } else {
       res.status(404).send({});
     }
@@ -155,7 +146,7 @@ const controller = {
   },
 
   patchMySettings: async (req, res) => {
-    const userRef = db.collection('users').doc(req.caller.id);
+    const userRef = db.collection("users").doc(req.caller.id);
     const user = await userRef.get();
     const currentSettings = { ...user.data().settings };
 
@@ -174,14 +165,19 @@ const controller = {
 
       console.log(currentSettings);
 
-      userRef.update({ settings: currentSettings }).then((result) => {
-        res.status(201).json(currentSettings);
-      }).catch(err => {
-        res.status(500).json({ 'message': 'Something went wrong while updating' });
-      });
+      userRef
+        .update({ settings: currentSettings })
+        .then((result) => {
+          res.status(201).json(currentSettings);
+        })
+        .catch((err) => {
+          res
+            .status(500)
+            .json({ message: "Something went wrong while updating" });
+        });
     }
   },
-  
+
   shareProduct: async (req, res) => {
     const userRef = await db.collection("users").doc(req.caller.id);
     const user = await userRef.get();
@@ -243,6 +239,39 @@ const controller = {
       res.status(200).send(userData.data().friends);
     } else {
       res.status(404).send("not found 😢");
+    }
+  },
+
+  updateUserInfo: async (req, res) => {
+    const userRef = db.collection("users").doc(req.caller.id);
+    const user = await userRef.get();
+    let updatedData = {
+      firstName: user.data().firstName,
+      lastName: user.data().lastName,
+      phoneNumber: user.data().phoneNumber,
+    };
+
+    if (user.exists) {
+      if (req.body) {
+        updatedData = {
+          firstName: req.body.firstName || user.data().firstName,
+          lastName: req.body.lastName || user.data().lastName,
+          phoneNumber: req.body.phoneNumber || user.data().phoneNumber,
+        };
+      }
+      userRef
+        .update({
+          ...user.data(),
+          ...updatedData,
+        })
+        .then((result) => {
+          res.status(201).json(user.data());
+        })
+        .catch((err) => {
+          res
+            .status(500)
+            .json({ message: "Something went wrong while updating" });
+        });
     }
   },
 };

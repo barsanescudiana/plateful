@@ -33,4 +33,10 @@ export class ProfileService {
   public getFriends(): Observable<any> {
     return this.http.get(`${this.path}/user/friends`) as Observable<any>;
   }
+
+  public updateProfileDetails(updatedData: any): Observable<any> {
+    return this.http.patch(`${this.path}/user/update-details`, {
+      ...updatedData,
+    }) as Observable<any>;
+  }
 }

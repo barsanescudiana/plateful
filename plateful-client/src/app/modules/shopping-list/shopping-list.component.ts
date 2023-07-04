@@ -100,10 +100,17 @@ export class ShoppingListComponent implements OnInit {
   }): boolean {
     let inPantry: boolean = false;
     this.user.products.forEach((product) => {
-      if (product.name === item.product) {
+      if (
+        product.name?.toLowerCase().includes(item.product.toLowerCase()) ||
+        item.product.toLowerCase().includes(product.name?.toLowerCase()!)
+      ) {
         inPantry = true;
       }
     });
+
+    if (item.product === "") {
+      inPantry = false;
+    }
 
     return inPantry;
   }
