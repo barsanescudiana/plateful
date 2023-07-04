@@ -72,10 +72,6 @@ export class FriendsProductCardComponent {
     });
   }
 
-  public handleProductClick() {
-    console.log("click");
-  }
-
   public checkExpirationDateValidity(): {
     text: string;
     days: number;

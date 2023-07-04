@@ -15,6 +15,7 @@ export class ProductCardComponent implements OnInit {
   @Input() border: any;
   @Input() margin: boolean = true;
   @Input() withPill: boolean = true;
+  @Input() disabled: boolean = false;
   public color: string = "";
   public formattedDate: string = "";
 
@@ -78,7 +79,9 @@ export class ProductCardComponent implements OnInit {
   }
 
   public handleProductClick(): void {
-    this.router.navigate([`/product/${this.product.id}`]);
+    if (!this.disabled) {
+      this.router.navigate([`/product/${this.product.id}`]);
+    }
   }
 
   public getProductEmoji(): string {

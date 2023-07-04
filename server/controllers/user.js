@@ -93,21 +93,25 @@ const controller = {
   },
 
   getProductById: async (req, res) => {
-    const products = db.collection("products");
+    const user = req.caller;
 
-    let response = await products.doc(req.params.productId).get();
+    if (user) {
+      products = user.products;
 
-    if (response.exists) {
-      res.status(200).json({
-        ...response.data(),
-        expirationDate: response.data().expirationDate.toDate(),
-        dateAdded: response.data().dateAdded.toDate(),
+      products.forEach((product) => {
+        if (product.id === req.params.productId) {
+          response = product;
+          response.expirationDate = product.expirationDate.toDate();
+          response.dateAdded = product.dateAdded.toDate();
+        }
       });
-    } else {
-      res.status(404).send({});
-    }
 
-    console.log(req.params.productId);
+      if (response) {
+        res.status(200).send(response);
+      } else {
+        res.status(400).send({});
+      }
+    }
   },
 
   //internal
