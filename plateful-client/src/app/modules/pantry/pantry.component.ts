@@ -33,11 +33,11 @@ export class PantryComponent implements OnInit {
     private pantryService: PantryService
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("USER_DATA")!);
 
     if (this.user) {
-      await this.pantryService
+      this.pantryService
         .getProductsForUser(this.user.id)
         .subscribe((data: Product[]) => {
           data.forEach((product: Product) => {
@@ -77,8 +77,74 @@ export class PantryComponent implements OnInit {
   public handleFilterSelection(filter: string) {
     if (this.selectedFilter === filter) {
       this.selectedFilter = "";
+      switch (this.selectedMenuItem) {
+        case Storage.FRIDGE:
+          this.products = this.fridgeProducts.sort((first, second) => {
+            return (
+              new Date(first.expirationDate!).getTime() -
+              new Date(second.expirationDate!).getTime()
+            );
+          });
+          break;
+        case Storage.FREEZER:
+          this.products = this.freezerProducts.sort((first, second) => {
+            return (
+              new Date(first.expirationDate!).getTime() -
+              new Date(second.expirationDate!).getTime()
+            );
+          });
+          break;
+        case Storage.PANTRY:
+          this.products = this.dryProducts.sort((first, second) => {
+            return (
+              new Date(first.expirationDate!).getTime() -
+              new Date(second.expirationDate!).getTime()
+            );
+          });
+          break;
+        case "All":
+          this.products = this.allProducts.sort((first, second) => {
+            return (
+              new Date(first.expirationDate!).getTime() -
+              new Date(second.expirationDate!).getTime()
+            );
+          });
+          break;
+      }
     } else {
       this.selectedFilter = filter;
+      if (filter === this.filters[1]) {
+        switch (this.selectedMenuItem) {
+          case Storage.FRIDGE:
+            this.products = this.fridgeProducts.sort((first, second) => {
+              return first.name!.toLowerCase() > second.name!.toLowerCase()
+                ? 1
+                : -1;
+            });
+            break;
+          case Storage.FREEZER:
+            this.products = this.freezerProducts.sort((first, second) => {
+              return first.name!.toLowerCase() > second.name!.toLowerCase()
+                ? 1
+                : -1;
+            });
+            break;
+          case Storage.PANTRY:
+            this.products = this.dryProducts.sort((first, second) => {
+              return first.name!.toLowerCase() > second.name!.toLowerCase()
+                ? 1
+                : -1;
+            });
+            break;
+          case "All":
+            this.products = this.allProducts.sort((first, second) => {
+              return first.name!.toLowerCase() > second.name!.toLowerCase()
+                ? 1
+                : -1;
+            });
+            break;
+        }
+      }
     }
   }
 

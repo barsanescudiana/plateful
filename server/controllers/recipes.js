@@ -19,7 +19,7 @@ const controller = {
       url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
       params: {
         ingredients: ingredients.replace(/.$/, ""),
-        number: "5",
+        number: "50",
         ignorePantry: "true",
         ranking: "1",
       },

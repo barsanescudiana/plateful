@@ -26,7 +26,7 @@
       (click)="handleFilterSelection(filters[0])"
     />
     <img
-      src="assets/icons/sort.svg"
+      [src]=" selectedFilter === filters[1] ? 'assets/icons/sort-flipped.svg' : 'assets/icons/sort.svg'"
       alt="sort"
       [class.selected-filter]="selectedFilter === filters[1]"
       (click)="handleFilterSelection(filters[1])"
