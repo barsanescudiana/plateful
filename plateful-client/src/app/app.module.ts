@@ -36,6 +36,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { FriendsPantryModule } from "./modules/friends-pantry/friends-pantry.module";
 import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import { CompleteScanComponent } from './modules/complete-scan/complete-scan.component';
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -64,12 +66,14 @@ import { CompleteScanComponent } from './modules/complete-scan/complete-scan.com
     HttpClientModule,
     AuthModule,
     MatFormFieldModule,
+    MatExpansionModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
     RecipesModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      // enabled: isDevMode(),
+      enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'

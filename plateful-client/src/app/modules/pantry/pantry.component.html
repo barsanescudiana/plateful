@@ -32,9 +32,9 @@
       (click)="handleFilterSelection(filters[1])"
     />
   </div>
-  <div class="filters-area" [hidden]="selectedFilter !== filters[0]">
-    filters area
-  </div>
+
+  <app-filter [hidden]="selectedFilter !== filters[0]"></app-filter>
+
   <ng-container *ngIf="products.length else noDataContainer">
     <div class="products-container">
       <div class="product" *ngFor="let product of products">

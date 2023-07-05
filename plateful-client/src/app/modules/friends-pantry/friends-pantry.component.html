@@ -1,6 +1,14 @@
 <app-header [withHomeButton]="true"></app-header>
 <div class="content">
   <div class="title">Friends' products</div>
+  <app-pantry-menu
+    [user]="user"
+    [products]="products"
+    [fridgeProducts]="fridgeProducts"
+    [freezerProducts]="freezerProducts"
+    [dryProducts]="dryProducts"
+    (onMenuChange)="handleMenuChange($event)"
+  ></app-pantry-menu>
   <div class="search-area" [style]="">
     <div class="search">
       <img src="assets/icons/search.svg" alt="search" class="img-search" />
@@ -8,7 +16,7 @@
         type="text"
         placeholder="Search products"
         [(ngModel)]="searchValue"
-        (input)="filterArray()"
+        (input)="filterArray(selectedMenuItem)"
       />
     </div>
     <img
@@ -24,9 +32,8 @@
       (click)="handleFilterSelection(filters[1])"
     />
   </div>
-  <div class="filters-area" [hidden]="selectedFilter !== filters[0]">
-    filters area
-  </div>
+
+  <app-filter [hidden]="selectedFilter !== filters[0]"></app-filter>
 
   <ng-container *ngIf="products.length; else noDataTemplate">
     <div class="products-container">

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Storage } from "src/app/enums/storage.enum";
-import { Product } from "src/app/interfaces/product.interface";
+import { FriendProduct, Product } from "src/app/interfaces/product.interface";
 import { User } from "src/app/interfaces/user.interface";
 
 @Component({
@@ -10,13 +10,13 @@ import { User } from "src/app/interfaces/user.interface";
 })
 export class PantryMenuComponent {
   @Input() public user: User | undefined;
-  @Input() public products: Product[] | any[] = [];
+  @Input() public products: Product[] | FriendProduct[] | any[] = [];
   public storageOptions: string[] = ["All", "Fridge", "Freezer", "Dry pantry"];
   public selectedOption: string = "All";
 
-  @Input() public fridgeProducts: Product[] = [];
-  @Input() public freezerProducts: Product[] = [];
-  @Input() public dryProducts: Product[] = [];
+  @Input() public fridgeProducts: Product[] | FriendProduct[] = [];
+  @Input() public freezerProducts: Product[] | FriendProduct[] = [];
+  @Input() public dryProducts: Product[] | FriendProduct[] = [];
 
   @Output() onMenuChange: EventEmitter<string> = new EventEmitter<string>();
 

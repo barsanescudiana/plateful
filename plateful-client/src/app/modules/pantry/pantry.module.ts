@@ -9,6 +9,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatRadioModule } from "@angular/material/radio";
 import { FormsModule } from "@angular/forms";
+import { FilterComponent } from './components/filter/filter.component';
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -16,6 +19,7 @@ import { FormsModule } from "@angular/forms";
     PantryMenuComponent,
     ProductCardComponent,
     AddProductDialogComponent,
+    FilterComponent,
   ],
   imports: [
     CommonModule,
@@ -23,9 +27,11 @@ import { FormsModule } from "@angular/forms";
     MatButtonModule,
     MatDialogModule,
     MatRadioModule,
+    MatExpansionModule,
+    MatCheckboxModule,
     FormsModule,
   ],
-  exports: [PantryComponent, ProductCardComponent],
+  exports: [PantryComponent, ProductCardComponent, PantryMenuComponent, FilterComponent],
   providers: [DatePipe],
 })
 export class PantryModule {}

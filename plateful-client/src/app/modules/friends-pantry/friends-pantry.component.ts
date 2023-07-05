@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Product } from "src/app/interfaces/product.interface";
+import { FriendProduct } from "src/app/interfaces/product.interface";
 import { User } from "src/app/interfaces/user.interface";
 import { FriendsPantryService } from "./services/friends-pantry.service";
+import { Storage } from "src/app/enums/storage.enum";
 
 @Component({
   selector: "app-friends-pantry",
@@ -13,19 +14,17 @@ export class FriendsPantryComponent implements OnInit {
   public user: User | any;
   public filters: string[] = ["Filter", "Sort"];
   public selectedFilter: string = "";
+  public selectedMenuItem: string = "";
 
-  public products: {
-    product: Product;
-    user: User | any;
-  }[] = [];
+  public products: FriendProduct[] = [];
+  public fridgeProducts: FriendProduct[] = [];
+  public freezerProducts: FriendProduct[] = [];
+  public dryProducts: FriendProduct[] = [];
 
   public searchValue: string = "";
   public noDataText: string = "";
 
-  private allProducts: {
-    product: Product;
-    user: User | any;
-  }[] = [];
+  private allProducts: FriendProduct[] = [];
 
   constructor(
     private router: Router,
@@ -40,20 +39,77 @@ export class FriendsPantryComponent implements OnInit {
       if (products && products.sharedProductsOfFriends) {
         this.products = products.sharedProductsOfFriends;
         this.allProducts = products.sharedProductsOfFriends;
+
+        this.products.forEach((product: FriendProduct) => {
+          switch(product.product.storage) {
+            case Storage.FRIDGE:
+              this.fridgeProducts.push(product);
+              break;
+            case Storage.FREEZER:
+              this.freezerProducts.push(product);
+              break;
+            case Storage.PANTRY:
+              this.dryProducts.push(product);
+              break;
+          }
+        });
       }
     });
   }
 
-  public filterArray() {
-    this.products = this.allProducts.filter((item) => {
-      return item.product.name
-        ?.toLowerCase()
-        .includes(this.searchValue.toLowerCase());
-    });
+  public filterArray(arrayToFilter: string) {
+    switch (arrayToFilter) {
+      case Storage.FRIDGE:
+        this.products = this.fridgeProducts.filter((item) => {
+          return item.product.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
+        break;
+      case Storage.FREEZER:
+        this.products = this.freezerProducts.filter((item) => {
+          return item.product.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
+        break;
+      case Storage.PANTRY:
+        this.products = this.dryProducts.filter((item) => {
+          return item.product.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
+        break;
+      case "All":
+        this.products = this.allProducts.filter((item) => {
+          return item.product.name
+            ?.toLowerCase()
+            .includes(this.searchValue.toLowerCase());
+        });
+        break;
+    }
 
     if (!this.products.length) {
       this.noDataText =
         "There are no products found matching " + this.searchValue + ".";
+    }
+  }
+
+  public handleMenuChange(event: string): void {
+    this.selectedMenuItem = event;
+    switch(event) {
+      case Storage.FRIDGE:
+        this.products = this.fridgeProducts;
+        break;
+      case Storage.FREEZER:
+        this.products = this.freezerProducts;
+        break;
+      case Storage.PANTRY:
+        this.products = this.dryProducts;
+        break;
+      case "All":
+        this.products = this.allProducts;
+        break;
     }
   }
 

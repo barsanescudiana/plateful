@@ -1,0 +1,25 @@
+<div class="filters-area">
+    <mat-accordion>
+        <mat-expansion-panel class="filter">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Category</mat-panel-title>
+                <mat-panel-description></mat-panel-description>
+            </mat-expansion-panel-header>
+    
+            <mat-checkbox class="option" *ngFor="let category of categories;">{{ category }}</mat-checkbox>
+    
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion>
+        <mat-expansion-panel class="filter">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Quality</mat-panel-title>
+                <mat-panel-description></mat-panel-description>
+            </mat-expansion-panel-header>
+    
+            <mat-checkbox class="option" *ngFor="let quality of qualities;">{{ quality }}</mat-checkbox>
+    
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
